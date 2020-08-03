@@ -1,0 +1,40 @@
+Package: trending
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R:
+    c(
+      person(
+        given = "Dirk",
+        family = "Schumacher",
+        role = c("aut"),
+        email = "mail@dirk-schumacher.net"
+      ),
+      person(
+        given = "Thibaut",
+        family = "Jombart",
+        role = c("aut"),
+        email = "thibautjombart@gmail.com"
+      ),
+      person(
+        given = "Tim",
+        family = "Taylor",
+        role = c("ctb", "cre"),
+        email = "tim.taylor@hiddenelephants.co.uk", 
+        comment = c(ORCID = "0000-0002-8587-7113")
+      )
+    )
+    
+Description: What the package does (one paragraph).
+URL: https://github.com/reconhub/trending
+BugReports: https://github.com/reconhub/trending/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    brms,
+    ellipsis,
+    dplyr,
+    tibble,
+    ciTools
