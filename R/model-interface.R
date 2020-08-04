@@ -42,8 +42,7 @@
 #' @export
 #' @rdname trending_model
 #' @aliases glm_model
-glm_model <- function(formula, family, ...) {
-  ellipsis::check_dots_used()
+glm_model <- function(formula, family) {
   if (!is.character(family)) {
     family <- deparse(substitute(family))
   }
@@ -51,7 +50,8 @@ glm_model <- function(formula, family, ...) {
   structure(
     eval(bquote(list(
       model_class = "glm",
-      train = function(data) {
+      train = function(data, ...) {
+        ellipsis::check_dots_used()
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
         model_fit(model, formula)
       }
@@ -65,13 +65,13 @@ glm_model <- function(formula, family, ...) {
 #' @export
 #' @rdname trending_model
 #' @aliases glm_nb_model
-glm_nb_model <- function(formula, ...) {
+glm_nb_model <- function(formula) {
   check_suggests("MASS")
-  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "MASS::glm.nb",
-      train = function(data) {
+      train = function(data, ...) {
+        ellipsis::check_dots_used()
         model <- MASS::glm.nb(formula = .(formula), data = data, ...)
         model_fit(model, formula)
       }
@@ -85,12 +85,13 @@ glm_nb_model <- function(formula, ...) {
 #' @export
 #' @rdname trending_model
 #' @aliases lm_model
-lm_model <- function(formula, ...) {
+lm_model <- function(formula) {
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "lm",
-      train = function(data) {
+      train = function(data, ...) {
+        ellipsis::check_dots_used()
         model <- lm(formula = .(formula), data = data, ...)
         model_fit(model, formula)
       }
@@ -104,17 +105,19 @@ lm_model <- function(formula, ...) {
 #' @export
 #' @rdname trending_model
 #' @aliases brms_model
-brms_model <- function(formula, family, ...) {
+brms_model <- function(formula, family) {
   check_suggests("brms")
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "brms",
-      train = function(data) {
+      train = function(data, ...) {
+        ellipsis::check_dots_used()
         model <- brms::brm(
           formula = .(formula),
           data = data,
-          family = .(family), ...
+          family = .(family),
+          ...
         )
         res <- list(
           model = model,
@@ -213,10 +216,12 @@ model_fit <- function(model, formula) {
     model = model,
     predict = function(newdata, alpha = 0.05) {
       suppressWarnings(
-        res <- add_prediction_interval(
-          data = newdata,
-          model = model,
-          alpha = alpha
+        suppressMessages(
+          res <- add_prediction_interval(
+            data = newdata,
+            model = model,
+            alpha = alpha
+          )
         )
       )
       col_name <- as.character(formula[[2]])
