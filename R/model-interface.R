@@ -43,6 +43,7 @@
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family, ...) {
+  ellipsis::check_dots_used()
   if (!is.character(family)) {
     family <- deparse(substitute(family))
   }
