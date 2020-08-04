@@ -32,11 +32,12 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    brms,
     ellipsis,
     dplyr,
     tibble,
     ciTools,
-    MASS
+    glue
 Suggests: 
-    testthat
+    testthat,
+    MASS,
+    brms
