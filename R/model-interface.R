@@ -43,16 +43,19 @@
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family, ...) {
-  ellipsis::check_dots_used()
+  if (!is.character(family)) {
+    family <- deparse(substitute(family))
+  }
+
   structure(
     eval(bquote(list(
       model_class = "glm",
       train = function(data) {
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
-        model_fit(model, formula)
+        trendbreaker:::model_fit(model, formula)
       }
     ))),
-    class = c("trending_glm", "trending_model")
+    class = c("trendbreaker_glm", "trendbreaker_model")
   )
 }
 
