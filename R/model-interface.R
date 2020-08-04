@@ -66,6 +66,7 @@ glm_model <- function(formula, family, ...) {
 #' @rdname trending_model
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula, ...) {
+  check_suggests("MASS")
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
@@ -104,6 +105,7 @@ lm_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases brms_model
 brms_model <- function(formula, family, ...) {
+  check_suggests("brms")
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
