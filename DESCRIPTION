@@ -23,7 +23,6 @@ Authors@R:
         comment = c(ORCID = "0000-0002-8587-7113")
       )
     )
-    
 Description: What the package does (one paragraph).
 URL: https://github.com/reconhub/trending
 BugReports: https://github.com/reconhub/trending/issues
@@ -37,4 +36,7 @@ Imports:
     ellipsis,
     dplyr,
     tibble,
-    ciTools
+    ciTools,
+    MASS
+Suggests: 
+    testthat

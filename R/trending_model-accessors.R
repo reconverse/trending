@@ -10,12 +10,12 @@
 #' * `get_response()`: get the name of the response variable
 #'
 #' * `get_family()`: get the model family, indicating the type of distribution
-#' assumed for the response variable
+#'   assumed for the response variable
 #'
 #' @author Thibaut Jombart, Dirk Schumacher
 #'
-#' @param x the output of functions `lm_model`, `glm_model`, or
-#'   `glm_nb_model`
+#' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
+#'   brms_model
 #'
 #' @param ... further arguments passed to other methods
 #'

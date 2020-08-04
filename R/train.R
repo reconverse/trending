@@ -3,7 +3,10 @@
 #' Train a model using data to obtain a
 #' [`trending_model_fit`](trending_model_fit) object.
 #'
-#' @param data a `data.frame` to be used to train the model
+#' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model` or
+#'   `brms_model`.
+#' @param data a `data.frame` to be used to train the model.
+#' @param ... Not currently used.
 #' @export
 #' @aliases train.trending_model
 train.trending_model <- function(x, data, ...) {
