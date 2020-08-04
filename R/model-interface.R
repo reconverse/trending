@@ -53,7 +53,7 @@ glm_model <- function(formula, family, ...) {
       model_class = "glm",
       train = function(data) {
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
-        trendbreaker:::model_fit(model, formula)
+        model_fit(model, formula)
       }
     ))),
     class = c("trendbreaker_glm", "trendbreaker_model")
