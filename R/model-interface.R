@@ -6,16 +6,17 @@
 #'
 #' @details The following interfaces are available:
 #'
-#' * `lm_model`: interface for linear models implemented in [`stats::lm`](stats::lm)
+#' * `lm_model`: interface for linear models implemented in
+#'   [`stats::lm`](stats::lm)
 #'
 #' * `glm_model`: interface for generalised linear models (GLMs) implemented in
-#' `[stats::glm](stats::glm)`
+#'   `[stats::glm](stats::glm)`
 #'
 #' * `glm_nb_model`: interface for negative binomial generalied linear models
-#' implemented in [`MASS::glm_nb`](MASS::glm_nb)
+#'   implemented in [`MASS::glm_nb`](MASS::glm_nb)
 #'
 #' * `brms_model`: interface for Bayesian regression models implemented in
-#' [`brms::brm`](brms::brm)
+#'   [`brms::brm`](brms::brm)
 #'
 #' @param formula the formula of the model, with the response variable on the
 #'   left of a tilde symbol, and predictors on the right hand-side; variable
@@ -42,7 +43,7 @@
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family, ...) {
-  ellipsis::check_dots_empty()
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "glm",
@@ -61,7 +62,7 @@ glm_model <- function(formula, family, ...) {
 #' @rdname trending_model
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula, ...) {
-  ellipsis::check_dots_empty()
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "MASS::glm.nb",
@@ -80,7 +81,7 @@ glm_nb_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases lm_model
 lm_model <- function(formula, ...) {
-  ellipsis::check_dots_empty()
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "lm",
@@ -99,7 +100,7 @@ lm_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases brms_model
 brms_model <- function(formula, family, ...) {
-  ellipsis::check_dots_empty()
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "brms",
