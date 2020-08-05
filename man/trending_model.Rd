@@ -33,9 +33,7 @@ input to other functions}
 
 \item{x}{an \code{trending_model} object}
 
-\item{...}{further arguments passed to other methods: \code{lm} for \code{lm_model},
-\code{glm} for \code{glm_model}, \code{MASS::glm_nb} for \code{glm_nb_model}, \code{brms::brm} for
-\code{brms_model}}
+\item{...}{Unused at this time.}
 }
 \value{
 A \code{trending_model} object (S3 class inheriting \code{list}), containing

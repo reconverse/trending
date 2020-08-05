@@ -36,7 +36,8 @@ Imports:
     dplyr,
     tibble,
     ciTools,
-    glue
+    glue,
+    stats
 Suggests: 
     testthat,
     MASS,
