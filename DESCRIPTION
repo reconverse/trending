@@ -43,4 +43,5 @@ Imports:
 Suggests: 
     testthat,
     MASS,
-    brms
+    brms,
+    covr
