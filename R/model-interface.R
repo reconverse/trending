@@ -48,7 +48,7 @@ glm_model <- function(formula, family) {
 
   structure(
     eval(bquote(
-      list(train = train_glm(formula = .(formula), family = .(family)))
+      list(fit = fit_glm(formula = .(formula), family = .(family)))
     )),
     class = c("trending_glm", "trending_model")
   )
@@ -62,7 +62,7 @@ glm_nb_model <- function(formula) {
   check_suggests("MASS")
   structure(
     eval(bquote(
-      list(train = train_glm_nb(formula = .(formula)))
+      list(fit = fit_glm_nb(formula = .(formula)))
     )),
     class = c("trending_glm_nb", "trending_model")
   )
@@ -75,7 +75,7 @@ glm_nb_model <- function(formula) {
 lm_model <- function(formula) {
   structure(
     eval(bquote(
-      list(train = train_lm(formula = .(formula)))
+      list(fit = fit_lm(formula = .(formula)))
     )),
     class = c("trending_lm", "trending_model")
   )
@@ -90,7 +90,7 @@ brms_model <- function(formula, family) {
   check_suggests("brms")
   structure(
     eval(bquote(
-      list(train = train_brms(formula = .(formula), family = .(family)))
+      list(fit = fit_brms(formula = .(formula), family = .(family)))
     )),
     class = c("trending_brms_nb", "trending_model")
   )

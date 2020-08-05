@@ -1,35 +1,80 @@
-#' Train a model
+#' Fitting and prediction
 #'
-#' Train a model using data to obtain a
+#' Fit a model using data to obtain a
 #' [`trending_model_fit`](trending_model_fit) object.
 #'
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model` or
 #'   `brms_model`.
-#' @param data a `data.frame` to be used to train the model.
+#' @param data a `data.frame` to be used to fit the model.
 #' @param ... further arguments passed to other methods: `lm` for `lm_model`,
 #'   `glm` for `glm_model`, `MASS::glm_nb` for `glm_nb_model`, `brms::brm` for
 #'   `brms_model`.
+#'
+#'  #' @return
+#'   - `fit`: The fitted model.
+#'
+#' @aliases fit.trending_model
 #' @export
-#' @aliases train.trending_model
-train.trending_model <- function(x, data, ...) {
+#' @rdname fitting_and_prediction
+fit.trending_model <- function(x, data, ...) {
   ellipsis::check_dots_used()
-  x$train(data, ...)
+  x$fit(data, ...)
 }
+
+
+#' @param object an `trending_model_fit` object
+#' @param new_data a `data.frame` containing data for which predictions are to
+#'   be derived.
+#' @param alpha the alpha threshold to be used for prediction intervals,
+#'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
+#' @param ... Not used.
+#'
+#' @return
+#'   - `predict`: data.frame with prediction and prediction intervals.
+#'
+#' @aliases predict.trending_model_fit
+#' @export
+#' @rdname fitting_and_prediction
+predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
+  ellipsis::check_dots_empty()
+  object$predict(newdata = new_data, alpha = alpha)
+}
+
+#' @return
+#'   - `fit_and_predict`: data.frame with both the values used to fit the model,
+#'     the prediction and the prediction intervals.
+#'
+#' @aliases fit_and_predict.trending_model
+#' @export
+#' @rdname fitting_and_prediction
+fit_and_predict.trending_model <- function(x, data, new_data, alpha = 0.05, ...) {
+  fitting_data$`.type` <- "fitting"
+  res <- fit(x, fitting_data, ...)
+  predicted_data <- predict(res, new_data, alpha = alpha)
+  predicted_data$`.type` <- "predicted"
+  nms <- names(predicted_data)[!names(predicted_data) %in% names(fitting_data)]
+  fitting_data[,nms] <- NA
+  out <- rbind(fitting_data, predicted_data)
+  tibble::new_tibble(out,
+                     nrow = nrow(out),
+                     class = "fitted_and_predicted")
+}
+
 
 
 # =============
 # = INTERNALS =
 # =============
-train_glm = function(formula, family) {
+fit_glm = function(formula, family) {
   function(data, ...) {
     ellipsis::check_dots_used()
-    model <- stats::glm(formula = formula, family = family, data = data, ...)
+    model <- glm(formula = formula, family = family, data = data, ...)
     model_fit(model, formula)
   }
 }
 
 
-train_glm_nb = function(formula) {
+fit_glm_nb = function(formula) {
   function(data, ...) {
     ellipsis::check_dots_used()
     model <- MASS::glm.nb(formula = formula, data = data, ...)
@@ -37,15 +82,15 @@ train_glm_nb = function(formula) {
   }
 }
 
-train_lm = function(formula) {
+fit_lm = function(formula) {
   function(data, ...) {
     ellipsis::check_dots_used()
-    model <- stats::lm(formula = formula, data = data, ...)
+    model <- lm(formula = formula, data = data, ...)
     model_fit(model, formula)
   }
 }
 
-train_brms = function(formula, family) {
+fit_brms = function(formula, family) {
   function(data, ...) {
     ellipsis::check_dots_used()
     model <- brms::brm(

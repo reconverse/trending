@@ -29,15 +29,4 @@ get_model.trendbreaker_model_fit <- function(x, ...) {
 }
 
 
-#' @export
-#' @rdname trendbreaker_model_fit-accessors
-#' @aliases predict.trendbreaker_model_fit
-#' @param object an `trendbreaker_model_fit` object
-#' @param newdata a `data.frame` containing data for which predictions are to be
-#'   derived
-#' @param alpha the alpha threshold to be used for prediction intervals,
-#'   defaulting to 0.05, i.e. 95% prediction intervals are derived
-predict.trendbreaker_model_fit <- function(object, newdata, alpha = 0.05, ...) {
-  ellipsis::check_dots_empty()
-  object$predict(newdata = newdata, alpha = alpha)
-}
+

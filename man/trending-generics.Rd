@@ -6,7 +6,8 @@
 \alias{get_formula}
 \alias{get_response}
 \alias{get_family}
-\alias{train}
+\alias{fit}
+\alias{fit_and_predict}
 \title{S3 generics for trending}
 \usage{
 get_model(x, ...)
@@ -17,14 +18,19 @@ get_response(x, ...)
 
 get_family(x, ...)
 
-train(x, data, ...)
+fit(x, data, ...)
+
+fit_and_predict(x, data, new_data, ...)
 }
 \arguments{
 \item{x}{the object to access information from}
 
 \item{...}{further arguments used in methods}
 
-\item{data}{a \code{data.frame} to be used as training set for the model}
+\item{data}{a \code{data.frame} to be used for fitting the model.}
+
+\item{new_data}{a \code{data.frame} containing data for which predictions are to
+be derived.}
 }
 \description{
 These are generic functions used by the \emph{trending} package, mostly used for

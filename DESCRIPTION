@@ -37,7 +37,9 @@ Imports:
     tibble,
     ciTools,
     glue,
-    stats
+    stats,
+    ggplot2,
+    rlang
 Suggests: 
     testthat,
     MASS,

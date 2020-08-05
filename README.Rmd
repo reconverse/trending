@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, echo = FALSE, message=FALSE, results='hide'}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  fig.path = "man/figures/README-",
+  echo = TRUE,
+  fig.width = 8,
+  fig.height = 6
+)
+
+```
+
+<!-- badges: start -->
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
+<!-- badges: end -->
+
+<br>
+**<span style="color: red;">Disclaimer</span>**
+
+This package is a work in progress. Please reach out to the
+authors before using.
+
+```{r}
+library(incidence2)
+library(outbreaks)
+library(trending)
+library(dplyr)
+library(ggplot2)
+
+# date parameters
+first_date <- "2014-06-07"
+last_date <- as.Date("2014-08-07")
+
+# generate incidence object and add some predictive variables
+inci <-
+  ebola_sim_clean$linelist %>%
+  incidence(date_index = date_of_onset,
+            first_date = first_date,
+            last_date = last_date + 21) %>%
+  mutate(day = 1:nrow(.), weekday = weekdays(bin_date)) %>%
+  mutate(weekday = case_when(
+    weekday == "Monday"   ~ "monday",
+    weekday == "Saturday" ~ "weekend",
+    weekday == "Sunday"   ~ "weekend",
+    TRUE                  ~ "rest of week"))
+
+# split in to some fitting and prediction data
+fitting_data <- filter(inci, bin_date <= last_date)
+predict_data <- filter(inci, bin_date > last_date)
+
+# model and predict
+negbin <- glm_nb_model(count ~ day + weekday)
+pred <- fit_and_predict(negbin, fitting_data, predict_data)
+
+# plot
+plot(pred, "bin_date", "count")
+```

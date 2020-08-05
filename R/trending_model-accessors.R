@@ -26,7 +26,7 @@
 #' @aliases get_formula.trending_model
 get_formula.trending_model <- function(x, ...) {
   ellipsis::check_dots_empty()
-  as.list(environment(x$train))$formula
+  as.list(environment(x$fit))$formula
 }
 
 
@@ -48,7 +48,7 @@ get_family.trending_model <- function(x, ...) {
   if (inherits(x, "trending_lm")) {
     "gaussian"
   } else {
-    as.list(environment(x$train))$family
+    as.list(environment(x$fit))$family
   }
 }
 
