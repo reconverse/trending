@@ -43,20 +43,20 @@
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family) {
+
   if (!is.character(family)) {
     family <- deparse(substitute(family))
   }
 
   structure(
     eval(bquote(list(
-      model_class = "glm",
       train = function(data, ...) {
         ellipsis::check_dots_used()
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
         model_fit(model, formula)
       }
     ))),
-    class = c("trendbreaker_glm", "trendbreaker_model")
+    class = c("trending_glm", "trending_model")
   )
 }
 
@@ -69,7 +69,6 @@ glm_nb_model <- function(formula) {
   check_suggests("MASS")
   structure(
     eval(bquote(list(
-      model_class = "MASS::glm.nb",
       train = function(data, ...) {
         ellipsis::check_dots_used()
         model <- MASS::glm.nb(formula = .(formula), data = data, ...)
@@ -89,7 +88,6 @@ lm_model <- function(formula) {
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
-      model_class = "lm",
       train = function(data, ...) {
         ellipsis::check_dots_used()
         model <- lm(formula = .(formula), data = data, ...)
@@ -110,7 +108,6 @@ brms_model <- function(formula, family) {
   ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
-      model_class = "brms",
       train = function(data, ...) {
         ellipsis::check_dots_used()
         model <- brms::brm(
