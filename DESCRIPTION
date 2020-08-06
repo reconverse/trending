@@ -38,8 +38,6 @@ Imports:
     ciTools,
     glue,
     stats,
-    ggplot2,
-    rlang
 Suggests: 
     testthat,
     MASS,
