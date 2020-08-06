@@ -1,7 +1,7 @@
 #' Modeling interface
 #'
 #' These functions wrappers around various modelling tools to ensure a
-#' consistent input for *trending* functions. See details for available model
+#' consistent input for *trendfit* functions. See details for available model
 #' interfaces.
 #'
 #' @details The following interfaces are available:
@@ -25,20 +25,20 @@
 #'
 #' @param family the model family to be used for the response variable
 #'
-#' @param x an `trending_model` object
+#' @param x an `trendfit_model` object
 #'
 #' @param ... Unused at this time.
 #'
-#' @return  A `trending_model` object (S3 class inheriting `list`), containing
+#' @return  A `trendfit_model` object (S3 class inheriting `list`), containing
 #'   items which can be accessed by various accessors - see
-#'   `?trending_model-accessors`
+#'   `?trendfit_model-accessors`
 #'
 #' @author Dirk Schumacher
 #'
-#' @aliases trending_model trending_models
+#' @aliases trendfit_model trendfit_models
 #'
 #' @export
-#' @rdname trending_model
+#' @rdname trendfit_model
 #' @aliases glm_model
 glm_model <- function(formula, family) {
 
@@ -50,13 +50,13 @@ glm_model <- function(formula, family) {
     eval(bquote(
       list(fit = fit_glm(formula = .(formula), family = .(family)))
     )),
-    class = c("trending_glm", "trending_model")
+    class = c("trendfit_glm", "trendfit_model")
   )
 }
 
 
 #' @export
-#' @rdname trending_model
+#' @rdname trendfit_model
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula) {
   check_suggests("MASS")
@@ -64,27 +64,27 @@ glm_nb_model <- function(formula) {
     eval(bquote(
       list(fit = fit_glm_nb(formula = .(formula)))
     )),
-    class = c("trending_glm_nb", "trending_model")
+    class = c("trendfit_glm_nb", "trendfit_model")
   )
 }
 
 
 #' @export
-#' @rdname trending_model
+#' @rdname trendfit_model
 #' @aliases lm_model
 lm_model <- function(formula) {
   structure(
     eval(bquote(
       list(fit = fit_lm(formula = .(formula)))
     )),
-    class = c("trending_lm", "trending_model")
+    class = c("trendfit_lm", "trendfit_model")
   )
 }
 
 
 
 #' @export
-#' @rdname trending_model
+#' @rdname trendfit_model
 #' @aliases brms_model
 brms_model <- function(formula, family) {
   check_suggests("brms")
@@ -92,24 +92,24 @@ brms_model <- function(formula, family) {
     eval(bquote(
       list(fit = fit_brms(formula = .(formula), family = .(family)))
     )),
-    class = c("trending_brms_nb", "trending_model")
+    class = c("trendfit_brms_nb", "trendfit_model")
   )
 }
 
 
 
 #' @export
-#' @rdname trending_model
-#' @aliases format.trending_model
-format.trending_model <- function(x, ...) {
-  paste0("Untrained trending model type: ", x[["model_class"]])
+#' @rdname trendfit_model
+#' @aliases format.trendfit_model
+format.trendfit_model <- function(x, ...) {
+  paste0("Untrained trendfit model type: ", x[["model_class"]])
 }
 
 
 
 #' @export
-#' @rdname trending_model
-#' @aliases print.trending_model
-print.trending_model <- function(x, ...) {
+#' @rdname trendfit_model
+#' @aliases print.trendfit_model
+print.trendfit_model <- function(x, ...) {
   cat(format(x, ...))
 }

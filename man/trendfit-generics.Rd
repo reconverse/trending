@@ -2,13 +2,13 @@
 % Please edit documentation in R/generics.R
 \name{get_model}
 \alias{get_model}
-\alias{trending-generics}
+\alias{trendfit-generics}
 \alias{get_formula}
 \alias{get_response}
 \alias{get_family}
 \alias{fit}
 \alias{fit_and_predict}
-\title{S3 generics for trending}
+\title{S3 generics for trendfit}
 \usage{
 get_model(x, ...)
 
@@ -33,12 +33,12 @@ fit_and_predict(x, data, new_data, ...)
 be derived.}
 }
 \description{
-These are generic functions used by the \emph{trending} package, mostly used for
-accessing content of various objects. See \code{?trending-accessors} for methods
-relating to \code{trending} objects, and \code{trending_model-accessors} for methods
-relating to \code{trending_model} objects.
+These are generic functions used by the \emph{trendfit} package, mostly used for
+accessing content of various objects. See \code{?trendfit-accessors} for methods
+relating to \code{trendfit} objects, and \code{trendfit_model-accessors} for methods
+relating to \code{trendfit_model} objects.
 }
 \seealso{
-\url{trending-accessors},
-\url{trending_model-accessors}
+\url{trendfit-accessors},
+\url{trendfit_model-accessors}
 }

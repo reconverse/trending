@@ -1,7 +1,7 @@
 #' Fitting and prediction
 #'
 #' Fit a model using data to obtain a
-#' [`trending_model_fit`](trending_model_fit) object.
+#' [`trendfit_model_fit`](trendfit_model_fit) object.
 #'
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model` or
 #'   `brms_model`.
@@ -13,16 +13,16 @@
 #'  #' @return
 #'   - `fit`: The fitted model.
 #'
-#' @aliases fit.trending_model
+#' @aliases fit.trendfit_model
 #' @export
 #' @rdname fitting_and_prediction
-fit.trending_model <- function(x, data, ...) {
+fit.trendfit_model <- function(x, data, ...) {
   ellipsis::check_dots_used()
   x$fit(data, ...)
 }
 
 
-#' @param object an `trending_model_fit` object
+#' @param object an `trendfit_model_fit` object
 #' @param new_data a `data.frame` containing data for which predictions are to
 #'   be derived.
 #' @param alpha the alpha threshold to be used for prediction intervals,
@@ -32,10 +32,10 @@ fit.trending_model <- function(x, data, ...) {
 #' @return
 #'   - `predict`: data.frame with prediction and prediction intervals.
 #'
-#' @aliases predict.trending_model_fit
+#' @aliases predict.trendfit_model_fit
 #' @export
 #' @rdname fitting_and_prediction
-predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
+predict.trendfit_model_fit <- function(object, new_data, alpha = 0.05, ...) {
   ellipsis::check_dots_empty()
   object$predict(newdata = new_data, alpha = alpha)
 }
@@ -44,10 +44,10 @@ predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
 #'   - `fit_and_predict`: data.frame with both the values used to fit the model,
 #'     the prediction and the prediction intervals.
 #'
-#' @aliases fit_and_predict.trending_model
+#' @aliases fit_and_predict.trendfit_model
 #' @export
 #' @rdname fitting_and_prediction
-fit_and_predict.trending_model <- function(x, data, new_data, alpha = 0.05, ...) {
+fit_and_predict.trendfit_model <- function(x, data, new_data, alpha = 0.05, ...) {
   fitting_data$`.type` <- "fitting"
   res <- fit(x, fitting_data, ...)
   predicted_data <- predict(res, new_data, alpha = alpha)
@@ -111,7 +111,7 @@ fit_brms = function(formula, family) {
         append_observed_column(res, res[[col_name]])
       }
     )
-    class(res) <- c("trending_model_fit", class(res))
+    class(res) <- c("trendfit_model_fit", class(res))
     res
   }
 }
@@ -180,7 +180,7 @@ model_fit <- function(model, formula) {
       append_observed_column(res, res[[col_name]])
     }
   )
-  class(out) <- c("trending_model_fit", class(out))
+  class(out) <- c("trendfit_model_fit", class(out))
   out
 }
 

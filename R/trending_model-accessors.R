@@ -1,6 +1,6 @@
-#' Accessors for trending_model objects
+#' Accessors for trendfit_model objects
 #'
-#' These functions can be used to access information stored in `trending_model`
+#' These functions can be used to access information stored in `trendfit_model`
 #' objects. See details.
 #'
 #' @details The following accessors are available:
@@ -19,21 +19,21 @@
 #'
 #' @param ... further arguments passed to other methods
 #'
-#' @aliases trending_model-accessors trending_model-class
+#' @aliases trendfit_model-accessors trendfit_model-class
 #'
 #' @export
-#' @rdname trending_model-accessors
-#' @aliases get_formula.trending_model
-get_formula.trending_model <- function(x, ...) {
+#' @rdname trendfit_model-accessors
+#' @aliases get_formula.trendfit_model
+get_formula.trendfit_model <- function(x, ...) {
   ellipsis::check_dots_empty()
   as.list(environment(x$fit))$formula
 }
 
 
 #' @export
-#' @rdname trending_model-accessors
-#' @aliases get_response.trending_model
-get_response.trending_model <- function(x, ...) {
+#' @rdname trendfit_model-accessors
+#' @aliases get_response.trendfit_model
+get_response.trendfit_model <- function(x, ...) {
   ellipsis::check_dots_empty()
   form <- get_formula(x)
   as.character(form)[2]
@@ -41,11 +41,11 @@ get_response.trending_model <- function(x, ...) {
 
 
 #' @export
-#' @rdname trending_model-accessors
-#' @aliases get_family.trending_model
-get_family.trending_model <- function(x, ...) {
+#' @rdname trendfit_model-accessors
+#' @aliases get_family.trendfit_model
+get_family.trendfit_model <- function(x, ...) {
   ellipsis::check_dots_empty()
-  if (inherits(x, "trending_lm")) {
+  if (inherits(x, "trendfit_lm")) {
     "gaussian"
   } else {
     as.list(environment(x$fit))$family
