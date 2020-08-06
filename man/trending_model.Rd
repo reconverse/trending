@@ -2,13 +2,13 @@
 % Please edit documentation in R/model-interface.R
 \name{glm_model}
 \alias{glm_model}
-\alias{trendfit_model}
-\alias{trendfit_models}
+\alias{trending_model}
+\alias{trending_models}
 \alias{glm_nb_model}
 \alias{lm_model}
 \alias{brms_model}
-\alias{format.trendfit_model}
-\alias{print.trendfit_model}
+\alias{format.trending_model}
+\alias{print.trending_model}
 \title{Modeling interface}
 \usage{
 glm_model(formula, family)
@@ -19,9 +19,9 @@ lm_model(formula)
 
 brms_model(formula, family)
 
-\method{format}{trendfit_model}(x, ...)
+\method{format}{trending_model}(x, ...)
 
-\method{print}{trendfit_model}(x, ...)
+\method{print}{trending_model}(x, ...)
 }
 \arguments{
 \item{formula}{the formula of the model, with the response variable on the
@@ -31,18 +31,18 @@ input to other functions}
 
 \item{family}{the model family to be used for the response variable}
 
-\item{x}{an \code{trendfit_model} object}
+\item{x}{an \code{trending_model} object}
 
 \item{...}{Unused at this time.}
 }
 \value{
-A \code{trendfit_model} object (S3 class inheriting \code{list}), containing
+A \code{trending_model} object (S3 class inheriting \code{list}), containing
 items which can be accessed by various accessors - see
-\code{?trendfit_model-accessors}
+\code{?trending_model-accessors}
 }
 \description{
 These functions wrappers around various modelling tools to ensure a
-consistent input for \emph{trendfit} functions. See details for available model
+consistent input for \emph{trending} functions. See details for available model
 interfaces.
 }
 \details{

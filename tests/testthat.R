@@ -1,4 +1,4 @@
 library(testthat)
-library(trendfit)
+library(trending)
 
-test_check("trendfit")
+test_check("trending")
