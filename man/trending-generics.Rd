@@ -25,9 +25,6 @@ fit(x, data, ...)
 \item{...}{further arguments used in methods}
 
 \item{data}{a \code{data.frame} to be used for fitting the model.}
-
-\item{new_data}{a \code{data.frame} containing data for which predictions are to
-be derived.}
 }
 \description{
 These are generic functions used by the \emph{trending} package, mostly used for

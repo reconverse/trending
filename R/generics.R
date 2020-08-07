@@ -9,13 +9,8 @@
 #'   [trending_model-accessors](trending_model-accessors)
 #'
 #' @param x the object to access information from
-#'
 #' @param ... further arguments used in methods
-#'
 #' @param data a `data.frame` to be used for fitting the model.
-#'
-#' @param new_data a `data.frame` containing data for which predictions are to
-#'   be derived.
 #'
 #' @rdname trending-generics
 #' @aliases trending-generics

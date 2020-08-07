@@ -16,7 +16,7 @@ plotplot(
 )
 }
 \arguments{
-\item{x}{A \code{\link[=fit_and_predict]{fit_and_predict()}} object.}
+\item{x}{data.frame.}
 
 \item{date_axis}{Variable in x representing the date axis.}
 

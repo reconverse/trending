@@ -5,7 +5,6 @@
 \alias{trending_model_fit-accessors}
 \alias{trending_model_fit-class}
 \alias{predict.trending_model_fit}
-\alias{predict.trending_model_fit-accessors}
 \title{Accessors for trending_model_fit objects}
 \usage{
 \method{get_model}{trending_model_fit}(x, ...)
@@ -13,18 +12,18 @@
 \method{predict}{trending_model_fit}(object, new_data, alpha = 0.05, ...)
 }
 \arguments{
-\item{x}{the output of functions \code{lm_model}, \code{glm_model}, or
-\code{glm_nb_model}}
+\item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model} or
+\code{brms_model}}
 
-\item{...}{Not used.}
+\item{...}{Not currently used}
 
 \item{object}{an \code{trending_model_fit} object}
 
-\item{new_data}{a \code{data.frame} containing data for which predictions are to
-be derived.}
+\item{new_data}{a \code{data.frame} containing data for which predictions are to be
+derived}
 
 \item{alpha}{the alpha threshold to be used for prediction intervals,
-defaulting to 0.05, i.e. 95\% prediction intervals are derived.}
+defaulting to 0.05, i.e. 95\% prediction intervals are derived}
 }
 \description{
 These functions can be used to access information stored in
@@ -33,9 +32,9 @@ These functions can be used to access information stored in
 \details{
 The following accessors are available:
 \itemize{
-\item \code{get_model()}: get the fitted model stored in the object.
+\item \code{get_model()}: get the fitted model stored in the object
 \item \code{predict()}: get model predictions for user-provided data, including
-average predictions and prediction intervals.
+average predictions and prediction intervals
 }
 }
 \author{

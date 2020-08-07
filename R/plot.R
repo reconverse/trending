@@ -2,7 +2,7 @@
 #'
 #' Temporary plotting function for experimenting.
 #'
-#' @param x A [fit_and_predict()] object.
+#' @param x data.frame.
 #' @param date_axis Variable in x representing the date axis.
 #' @param known_y Variable in x representing the known counts.
 #' @param predicted_y Variable in x representing the predicted counts.
