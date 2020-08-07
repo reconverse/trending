@@ -13,7 +13,7 @@
 #'  #' @return
 #'   - `fit`: The fitted model.
 #'
-#' @aliases fit.trending_model
+#' @aliases fit.trending_model trending_model_fit
 #' @export
 #' @rdname fitting_and_prediction
 fit.trending_model <- function(x, data, ...) {
@@ -28,35 +28,82 @@ fit.trending_model <- function(x, data, ...) {
 
 fit_glm = function(formula, family) {
   function(data, ...) {
-    ellipsis::check_dots_used()
-    model <- glm(formula = formula, family = family, data = data, ...)
-    model_fit(model, formula)
+    eval(bquote(
+      {
+        ellipsis::check_dots_used()
+        model <- glm(formula = .(formula), family = .(family), data = data, ...)
+        model_fit(model, .(formula))
+      }
+    ))
   }
 }
 
 
 fit_glm_nb = function(formula) {
   function(data, ...) {
-    ellipsis::check_dots_used()
-    model <- MASS::glm.nb(formula = formula, data = data, ...)
-    model_fit(model, formula)
+    eval(bquote(
+      {
+        ellipsis::check_dots_used()
+        model <- MASS::glm.nb(formula = .(formula), data = data, ...)
+        model_fit(model, .(formula))
+      }
+    ))
+
   }
 }
 
 
 fit_lm = function(formula) {
   function(data, ...) {
-    ellipsis::check_dots_used()
-    model <- lm(formula = formula, data = data, ...)
-    model_fit(model, formula)
+    eval(bquote(
+      {
+        ellipsis::check_dots_used()
+        model <- lm(formula = .(formula), data = data, ...)
+        model_fit(model, .(formula))
+      }
+    ))
+
   }
 }
 
 
 fit_brms = function(formula, family) {
   function(data, ...) {
-    ellipsis::check_dots_used()
-    model <- brms::brm(formula = formula, data = data, family = family, ...)
-    model_fit(model, formula)
+    eval(bquote(
+      {
+        ellipsis::check_dots_used()
+        model <- brms::brm(formula = .(formula), data = data, family = .(family), ...)
+        model_fit(model, .(formula))
+      }
+    ))
+
   }
+}
+
+
+model_fit <- function(model, formula) {
+  out <- list(
+    model = model,
+    predict = function(newdata, alpha = 0.05) {
+      suppressWarnings(
+        suppressMessages(
+          res <- add_prediction_interval(
+            data = newdata,
+            model = model,
+            alpha = alpha
+          )
+        )
+      )
+      col_name <- as.character(formula[[2]])
+      append_observed_column(res, res[[col_name]])
+    }
+  )
+  class(out) <- c("trending_model_fit", class(out))
+  out
+}
+
+
+append_observed_column <- function(data, value) {
+  data[["observed"]] <- value
+  data
 }
