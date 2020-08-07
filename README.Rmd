@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/trendfit)](https://CRAN.R-project.org/package=trendfit)
-[![Codecov test coverage](https://codecov.io/gh/reconhub/trendfit/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/trendfit?branch=master)
-[![R build status](https://github.com/reconhub/trendfit/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/trendfit/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
+[![Codecov test coverage](https://codecov.io/gh/reconhub/trending/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/trending?branch=master)
+[![R build status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/trending/actions)
 <!-- badges: end -->
 
 <br>
@@ -32,37 +32,77 @@ This package is a work in progress. Please reach out to the
 authors before using.
 
 ```{r}
-library(incidence2)
-library(outbreaks)
-library(trendfit)
-library(dplyr, warn.conflicts = FALSE)
-library(ggplot2)
+library(incidence2) # for easy aggregation
+library(outbreaks)  # for data
+library(trending)   # for trends
+library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
+# -------------------------------------------------------------------------
 
-# date parameters
-first_date <- "2014-06-07"
+# use linelist data from outbreaks package
+dat <- ebola_sim_clean$linelist
+
+# dates we want to fit to
+first_date <- as.Date("2014-06-07")
 last_date <- as.Date("2014-08-07")
 
-# generate incidence object and add some predictive variables
+# Create incidence object data grouped by gender
+inci <- incidence(ebola_sim_clean$linelist,
+                  date_index = date_of_onset,
+                  first_date = first_date,
+                  last_date = last_date + 21,   # +3 weeks for later prediction
+                  groups = gender)
+
+
+# add some predictive variables
 inci <-
-  ebola_sim_clean$linelist %>%
-  incidence(date_index = date_of_onset,
-            first_date = first_date,
-            last_date = last_date + 21) %>%
-  mutate(day = 1:nrow(.), weekday = weekdays(bin_date)) %>%
-  mutate(weekday = case_when(
-    weekday == "Monday"   ~ "monday",
-    weekday == "Saturday" ~ "weekend",
-    weekday == "Sunday"   ~ "weekend",
-    TRUE                  ~ "rest of week"))
+  inci %>%
+  mutate(day = bin_date, weekday = weekdays(bin_date)) %>%
+  mutate(weekday = case_when(weekday == "Monday"   ~ "monday",
+                             weekday == "Saturday" ~ "weekend",
+                             weekday == "Sunday"   ~ "weekend",
+                             TRUE                  ~ "rest of week"))
+# -------------------------------------------------------------------------
 
-# split in to some fitting and prediction data
-fitting_data <- filter(inci, bin_date <= last_date)
-predict_data <- filter(inci, bin_date > last_date)
 
-# model and predict
+# split by gender ---------------------------------------------------------
+
+# define model to fit
 negbin <- glm_nb_model(count ~ day + weekday)
-pred <- fit_and_predict(negbin, fitting_data, predict_data)
 
-# plot
-plot(pred, "bin_date", "count")
+# split data by gender
+split_data <-
+  inci %>%
+  nest_by(gender) %>%
+  mutate(
+    model = list(negbin),
+    fitting_data = list(filter(data, day <= last_date)),
+    predict_data = list(filter(data, day > last_date)),
+    fit = list(fit(model, fitting_data)),
+    pred = list(predict(fit, predict_data)))
+
+# plot results
+input <- split_data %>% select(fitting_data) %>% unnest(cols = c(fitting_data))
+output <- split_data %>% select(gender, pred) %>% unnest(cols = c(pred))
+res <- bind_rows(input, output)
+
+plotplot(res, "day", "count", facets = "gender")
+# -------------------------------------------------------------------------
+
+
+# without gender grouping -------------------------------------------------
+x <- inci %>% group_by(day, weekday) %>% summarise(count = sum(count))
+
+# define model to fit
+negbin <- glm_nb_model(count ~ day + weekday)
+
+fitting_data <- filter(x, day <= last_date)
+predict_data <- filter(x, day > last_date)
+
+fitted_model <- fit(negbin, fitting_data)
+pred <- predict(fitted_model, predict_data)
+
+res <- bind_rows(fitting_data, pred)
+
+plotplot(res, "day", "count")
+
 ```

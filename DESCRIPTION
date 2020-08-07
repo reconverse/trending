@@ -1,4 +1,4 @@
-Package: trendfit
+Package: trending
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R:
@@ -24,8 +24,8 @@ Authors@R:
       )
     )
 Description: What the package does (one paragraph).
-URL: https://github.com/reconhub/trendfit
-BugReports: https://github.com/reconhub/trendfit/issues
+URL: https://github.com/reconhub/trending
+BugReports: https://github.com/reconhub/trending/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -38,8 +38,6 @@ Imports:
     ciTools,
     glue,
     stats,
-    ggplot2,
-    rlang
 Suggests: 
     testthat,
     MASS,

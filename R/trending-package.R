@@ -5,6 +5,5 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom stats predict glm lm
-#' @importFrom rlang .data
 ## usethis namespace: end
 NULL

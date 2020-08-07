@@ -1,6 +1,6 @@
 #' Plot
 #'
-#' Plot an object of class `fitted_and_predicted`.
+#' Temporary plotting function for experimenting.
 #'
 #' @param x A [fit_and_predict()] object.
 #' @param date_axis Variable in x representing the date axis.
@@ -8,11 +8,13 @@
 #' @param predicted_y Variable in x representing the predicted counts.
 #' @param lower_y Variable in x representing the lower prediction interval.
 #' @param upper_y Variable in x representing the upper prediction interval.
+#' @param facets Variables to facet by.
 #' @param ... Not currently used.
 #'
 #' @export
-plot.fitted_and_predicted <- function(x, date_axis, known_y, predicted_y = "pred",
-                                 lower_y = "lower", upper_y = "upper", ...) {
+plotplot <- function(x, date_axis, known_y, predicted_y = "pred",
+                     lower_y = "lower", upper_y = "upper", facets = NULL, ...) {
+
   known_dat <- x[is.na(x[[predicted_y]]), ]
   pred_dat <- x[!is.na(x[[predicted_y]]), ]
 
@@ -21,7 +23,7 @@ plot.fitted_and_predicted <- function(x, date_axis, known_y, predicted_y = "pred
 
   (first_date - last_date) / 2
 
-  ggplot2::ggplot(x, ggplot2::aes(x = .data[[date_axis]])) +
+  g <-  ggplot2::ggplot(x, ggplot2::aes(x = .data[[date_axis]])) +
     ggplot2::theme_bw() +
     ggplot2::geom_col(ggplot2::aes(y = .data[[known_y]]),
                       fill = "#0077BB",
@@ -37,4 +39,9 @@ plot.fitted_and_predicted <- function(x, date_axis, known_y, predicted_y = "pred
     ggplot2::geom_vline(xintercept = (first_date + last_date) / 2, linetype = 2) +
     ggplot2::xlab("")
 
+  if (!is.null(facets)) {
+    g + ggplot2::facet_wrap(ggplot2::vars(!!!syms(facets)))
+    } else {
+      g
+    }
 }
