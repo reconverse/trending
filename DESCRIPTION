@@ -39,7 +39,10 @@ Imports:
     glue,
     stats,
     rlang,
-    ggplot2
+    ggplot2,
+    rsample,
+    yardstick,
+    tidyr
 Suggests: 
     testthat,
     MASS,
