@@ -12,11 +12,10 @@ evaluate_resampling(
   data,
   metrics = list(yardstick::rmse),
   v = nrow(data),
-  repeats = 1,
-  ...
+  repeats = 1
 )
 
-evaluate_aic(model, data, k = 2, ...)
+evaluate_aic(model, data, ...)
 
 evaluate_models(data, models, method = evaluate_resampling, ...)
 
@@ -44,11 +43,7 @@ used to compute the fit statistics.}
 be repeated for; defaults to 1; larger values are likely to yield more
 reliable / stable results, at the expense of computational time}
 
-\item{...}{further arguments passed to the fitting functions (\href{fit}{\code{?fit}}
-for details) and/or \code{evaluate_resampling}\\code{evaluate_aic}.}
-
-\item{k}{numeric, the penalty per parameter to be used; the default k = 2 is
-the classical AIC.}
+\item{...}{further arguments passed to \url{stats::AIC}}
 
 \item{models}{a \code{list} of models specified as an \code{trending_model} object, as
 returned by \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, \code{brms_model}; see

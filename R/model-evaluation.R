@@ -47,11 +47,7 @@
 #'   be repeated for; defaults to 1; larger values are likely to yield more
 #'   reliable / stable results, at the expense of computational time
 #'
-#' @param k numeric, the penalty per parameter to be used; the default k = 2 is
-#'   the classical AIC.
-#'
-#' @param ... further arguments passed to the fitting functions ([`?fit`](fit)
-#'  for details) and/or `evaluate_resampling`\`evaluate_aic`.
+#' @param ... further arguments passed to [`stats::AIC`](stats::AIC)
 #'
 #' @param models a `list` of models specified as an `trending_model` object, as
 #'   returned by `lm_model`, `glm_model`, `glm_nb_model`, `brms_model`; see
@@ -70,14 +66,12 @@ evaluate_resampling <- function(model,
                                 data,
                                 metrics = list(yardstick::rmse),
                                 v = nrow(data),
-                                repeats = 1,
-                                ...) {
-  ellipsis::check_dots_used()
+                                repeats = 1) {
   training_split <- rsample::vfold_cv(data, v = v, repeats = repeats)
   metrics <- do.call(yardstick::metric_set, metrics)
   res <- lapply(training_split$splits, function(split) {
-    fit <- fit(model, rsample::analysis(split), ...)
-    validation <- predict(fit, rsample::assessment(split))
+    fit <- model$fit(rsample::analysis(split))
+    validation <- fit$predict(rsample::assessment(split))
     # TODO: always sort by time component
     metrics(validation, .data$observed, .data$pred)
   })
@@ -95,13 +89,12 @@ evaluate_resampling <- function(model,
 #' @export
 #' @rdname evaluate_models
 #' @aliases evaluate_aic
-evaluate_aic <- function(model, data, k = 2, ...) {
+evaluate_aic <- function(model, data, ...) {
   ellipsis::check_dots_used()
-  full_model_fit <- fit(model, data, ...)
-
+  full_model_fit <- model$fit(data)
   tibble::tibble(
     metric = "aic",
-    score = stats::AIC(full_model_fit$model, k = k)
+    score = stats::AIC(full_model_fit$model, ...)
   )
 }
 

@@ -12,10 +12,15 @@
 #' * `get_family()`: get the model family, indicating the type of distribution
 #'   assumed for the response variable
 #'
+#' * `fit()`: fit a model using data to obtain a
+#' [`trending_model_fit`](trending_model_fit) object
+#'
 #' @author Thibaut Jombart, Dirk Schumacher
 #'
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
 #'   brms_model
+#'
+#' @param data a `data.frame` to be used to train the model#'
 #'
 #' @param ... further arguments passed to other methods
 #'
@@ -51,5 +56,14 @@ get_family.trending_model <- function(x, ...) {
     as.list(environment(x$fit))$family
   }
 }
+
+
+#' @export
+#' @rdname trending_model-accessors
+#' @aliases fit.trending_model
+fit.trending_model <- function(x, data, ...) {
+  x$fit(data)
+}
+
 
 

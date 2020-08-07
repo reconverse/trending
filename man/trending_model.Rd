@@ -11,13 +11,13 @@
 \alias{print.trending_model}
 \title{Modeling interface}
 \usage{
-glm_model(formula, family)
+glm_model(formula, family, ...)
 
-glm_nb_model(formula)
+glm_nb_model(formula, ...)
 
-lm_model(formula)
+lm_model(formula, ...)
 
-brms_model(formula, family)
+brms_model(formula, family, ...)
 
 \method{format}{trending_model}(x, ...)
 
@@ -31,9 +31,11 @@ input to other functions}
 
 \item{family}{the model family to be used for the response variable}
 
-\item{x}{an \code{trending_model} object}
+\item{...}{further arguments passed to other methods: \code{lm} for \code{lm_model},
+\code{glm} for \code{glm_model}, \code{MASS::glm_nb} for \code{glm_nb_model}, \code{brms::brm} for
+\code{brms_model}.}
 
-\item{...}{Unused at this time.}
+\item{x}{an \code{trending_model} object}
 }
 \value{
 A \code{trending_model} object (S3 class inheriting \code{list}), containing

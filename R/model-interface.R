@@ -27,7 +27,9 @@
 #'
 #' @param x an `trending_model` object
 #'
-#' @param ... Unused at this time.
+#' @param ... further arguments passed to other methods: `lm` for `lm_model`,
+#'   `glm` for `glm_model`, `MASS::glm_nb` for `glm_nb_model`, `brms::brm` for
+#'   `brms_model`.
 #'
 #' @return  A `trending_model` object (S3 class inheriting `list`), containing
 #'   items which can be accessed by various accessors - see
@@ -40,15 +42,19 @@
 #' @export
 #' @rdname trending_model
 #' @aliases glm_model
-glm_model <- function(formula, family) {
+glm_model <- function(formula, family, ...) {
+  ellipsis::check_dots_used()
   if (!is.character(family)) {
     family <- deparse(substitute(family))
   }
   structure(
     eval(bquote(list(
       model_class = "glm",
-      fit = fit_glm(formula = .(formula), family = .(family)))
-    )),
+      fit = function(data) {
+        model <- glm(formula = .(formula), family = .(family), data = data, ...)
+        model_fit(model, formula)
+      }
+    ))),
     class = c("trending_glm", "trending_model")
   )
 }
@@ -57,13 +63,17 @@ glm_model <- function(formula, family) {
 #' @export
 #' @rdname trending_model
 #' @aliases glm_nb_model
-glm_nb_model <- function(formula) {
+glm_nb_model <- function(formula, ...) {
   check_suggests("MASS")
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "MASS::glm.nb",
-      fit = fit_glm_nb(formula = .(formula)))
-    )),
+      fit = function(data) {
+        model <- MASS::glm.nb(formula = .(formula), data = data, ...)
+        model_fit(model, formula)
+      }
+    ))),
     class = c("trending_glm_nb", "trending_model")
   )
 }
@@ -72,12 +82,16 @@ glm_nb_model <- function(formula) {
 #' @export
 #' @rdname trending_model
 #' @aliases lm_model
-lm_model <- function(formula) {
+lm_model <- function(formula, ...) {
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "lm",
-      fit = fit_lm(formula = .(formula)))
-    )),
+      fit = function(data) {
+        model <- lm(formula = .(formula), data = data, ...)
+        model_fit(model, formula)
+      }
+    ))),
     class = c("trending_lm", "trending_model")
   )
 }
@@ -87,14 +101,18 @@ lm_model <- function(formula) {
 #' @export
 #' @rdname trending_model
 #' @aliases brms_model
-brms_model <- function(formula, family) {
+brms_model <- function(formula, family, ...) {
   check_suggests("brms")
+  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "brms",
-      fit = fit_brms(formula = .(formula), family = .(family)))
-    )),
-    class = c("trending_brms_nb", "trending_model")
+      fit = function(data) {
+        model <- brms::brm(formula = .(formula), data = data, family = .(family), ...)
+        model_fit(model, .(formula))
+      }
+    ))),
+    class = c("trending_glm", "trending_model")
   )
 }
 
@@ -104,6 +122,7 @@ brms_model <- function(formula, family) {
 #' @rdname trending_model
 #' @aliases format.trending_model
 format.trending_model <- function(x, ...) {
+  ellipsis::check_dots_empty()
   paste0("Untrained trending model type: ", x[["model_class"]])
 }
 
@@ -113,5 +132,89 @@ format.trending_model <- function(x, ...) {
 #' @rdname trending_model
 #' @aliases print.trending_model
 print.trending_model <- function(x, ...) {
-  cat(format(x, ...))
+  ellipsis::check_dots_empty()
+  cat(format(x))
+}
+
+
+# ------------------------------------------------------------------------- #
+# ----------------------------- INTERNALS --------------------------------- #
+# ------------------------------------------------------------------------- #
+
+add_prediction_interval <- function(model, data, alpha) {
+  UseMethod("add_prediction_interval")
+}
+
+
+add_prediction_interval.default <- function(model, data, alpha) {
+  suppressWarnings(
+    ciTools::add_pi(
+      tb = data,
+      fit = model,
+      alpha = alpha,
+      names = c("lower", "upper")
+    )
+  )
+}
+
+
+add_prediction_interval.negbin <- function(model, data, alpha) {
+  mu <- predict(model, newdata = data, type = "response")
+  theta <- model$theta
+  stopifnot(theta > 0)
+  # this ignores the uncertainty around mu and theta
+  dplyr::bind_cols(
+    data,
+    tibble::tibble(
+      pred = mu,
+      lower = stats::qnbinom(alpha / 2, mu = mu, size = theta),
+      upper = stats::qnbinom(1 - alpha / 2, mu = mu, size = theta),
+    )
+  )
+}
+
+
+add_prediction_interval.brmsfit <- function(model, data, alpha) {
+  fit <- predict(model, data)
+  interval <- brms::predictive_interval(
+    model,
+    newdata = data,
+    prob = 1 - alpha
+  )
+  dplyr::bind_cols(
+    data,
+    tibble::tibble(
+      pred = fit[, 1],
+      lower = interval[, 1],
+      upper = interval[, 2]
+    )
+  )
+}
+
+
+model_fit <- function(model, formula) {
+  out <- list(
+    model = model,
+    predict = function(newdata, alpha = 0.05) {
+      suppressWarnings(
+        suppressMessages(
+          res <- add_prediction_interval(
+            data = newdata,
+            model = model,
+            alpha = alpha
+          )
+        )
+      )
+      col_name <- as.character(formula[[2]])
+      append_observed_column(res, res[[col_name]])
+    }
+  )
+  class(out) <- c("trending_model_fit", class(out))
+  out
+}
+
+
+append_observed_column <- function(data, value) {
+  data[["observed"]] <- value
+  data
 }
