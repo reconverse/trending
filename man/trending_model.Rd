@@ -4,6 +4,7 @@
 \alias{glm_model}
 \alias{trending_model}
 \alias{trending_models}
+\alias{trending_model_fit}
 \alias{glm_nb_model}
 \alias{lm_model}
 \alias{brms_model}

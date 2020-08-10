@@ -37,13 +37,12 @@
 #'
 #' @author Dirk Schumacher
 #'
-#' @aliases trending_model trending_models
+#' @aliases trending_model trending_models trending_model_fit
 #'
 #' @export
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family, ...) {
-  ellipsis::check_dots_used()
   if (!is.character(family)) {
     family <- deparse(substitute(family))
   }
@@ -65,7 +64,6 @@ glm_model <- function(formula, family, ...) {
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula, ...) {
   check_suggests("MASS")
-  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "MASS::glm.nb",
@@ -83,7 +81,6 @@ glm_nb_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases lm_model
 lm_model <- function(formula, ...) {
-  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "lm",
@@ -103,7 +100,6 @@ lm_model <- function(formula, ...) {
 #' @aliases brms_model
 brms_model <- function(formula, family, ...) {
   check_suggests("brms")
-  ellipsis::check_dots_used()
   structure(
     eval(bquote(list(
       model_class = "brms",
