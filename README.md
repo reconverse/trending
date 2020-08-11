@@ -21,18 +21,20 @@ status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](h
 This package is a work in progress. Please reach out to the authors
 before using.
 
+## An individual model
+
 ``` r
 library(trendbreaker)  # for data
 library(trending)      # for trends
-library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
-#> ── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──
-#> ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
-#> ✓ tibble  3.0.3     ✓ dplyr   1.0.1
-#> ✓ tidyr   1.1.1     ✓ stringr 1.4.0
-#> ✓ readr   1.3.1     ✓ forcats 0.5.0
-#> ── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
+library(dplyr)         # for data manipulation
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
 # load data
 data(nhs_pathways_covid19)
@@ -41,8 +43,7 @@ data(nhs_pathways_covid19)
 first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
 pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
 
-
-# individual model --------------------------------------------------------
+# define a linear model
 model = lm_model(count ~ day + weekday)
 
 # split data for fitting and prediction
@@ -52,44 +53,74 @@ pred_data <- dat[[2]]
 
 fitted_model <- fit(model, fitting_data)
 pred <- predict(fitted_model, pred_data)
-str(pred)
-#> tibble [54,802 × 16] (S3: tbl_df/tbl/data.frame)
-#>  $ site_type                 : chr [1:54802] "111" "111" "111" "111" ...
-#>  $ date                      : Date[1:54802], format: "2020-04-16" "2020-04-16" ...
-#>  $ sex                       : chr [1:54802] "female" "female" "female" "female" ...
-#>  $ age                       : chr [1:54802] "0-18" "0-18" "0-18" "0-18" ...
-#>  $ ccg_code                  : chr [1:54802] "e38000007" "e38000044" "e38000074" "e38000084" ...
-#>  $ ccg_name                  : chr [1:54802] "nhs_basildon_and_brentwood_ccg" "nhs_doncaster_ccg" "nhs_harrow_ccg" "nhs_hounslow_ccg" ...
-#>  $ count                     : int [1:54802] 3 3 6 1 6 2 8 2 1 9 ...
-#>  $ postcode                  : chr [1:54802] "ss143hg" "dn45hz" "ha13aw" "tw33eb" ...
-#>  $ nhs_region                : chr [1:54802] "East of England" "North East and Yorkshire" "London" "London" ...
-#>  $ day                       : int [1:54802] 29 29 29 29 29 29 29 29 29 29 ...
-#>  $ weekday                   : Factor w/ 3 levels "rest_of_week",..: 1 1 1 1 1 1 1 1 1 1 ...
-#>  $ date <= first_date + 5 * 7: logi [1:54802] TRUE TRUE TRUE TRUE TRUE TRUE ...
-#>  $ pred                      : Named num [1:54802] 8.5 8.5 8.5 8.5 8.5 ...
-#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
-#>  $ lower                     : Named num [1:54802] -13.2 -13.2 -13.2 -13.2 -13.2 ...
-#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
-#>  $ upper                     : Named num [1:54802] 30.2 30.2 30.2 30.2 30.2 ...
-#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
-#>  $ observed                  : int [1:54802] 3 3 6 1 6 2 8 2 1 9 ...
+glimpse(pred)
+#> Rows: 54,802
+#> Columns: 16
+#> $ site_type                    <chr> "111", "111", "111", "111", "111", "111"…
+#> $ date                         <date> 2020-04-16, 2020-04-16, 2020-04-16, 202…
+#> $ sex                          <chr> "female", "female", "female", "female", …
+#> $ age                          <chr> "0-18", "0-18", "0-18", "0-18", "0-18", …
+#> $ ccg_code                     <chr> "e38000007", "e38000044", "e38000074", "…
+#> $ ccg_name                     <chr> "nhs_basildon_and_brentwood_ccg", "nhs_d…
+#> $ count                        <int> 3, 3, 6, 1, 6, 2, 8, 2, 1, 9, 3, 3, 13, …
+#> $ postcode                     <chr> "ss143hg", "dn45hz", "ha13aw", "tw33eb",…
+#> $ nhs_region                   <chr> "East of England", "North East and Yorks…
+#> $ day                          <int> 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, …
+#> $ weekday                      <fct> rest_of_week, rest_of_week, rest_of_week…
+#> $ `date <= first_date + 5 * 7` <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…
+#> $ pred                         <dbl> 8.497642, 8.497642, 8.497642, 8.497642, …
+#> $ lower                        <dbl> -13.18078, -13.18078, -13.18078, -13.180…
+#> $ upper                        <dbl> 30.17606, 30.17606, 30.17606, 30.17606, …
+#> $ observed                     <int> 3, 3, 6, 1, 6, 2, 8, 2, 1, 9, 3, 3, 13, …
+```
 
+## Model selection
 
-# select from multiple models ---------------------------------------------
+You can define a number of different regression models using a common
+interface. Once defined you can use different strategies to select the
+best-fitting/best-predicting model.
+
+As an example we try to predict `hp` of the famous `mtcars` dataset. Of
+course, this is just a toy example. Usually you would use the package to
+predict counts data in a time series.
+
+First we define some potential models:
+
+``` r
+stan_cache <- tempfile() # stan compile to c++ and we cache the code
 models <- list(
-  regression = lm_model(count ~ day),
-  poisson_constant = glm_model(count ~ 1, family = "poisson"),
-  negbin_time = glm_nb_model(count ~ day),
-  negbin_time_weekday = glm_nb_model(count ~ day + weekday)
+  null = lm_model(hp ~ 1),
+  glm_poisson = glm_model(hp ~ 1 + cyl + drat + wt + qsec + am, poisson),
+  lm_complex = lm_model(hp ~ 1 + cyl + drat + wt + qsec + am),
+  negbin_complex = glm_nb_model(hp ~ 1 + cyl + drat + wt + qsec + am),
+  brms_complex = brms_model(
+    hp ~ 1 + cyl + drat + wt + qsec + am,
+    family = brms::negbinomial(),
+    file = stan_cache
+  )
 )
+```
 
-results <- evaluate_models(pathways_recent, models, v = 10)
-results
-#> # A tibble: 4 x 2
-#>   model                rmse
-#>   <chr>               <dbl>
-#> 1 regression           21.8
-#> 2 poisson_constant     22.0
-#> 3 negbin_time          21.8
-#> 4 negbin_time_weekday  21.8
+Then we evaluate them using [N-Fold cross
+validation](https://en.wikipedia.org/wiki/Cross-validation_\(statistics\)).
+
+``` r
+# we do CV and evaluate three loss function:
+# Root-mean-squared error, the huber-loss and mean absolute error.
+# The package works with `yardstick` by default.
+out <- capture.output( # no log output in readme :)
+  auto_select <- select_model(mtcars, models,
+    method = evaluate_resampling,
+    metrics = list(yardstick::rmse, yardstick::huber_loss, yardstick::mae)
+  )
+)
+auto_select$leaderboard
+#> # A tibble: 5 x 4
+#>   model          huber_loss   mae  rmse
+#>   <chr>               <dbl> <dbl> <dbl>
+#> 1 brms_complex         18.2  18.7  18.7
+#> 2 glm_poisson          21.2  21.7  21.7
+#> 3 negbin_complex       22.8  23.3  23.3
+#> 4 lm_complex           26.2  26.7  26.7
+#> 5 null                 57.8  58.3  58.3
 ```

@@ -31,10 +31,11 @@ knitr::opts_chunk$set(
 This package is a work in progress. Please reach out to the
 authors before using.
 
-```{r}
+## An individual model 
+```{r, warning=FALSE}
 library(trendbreaker)  # for data
 library(trending)      # for trends
-library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
+library(dplyr)         # for data manipulation
 
 # load data
 data(nhs_pathways_covid19)
@@ -43,8 +44,7 @@ data(nhs_pathways_covid19)
 first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
 pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
 
-
-# individual model --------------------------------------------------------
+# define a linear model
 model = lm_model(count ~ day + weekday)
 
 # split data for fitting and prediction
@@ -54,17 +54,46 @@ pred_data <- dat[[2]]
 
 fitted_model <- fit(model, fitting_data)
 pred <- predict(fitted_model, pred_data)
-str(pred)
+glimpse(pred)
+```
 
+## Model selection
 
-# select from multiple models ---------------------------------------------
+You can define a number of different regression models using a common interface.
+Once defined you can use different strategies to select the
+best-fitting/best-predicting model.
+
+As an example we try to predict `hp` of the famous `mtcars` dataset.  Of course,
+this is just a toy example. Usually you would use the package to predict counts
+data in a time series.
+
+First we define some potential models:
+```{r}
+stan_cache <- tempfile() # stan compile to c++ and we cache the code
 models <- list(
-  regression = lm_model(count ~ day),
-  poisson_constant = glm_model(count ~ 1, family = "poisson"),
-  negbin_time = glm_nb_model(count ~ day),
-  negbin_time_weekday = glm_nb_model(count ~ day + weekday)
+  null = lm_model(hp ~ 1),
+  glm_poisson = glm_model(hp ~ 1 + cyl + drat + wt + qsec + am, poisson),
+  lm_complex = lm_model(hp ~ 1 + cyl + drat + wt + qsec + am),
+  negbin_complex = glm_nb_model(hp ~ 1 + cyl + drat + wt + qsec + am),
+  brms_complex = brms_model(
+    hp ~ 1 + cyl + drat + wt + qsec + am,
+    family = brms::negbinomial(),
+    file = stan_cache
+  )
 )
+```
 
-results <- evaluate_models(pathways_recent, models, v = 10)
-results
+Then we evaluate them using [N-Fold cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)).
+
+```{r, message=FALSE, warning=FALSE}
+# we do CV and evaluate three loss function:
+# Root-mean-squared error, the huber-loss and mean absolute error.
+# The package works with `yardstick` by default.
+out <- capture.output( # no log output in readme :)
+  auto_select <- select_model(mtcars, models,
+    method = evaluate_resampling,
+    metrics = list(yardstick::rmse, yardstick::huber_loss, yardstick::mae)
+  )
+)
+auto_select$leaderboard
 ```
