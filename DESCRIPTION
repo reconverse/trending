@@ -36,7 +36,6 @@ Imports:
     dplyr,
     tibble,
     ciTools,
-    glue,
     rlang,
     ggplot2,
     rsample,
