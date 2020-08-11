@@ -37,7 +37,6 @@ Imports:
     tibble,
     ciTools,
     rlang,
-    ggplot2,
     rsample,
     yardstick,
     tidyr

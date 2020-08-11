@@ -22,9 +22,8 @@ This package is a work in progress. Please reach out to the authors
 before using.
 
 ``` r
-library(incidence2) # for easy aggregation
-library(outbreaks)  # for data
-library(trending)   # for trends
+library(trendbreaker)  # for data
+library(trending)      # for trends
 library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
 #> ── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
@@ -34,113 +33,63 @@ library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
 #> ── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
-# -------------------------------------------------------------------------
 
-# use linelist data from outbreaks package
-dat <- ebola_sim_clean$linelist
+# load data
+data(nhs_pathways_covid19)
 
-# dates we want to fit to
-first_date <- as.Date("2014-06-07")
-last_date <- as.Date("2014-08-07")
-
-# Create incidence object data grouped by gender
-inci <- incidence(ebola_sim_clean$linelist,
-                  date_index = date_of_onset,
-                  first_date = first_date,
-                  last_date = last_date + 21,   # +3 weeks for later prediction
-                  groups = gender)
-#> 5047 observations outside of [2014-06-07, 2014-08-28] were removed.
+# select last 6 weeks of data
+first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
+pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
 
 
-# add some predictive variables
-inci <-
-  inci %>%
-  mutate(day = bin_date, weekday = weekdays(bin_date)) %>%
-  mutate(weekday = case_when(weekday == "Monday"   ~ "monday",
-                             weekday == "Saturday" ~ "weekend",
-                             weekday == "Sunday"   ~ "weekend",
-                             TRUE                  ~ "rest of week"))
-# -------------------------------------------------------------------------
+# individual model --------------------------------------------------------
+model = lm_model(count ~ day + weekday)
+
+# split data for fitting and prediction
+dat <- group_split(pathways_recent, date <= first_date + 5*7)
+fitting_data <- dat[[1]]
+pred_data <- dat[[2]]
+
+fitted_model <- fit(model, fitting_data)
+pred <- predict(fitted_model, pred_data)
+str(pred)
+#> tibble [54,802 × 16] (S3: tbl_df/tbl/data.frame)
+#>  $ site_type                 : chr [1:54802] "111" "111" "111" "111" ...
+#>  $ date                      : Date[1:54802], format: "2020-04-16" "2020-04-16" ...
+#>  $ sex                       : chr [1:54802] "female" "female" "female" "female" ...
+#>  $ age                       : chr [1:54802] "0-18" "0-18" "0-18" "0-18" ...
+#>  $ ccg_code                  : chr [1:54802] "e38000007" "e38000044" "e38000074" "e38000084" ...
+#>  $ ccg_name                  : chr [1:54802] "nhs_basildon_and_brentwood_ccg" "nhs_doncaster_ccg" "nhs_harrow_ccg" "nhs_hounslow_ccg" ...
+#>  $ count                     : int [1:54802] 3 3 6 1 6 2 8 2 1 9 ...
+#>  $ postcode                  : chr [1:54802] "ss143hg" "dn45hz" "ha13aw" "tw33eb" ...
+#>  $ nhs_region                : chr [1:54802] "East of England" "North East and Yorkshire" "London" "London" ...
+#>  $ day                       : int [1:54802] 29 29 29 29 29 29 29 29 29 29 ...
+#>  $ weekday                   : Factor w/ 3 levels "rest_of_week",..: 1 1 1 1 1 1 1 1 1 1 ...
+#>  $ date <= first_date + 5 * 7: logi [1:54802] TRUE TRUE TRUE TRUE TRUE TRUE ...
+#>  $ pred                      : Named num [1:54802] 8.5 8.5 8.5 8.5 8.5 ...
+#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
+#>  $ lower                     : Named num [1:54802] -13.2 -13.2 -13.2 -13.2 -13.2 ...
+#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
+#>  $ upper                     : Named num [1:54802] 30.2 30.2 30.2 30.2 30.2 ...
+#>   ..- attr(*, "names")= chr [1:54802] "1" "2" "3" "4" ...
+#>  $ observed                  : int [1:54802] 3 3 6 1 6 2 8 2 1 9 ...
 
 
-# split by gender ---------------------------------------------------------
+# select from multiple models ---------------------------------------------
+models <- list(
+  regression = lm_model(count ~ day),
+  poisson_constant = glm_model(count ~ 1, family = "poisson"),
+  negbin_time = glm_nb_model(count ~ day),
+  negbin_time_weekday = glm_nb_model(count ~ day + weekday)
+)
 
-# define model to fit
-negbin <- glm_nb_model(count ~ day + weekday)
-
-# split data by gender
-split_data <-
-  inci %>%
-  nest_by(gender) %>%
-  mutate(
-    model = list(negbin),
-    fitting_data = list(filter(data, day <= last_date)),
-    predict_data = list(filter(data, day > last_date)),
-    fit = list(fit(model, fitting_data)),
-    pred = list(predict(fit, predict_data)))
-#> Warning: Problem with `mutate()` input `fit`.
-#> x iteration limit reached
-#> ℹ Input `fit` is `list(fit(model, fitting_data))`.
-#> ℹ The error occurred in row 1.
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-#> Warning: Problem with `mutate()` input `fit`.
-#> x iteration limit reached
-#> ℹ Input `fit` is `list(fit(model, fitting_data))`.
-#> ℹ The error occurred in row 1.
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-#> Warning: Problem with `mutate()` input `fit`.
-#> x iteration limit reached
-#> ℹ Input `fit` is `list(fit(model, fitting_data))`.
-#> ℹ The error occurred in row 2.
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-#> Warning: Problem with `mutate()` input `fit`.
-#> x iteration limit reached
-#> ℹ Input `fit` is `list(fit(model, fitting_data))`.
-#> ℹ The error occurred in row 2.
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-
-# plot results
-input <- split_data %>% select(fitting_data) %>% unnest(cols = c(fitting_data))
-#> Adding missing grouping variables: `gender`
-output <- split_data %>% select(gender, pred) %>% unnest(cols = c(pred))
-res <- bind_rows(input, output)
-
-plotplot(res, "day", "count", facets = "gender")
-#> Warning: Removed 124 rows containing missing values (geom_point).
+results <- evaluate_models(pathways_recent, models, v = 10)
+results
+#> # A tibble: 4 x 2
+#>   model                rmse
+#>   <chr>               <dbl>
+#> 1 regression           21.8
+#> 2 poisson_constant     22.0
+#> 3 negbin_time          21.8
+#> 4 negbin_time_weekday  21.8
 ```
-
-<img src="man/figures/README-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
-
-``` r
-# -------------------------------------------------------------------------
-
-
-# without gender grouping -------------------------------------------------
-x <- inci %>% group_by(day, weekday) %>% summarise(count = sum(count))
-#> `summarise()` regrouping output by 'day' (override with `.groups` argument)
-
-# define model to fit
-negbin <- glm_nb_model(count ~ day + weekday)
-
-fitting_data <- filter(x, day <= last_date)
-predict_data <- filter(x, day > last_date)
-
-fitted_model <- fit(negbin, fitting_data)
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-
-#> Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-#> control$trace > : iteration limit reached
-pred <- predict(fitted_model, predict_data)
-
-res <- bind_rows(fitting_data, pred)
-
-plotplot(res, "day", "count")
-#> Warning: Removed 62 rows containing missing values (geom_point).
-```
-
-<img src="man/figures/README-unnamed-chunk-1-2.png" style="display: block; margin: auto;" />

@@ -32,77 +32,39 @@ This package is a work in progress. Please reach out to the
 authors before using.
 
 ```{r}
-library(incidence2) # for easy aggregation
-library(outbreaks)  # for data
-library(trending)   # for trends
+library(trendbreaker)  # for data
+library(trending)      # for trends
 library(tidyverse, warn.conflicts = FALSE)  # for data manipulation
-# -------------------------------------------------------------------------
 
-# use linelist data from outbreaks package
-dat <- ebola_sim_clean$linelist
+# load data
+data(nhs_pathways_covid19)
 
-# dates we want to fit to
-first_date <- as.Date("2014-06-07")
-last_date <- as.Date("2014-08-07")
-
-# Create incidence object data grouped by gender
-inci <- incidence(ebola_sim_clean$linelist,
-                  date_index = date_of_onset,
-                  first_date = first_date,
-                  last_date = last_date + 21,   # +3 weeks for later prediction
-                  groups = gender)
+# select last 6 weeks of data
+first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
+pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
 
 
-# add some predictive variables
-inci <-
-  inci %>%
-  mutate(day = bin_date, weekday = weekdays(bin_date)) %>%
-  mutate(weekday = case_when(weekday == "Monday"   ~ "monday",
-                             weekday == "Saturday" ~ "weekend",
-                             weekday == "Sunday"   ~ "weekend",
-                             TRUE                  ~ "rest of week"))
-# -------------------------------------------------------------------------
+# individual model --------------------------------------------------------
+model = lm_model(count ~ day + weekday)
+
+# split data for fitting and prediction
+dat <- group_split(pathways_recent, date <= first_date + 5*7)
+fitting_data <- dat[[1]]
+pred_data <- dat[[2]]
+
+fitted_model <- fit(model, fitting_data)
+pred <- predict(fitted_model, pred_data)
+str(pred)
 
 
-# split by gender ---------------------------------------------------------
+# select from multiple models ---------------------------------------------
+models <- list(
+  regression = lm_model(count ~ day),
+  poisson_constant = glm_model(count ~ 1, family = "poisson"),
+  negbin_time = glm_nb_model(count ~ day),
+  negbin_time_weekday = glm_nb_model(count ~ day + weekday)
+)
 
-# define model to fit
-negbin <- glm_nb_model(count ~ day + weekday)
-
-# split data by gender
-split_data <-
-  inci %>%
-  nest_by(gender) %>%
-  mutate(
-    model = list(negbin),
-    fitting_data = list(filter(data, day <= last_date)),
-    predict_data = list(filter(data, day > last_date)),
-    fit = list(fit(model, fitting_data)),
-    pred = list(predict(fit, predict_data)))
-
-# plot results
-input <- split_data %>% select(fitting_data) %>% unnest(cols = c(fitting_data))
-output <- split_data %>% select(gender, pred) %>% unnest(cols = c(pred))
-res <- bind_rows(input, output)
-
-plotplot(res, "day", "count", facets = "gender")
-# -------------------------------------------------------------------------
-
-
-# without gender grouping -------------------------------------------------
-x <- inci %>% group_by(day, weekday) %>% summarise(count = sum(count))
-
-# define model to fit
-negbin <- glm_nb_model(count ~ day + weekday)
-
-fitting_data <- filter(x, day <= last_date)
-predict_data <- filter(x, day > last_date)
-
-fitted_model <- fit(negbin, fitting_data)
-pred <- predict(fitted_model, predict_data)
-
-res <- bind_rows(fitting_data, pred)
-
-plotplot(res, "day", "count")
-
+results <- evaluate_models(pathways_recent, models, v = 10)
+results
 ```
