@@ -21,20 +21,38 @@ status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](h
 This package is a work in progress. Please reach out to the authors
 before using.
 
-## An individual model
+# Trending
+
+*trending* aims to provides a coherent interface to several modelling
+tools, alongside functions for model selection. Whilst it is useful in
+an interactive context, it’s main focus is to provide an intuitive
+interface on which other packages can be developed
+(e.g. [*trendbreaker*](https://github.com/reconhub/trendbreaker)).
+
+## Main features
+
+  - **Model specification:** Interfaces to common models through
+    intuitive functions; `lm_model()`, `glm_model()`, `glm_nb_model`\*
+    and `brms_model`\*\*.
+
+  - **Model fitting and prediction:** Once specified, models can be fit
+    to data and generate prediction intervals for future data using
+    `fit()` and `predict()`.
+
+  - **Model evaluation and selection:** `evaluate_resampling()`,
+    `evaluate_aic()`, `evaluate_models()` and `select_model()`.
+
+\*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
+\*\* Requires [brms](https://CRAN.R-project.org/package=brms)
+
+## Example usage
+
+### An individual model
 
 ``` r
 library(trendbreaker)  # for data
 library(trending)      # for trends
-library(dplyr)         # for data manipulation
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
+library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
 data(nhs_pathways_covid19)
@@ -74,7 +92,7 @@ glimpse(pred)
 #> $ observed                     <int> 3, 3, 6, 1, 6, 2, 8, 2, 1, 9, 3, 3, 13, …
 ```
 
-## Model selection
+### Model selection
 
 You can define a number of different regression models using a common
 interface. Once defined you can use different strategies to select the
@@ -118,7 +136,7 @@ auto_select$leaderboard
 #> # A tibble: 5 x 4
 #>   model          huber_loss   mae  rmse
 #>   <chr>               <dbl> <dbl> <dbl>
-#> 1 brms_complex         18.2  18.7  18.7
+#> 1 brms_complex         18.6  19.1  19.1
 #> 2 glm_poisson          21.2  21.7  21.7
 #> 3 negbin_complex       22.8  23.3  23.3
 #> 4 lm_complex           26.2  26.7  26.7
