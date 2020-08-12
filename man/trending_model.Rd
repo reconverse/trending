@@ -10,6 +10,8 @@
 \alias{brms_model}
 \alias{format.trending_model}
 \alias{print.trending_model}
+\alias{format.trending_model_fit}
+\alias{print.trending_model_fit}
 \title{Modeling interface}
 \usage{
 glm_model(formula, family, ...)
@@ -23,6 +25,10 @@ brms_model(formula, family, ...)
 \method{format}{trending_model}(x, ...)
 
 \method{print}{trending_model}(x, ...)
+
+\method{format}{trending_model_fit}(x, ...)
+
+\method{print}{trending_model_fit}(x, ...)
 }
 \arguments{
 \item{formula}{the formula of the model, with the response variable on the
@@ -34,9 +40,9 @@ input to other functions}
 
 \item{...}{further arguments passed to other methods: \code{lm} for \code{lm_model},
 \code{glm} for \code{glm_model}, \code{MASS::glm_nb} for \code{glm_nb_model}, \code{brms::brm} for
-\code{brms_model}.}
+\code{brms_model}.  Not used for \code{print} and \code{format}.}
 
-\item{x}{an \code{trending_model} object}
+\item{x}{either a \code{trending_model} or \code{trending_model_fit} object}
 }
 \value{
 A \code{trending_model} object (S3 class inheriting \code{list}), containing

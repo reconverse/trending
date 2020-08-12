@@ -25,11 +25,11 @@
 #'
 #' @param family the model family to be used for the response variable
 #'
-#' @param x an `trending_model` object
+#' @param x either a `trending_model` or `trending_model_fit` object
 #'
 #' @param ... further arguments passed to other methods: `lm` for `lm_model`,
 #'   `glm` for `glm_model`, `MASS::glm_nb` for `glm_nb_model`, `brms::brm` for
-#'   `brms_model`.
+#'   `brms_model`.  Not used for `print` and `format`.
 #'
 #' @return  A `trending_model` object (S3 class inheriting `list`), containing
 #'   items which can be accessed by various accessors - see
@@ -132,6 +132,26 @@ print.trending_model <- function(x, ...) {
   cat(format(x))
 }
 
+
+
+#' @export
+#' @rdname trending_model
+#' @aliases format.trending_model_fit
+format.trending_model_fit <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  tmp <- append("Fitted trending model:\n", utils::capture.output(x$model))
+  paste(tmp,  collapse = "\n")
+}
+
+
+
+#' @export
+#' @rdname trending_model
+#' @aliases print.trending_model_fit
+print.trending_model_fit <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  cat(format(x))
+}
 
 # ------------------------------------------------------------------------- #
 # ----------------------------- INTERNALS --------------------------------- #

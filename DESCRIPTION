@@ -39,7 +39,8 @@ Imports:
     rlang,
     rsample,
     yardstick,
-    tidyr
+    tidyr,
+    utils
 Suggests: 
     testthat,
     MASS,
