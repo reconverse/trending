@@ -70,8 +70,8 @@ evaluate_resampling <- function(model,
   training_split <- rsample::vfold_cv(data, v = v, repeats = repeats)
   metrics <- do.call(yardstick::metric_set, metrics)
   res <- lapply(training_split$splits, function(split) {
-    fit <- model$fit(rsample::analysis(split))
-    validation <- fit$predict(rsample::assessment(split))
+    fit <- fit(model, rsample::analysis(split))
+    validation <- predict(fit, rsample::assessment(split))
     # TODO: always sort by time component
     metrics(validation, .data$observed, .data$pred)
   })
