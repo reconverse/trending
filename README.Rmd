@@ -67,21 +67,32 @@ library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 # load data
 data(nhs_pathways_covid19)
 
-# select last 6 weeks of data
-first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
-pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
+# define a model
+model = glm_nb_model(count ~ day + weekday)
 
-# define a linear model
-model = lm_model(count ~ day + weekday)
+# select last 6 weeks of data and group
+first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 8*7
+pathways_recent <- 
+  nhs_pathways_covid19 %>% 
+  filter(date >= first_date) %>% 
+  group_by(date, day, weekday) %>% 
+  summarise(count = sum(count), .groups = "drop")
 
 # split data for fitting and prediction
-dat <- group_split(pathways_recent, date <= first_date + 5*7)
-fitting_data <- dat[[1]]
-pred_data <- dat[[2]]
+dat <- 
+  pathways_recent %>%
+  group_by(date <= first_date + 6*7) %>% 
+  group_split()
+
+fitting_data <- dat[[2]]
+pred_data <- select(dat[[1]], date, day , weekday)
 
 fitted_model <- fit(model, fitting_data)
 pred <- predict(fitted_model, pred_data)
 glimpse(pred)
+
+# plot
+plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
 ```
 
 ### Model selection

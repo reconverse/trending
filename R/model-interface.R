@@ -222,7 +222,9 @@ model_fit <- function(model, formula) {
         )
       )
       col_name <- as.character(formula[[2]])
-      append_observed_column(res, res[[col_name]])
+      res <- append_observed_column(res, res[[col_name]])
+      class(res) <- c("trending_model_prediction", class(res))
+      res
     }
   )
   class(out) <- c("trending_model_fit", class(out))

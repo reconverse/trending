@@ -52,45 +52,55 @@ interface on which other packages can be developed
 ``` r
 library(trendbreaker)  # for data
 library(trending)      # for trends
+#> 
+#> Attaching package: 'trending'
+#> The following objects are masked from 'package:trendbreaker':
+#> 
+#>     brms_model, evaluate_aic, evaluate_models, evaluate_resampling,
+#>     get_family, get_formula, get_model, get_response, glm_model,
+#>     glm_nb_model, lm_model, select_model
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
 data(nhs_pathways_covid19)
 
-# select last 6 weeks of data
-first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 6*7
-pathways_recent <- filter(nhs_pathways_covid19, date >= first_date)
+# define a model
+model = glm_nb_model(count ~ day + weekday)
 
-# define a linear model
-model = lm_model(count ~ day + weekday)
+# select last 6 weeks of data and group
+first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 8*7
+pathways_recent <- 
+  nhs_pathways_covid19 %>% 
+  filter(date >= first_date) %>% 
+  group_by(date, day, weekday) %>% 
+  summarise(count = sum(count), .groups = "drop")
 
 # split data for fitting and prediction
-dat <- group_split(pathways_recent, date <= first_date + 5*7)
-fitting_data <- dat[[1]]
-pred_data <- dat[[2]]
+dat <- 
+  pathways_recent %>%
+  group_by(date <= first_date + 6*7) %>% 
+  group_split()
+
+fitting_data <- dat[[2]]
+pred_data <- select(dat[[1]], date, day , weekday)
 
 fitted_model <- fit(model, fitting_data)
 pred <- predict(fitted_model, pred_data)
 glimpse(pred)
-#> Rows: 54,802
-#> Columns: 16
-#> $ site_type                    <chr> "111", "111", "111", "111", "111", "111"…
-#> $ date                         <date> 2020-04-16, 2020-04-16, 2020-04-16, 202…
-#> $ sex                          <chr> "female", "female", "female", "female", …
-#> $ age                          <chr> "0-18", "0-18", "0-18", "0-18", "0-18", …
-#> $ ccg_code                     <chr> "e38000007", "e38000044", "e38000074", "…
-#> $ ccg_name                     <chr> "nhs_basildon_and_brentwood_ccg", "nhs_d…
-#> $ count                        <int> 3, 3, 6, 1, 6, 2, 8, 2, 1, 9, 3, 3, 13, …
-#> $ postcode                     <chr> "ss143hg", "dn45hz", "ha13aw", "tw33eb",…
-#> $ nhs_region                   <chr> "East of England", "North East and Yorks…
-#> $ day                          <int> 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, …
-#> $ weekday                      <fct> rest_of_week, rest_of_week, rest_of_week…
-#> $ `date <= first_date + 5 * 7` <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…
-#> $ pred                         <dbl> 8.497642, 8.497642, 8.497642, 8.497642, …
-#> $ lower                        <dbl> -13.18078, -13.18078, -13.18078, -13.180…
-#> $ upper                        <dbl> 30.17606, 30.17606, 30.17606, 30.17606, …
-#> $ observed                     <int> 3, 3, 6, 1, 6, 2, 8, 2, 1, 9, 3, 3, 13, …
+#> Rows: 14
+#> Columns: 6
+#> $ date    <date> 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19, …
+#> $ day     <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
+#> $ weekday <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest_of…
+#> $ pred    <dbl> 12682.369, 10624.994, 10261.995, 13839.651, 11036.030, 10658.…
+#> $ lower   <dbl> 9027, 7562, 7303, 9852, 7855, 7586, 7327, 7076, 5927, 5725, 7…
+#> $ upper   <dbl> 16948, 14200, 13715, 18494, 14749, 14245, 13759, 13289, 11134…
+
+# plot
+plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
 ```
+
+<img src="man/figures/README-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 ### Model selection
 
@@ -136,7 +146,7 @@ auto_select$leaderboard
 #> # A tibble: 5 x 4
 #>   model          huber_loss   mae  rmse
 #>   <chr>               <dbl> <dbl> <dbl>
-#> 1 brms_complex         18.6  19.1  19.1
+#> 1 brms_complex         18.0  18.5  18.5
 #> 2 glm_poisson          21.2  21.7  21.7
 #> 3 negbin_complex       22.8  23.3  23.3
 #> 4 lm_complex           26.2  26.7  26.7

@@ -31,15 +31,15 @@ test_that("glm_nb_model", {
   expect_identical(names(pred), nms)
 })
 
-test_that("brms", {
-  skip_on_cran()
-  model <- brms_model(hp ~ cyl, family = brms::negbinomial())
-  suppressWarnings(fit <- fit(model, mtcars))
-  suppressWarnings(pred <- predict(fit, mtcars))
-  nms <- c(names(mtcars), "pred", "lower", "upper", "observed")
-
-  expect_true(inherits(fit$model, "brmsfit"))
-  expect_true(inherits(fit, "trending_model_fit"))
-  expect_identical(names(pred), nms)
-})
+# test_that("brms", {
+#   skip_on_cran()
+#   model <- brms_model(hp ~ cyl, family = brms::negbinomial())
+#   suppressWarnings(fit <- fit(model, mtcars))
+#   suppressWarnings(pred <- predict(fit, mtcars))
+#   nms <- c(names(mtcars), "pred", "lower", "upper", "observed")
+#
+#   expect_true(inherits(fit$model, "brmsfit"))
+#   expect_true(inherits(fit, "trending_model_fit"))
+#   expect_identical(names(pred), nms)
+# })
 
