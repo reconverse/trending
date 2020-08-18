@@ -30,7 +30,7 @@ get_model.trending_model_fit <- function(x, ...) {
 #' @export
 #' @rdname trending_model_fit-accessors
 #' @aliases predict.trending_model_fit
-#' @param object an `trending_model_fit` object
+#' @param object a `trending_model_fit` object
 #' @param new_data a `data.frame` containing data for which predictions are to be
 #'   derived
 #' @param alpha the alpha threshold to be used for prediction intervals,

@@ -223,7 +223,7 @@ add_prediction_interval.brmsfit <- function(model, data, alpha) {
 
 
 add_confidence_interval.brmsfit <- function(model, data, alpha) {
-  fit <- fitted(model, data, probs = c(alpha/2, 1 - alpha/2))
+  fit <- stats::fitted(model, data, probs = c(alpha/2, 1 - alpha/2))
   colnames(fit)[3:4] <- c("lower-ci", "upper-ci")
   cbind(data, fit)
 }

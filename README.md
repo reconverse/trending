@@ -158,7 +158,7 @@ auto_select$leaderboard
 #> # A tibble: 5 x 4
 #>   model          huber_loss   mae  rmse
 #>   <chr>               <dbl> <dbl> <dbl>
-#> 1 brms_complex         17.8  18.3  18.3
+#> 1 brms_complex         18.1  18.6  18.6
 #> 2 glm_poisson          21.2  21.7  21.7
 #> 3 negbin_complex       22.8  23.3  23.3
 #> 4 lm_complex           26.2  26.7  26.7

@@ -20,7 +20,7 @@ get_family(x, ...)
 
 fit(x, data, ...)
 
-confidence(x, data, ...)
+confidence(object, new_data, ...)
 }
 \arguments{
 \item{x}{the object to access information from}
@@ -28,6 +28,10 @@ confidence(x, data, ...)
 \item{...}{further arguments used in methods}
 
 \item{data}{a \code{data.frame} to be used for fitting the model.}
+
+\item{object}{a \code{trending_model_fit} object}
+
+\item{new_data}{a \code{data.frame} to be to apply a fitted model to.}
 }
 \description{
 These are generic functions used by the \emph{trending} package, mostly used for

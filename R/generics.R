@@ -11,6 +11,8 @@
 #' @param x the object to access information from
 #' @param ... further arguments used in methods
 #' @param data a `data.frame` to be used for fitting the model.
+#' @param object a `trending_model_fit` object
+#' @param new_data a `data.frame` to be to apply a fitted model to.
 #'
 #' @rdname trending-generics
 #' @aliases trending-generics
@@ -48,6 +50,6 @@ fit <- function(x, data, ...) {
 
 #' @export
 #' @rdname trending-generics
-confidence <- function(x, data, ...) {
-  UseMethod("confidence", x)
+confidence <- function(object, new_data, ...) {
+  UseMethod("confidence", object)
 }
