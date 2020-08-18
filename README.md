@@ -52,13 +52,6 @@ interface on which other packages can be developed
 ``` r
 library(trendbreaker)  # for data
 library(trending)      # for trends
-#> 
-#> Attaching package: 'trending'
-#> The following objects are masked from 'package:trendbreaker':
-#> 
-#>     brms_model, evaluate_aic, evaluate_models, evaluate_resampling,
-#>     get_family, get_formula, get_model, get_response, glm_model,
-#>     glm_nb_model, lm_model, select_model
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
@@ -85,22 +78,41 @@ fitting_data <- dat[[2]]
 pred_data <- select(dat[[1]], date, day , weekday)
 
 fitted_model <- fit(model, fitting_data)
+
+# prediction intervals
 pred <- predict(fitted_model, pred_data)
 glimpse(pred)
 #> Rows: 14
 #> Columns: 6
-#> $ date    <date> 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19, …
-#> $ day     <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
-#> $ weekday <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest_of…
-#> $ pred    <dbl> 12682.369, 10624.994, 10261.995, 13839.651, 11036.030, 10658.…
-#> $ lower   <dbl> 9027, 7562, 7303, 9852, 7855, 7586, 7327, 7076, 5927, 5725, 7…
-#> $ upper   <dbl> 16948, 14200, 13715, 18494, 14749, 14245, 13759, 13289, 11134…
-
-# plot
+#> $ date       <date> 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-1…
+#> $ day        <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
+#> $ weekday    <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest…
+#> $ pred       <dbl> 12682.369, 10624.994, 10261.995, 13839.651, 11036.030, 106…
+#> $ `lower-pi` <dbl> 9027, 7562, 7303, 9852, 7855, 7586, 7327, 7076, 5927, 5725…
+#> $ `upper-pi` <dbl> 16948, 14200, 13715, 18494, 14749, 14245, 13759, 13289, 11…
 plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
 ```
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+
+``` r
+
+# prediction intervals
+conf <- confidence(fitted_model, pred_data)
+glimpse(conf)
+#> Rows: 14
+#> Columns: 6
+#> $ date       <date> 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-1…
+#> $ day        <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
+#> $ weekday    <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest…
+#> $ pred       <dbl> 12682.369, 10624.994, 10261.995, 13839.651, 11036.030, 106…
+#> $ `lower-ci` <dbl> 11389.656, 9298.919, 8955.498, 11748.777, 9782.324, 9416.3…
+#> $ `upper-ci` <dbl> 14121.804, 12140.175, 11759.094, 16302.627, 12450.410, 120…
+plot(conf, date_axis = "date", y = "pred",
+     fitted_data = fitting_data, fitted_y = "count")
+```
+
+<img src="man/figures/README-unnamed-chunk-1-2.png" style="display: block; margin: auto;" />
 
 ### Model selection
 
@@ -146,7 +158,7 @@ auto_select$leaderboard
 #> # A tibble: 5 x 4
 #>   model          huber_loss   mae  rmse
 #>   <chr>               <dbl> <dbl> <dbl>
-#> 1 brms_complex         18.0  18.5  18.5
+#> 1 brms_complex         17.8  18.3  18.3
 #> 2 glm_poisson          21.2  21.7  21.7
 #> 3 negbin_complex       22.8  23.3  23.3
 #> 4 lm_complex           26.2  26.7  26.7

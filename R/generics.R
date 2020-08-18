@@ -45,3 +45,9 @@ get_family <- function(x, ...) {
 fit <- function(x, data, ...) {
   UseMethod("fit", x)
 }
+
+#' @export
+#' @rdname trending-generics
+confidence <- function(x, data, ...) {
+  UseMethod("confidence", x)
+}

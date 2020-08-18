@@ -7,9 +7,9 @@
 \method{plot}{trending_model_prediction}(
   x,
   date_axis,
-  predicted_y = "pred",
-  lower_y = "lower",
-  upper_y = "upper",
+  y = "pred",
+  lower = "lower-pi",
+  upper = "upper-pi",
   fitted_data = NULL,
   fitted_y = NULL,
   ...
@@ -20,11 +20,11 @@
 
 \item{date_axis}{Variable in x representing the date axis.}
 
-\item{predicted_y}{Variable in x representing the predicted counts.}
+\item{y}{Variable in x representing the counts (predicted or estimated)}
 
-\item{lower_y}{Variable in x representing the lower prediction interval.}
+\item{lower}{Variable in x representing the lower (pi/ci) interval.}
 
-\item{upper_y}{Variable in x representing the upper prediction interval.}
+\item{upper}{Variable in x representing the upper (pi/ci) interval.}
 
 \item{fitted_data}{The data used to fit the plot (optional).}
 

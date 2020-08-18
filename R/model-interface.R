@@ -105,7 +105,7 @@ brms_model <- function(formula, family, ...) {
       model_class = "brms",
       fit = function(data) {
         model <- brms::brm(formula = .(formula), data = data, family = .(family), ...)
-        model_fit(model, .(formula))
+        model_fit(model, formula)
       }
     ))),
     class = c("trending_glm", "trending_model")
@@ -161,6 +161,9 @@ add_prediction_interval <- function(model, data, alpha) {
   UseMethod("add_prediction_interval")
 }
 
+add_confidence_interval <- function(model, data, alpha) {
+  UseMethod("add_confidence_interval")
+}
 
 add_prediction_interval.default <- function(model, data, alpha) {
   suppressWarnings(
@@ -168,8 +171,19 @@ add_prediction_interval.default <- function(model, data, alpha) {
       tb = data,
       fit = model,
       alpha = alpha,
-      names = c("lower", "upper")
+      names = c("lower-pi", "upper-pi")
     )
+  )
+}
+
+add_confidence_interval.default <- function(model, data, alpha) {
+  suppressWarnings(
+  ciTools::add_ci(
+    tb = data,
+    fit = model,
+    alpha = alpha,
+    names = c("lower-ci", "upper-ci")
+  )
   )
 }
 
@@ -183,8 +197,8 @@ add_prediction_interval.negbin <- function(model, data, alpha) {
     data,
     tibble::tibble(
       pred = mu,
-      lower = stats::qnbinom(alpha / 2, mu = mu, size = theta),
-      upper = stats::qnbinom(1 - alpha / 2, mu = mu, size = theta),
+      `lower-pi` = stats::qnbinom(alpha / 2, mu = mu, size = theta),
+      `upper-pi` = stats::qnbinom(1 - alpha / 2, mu = mu, size = theta),
     )
   )
 }
@@ -201,10 +215,17 @@ add_prediction_interval.brmsfit <- function(model, data, alpha) {
     data,
     tibble::tibble(
       pred = fit[, 1],
-      lower = interval[, 1],
-      upper = interval[, 2]
+      `lower-pi` = interval[, 1],
+      `upper-pi` = interval[, 2]
     )
   )
+}
+
+
+add_confidence_interval.brmsfit <- function(model, data, alpha) {
+  fit <- fitted(model, data, probs = c(alpha/2, 1 - alpha/2))
+  colnames(fit)[3:4] <- c("lower-ci", "upper-ci")
+  cbind(data, fit)
 }
 
 
@@ -212,20 +233,35 @@ model_fit <- function(model, formula) {
   out <- list(
     model = model,
     predict = function(newdata, alpha = 0.05) {
-      suppressWarnings(
-        suppressMessages(
+      #suppressWarnings(
+      #  suppressMessages(
           res <- add_prediction_interval(
             data = newdata,
             model = model,
             alpha = alpha
           )
-        )
-      )
+      #  )
+      #)
       col_name <- as.character(formula[[2]])
       res <- append_observed_column(res, res[[col_name]])
       class(res) <- c("trending_model_prediction", class(res))
       res
+    },
+    confidence = function(newdata, alpha = 0.05) {
+      #suppressWarnings(
+      #  suppressMessages(
+      res <- add_confidence_interval(
+        data = newdata,
+        model = model,
+        alpha = alpha
+      )
+      res
+      class(res) <- c("trending_model_confidence", class(res))
+      res
+      #  )
+      #)
     }
+
   )
   class(out) <- c("trending_model_fit", class(out))
   out

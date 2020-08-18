@@ -7,6 +7,7 @@
 \alias{get_response}
 \alias{get_family}
 \alias{fit}
+\alias{confidence}
 \title{S3 generics for trending}
 \usage{
 get_model(x, ...)
@@ -18,6 +19,8 @@ get_response(x, ...)
 get_family(x, ...)
 
 fit(x, data, ...)
+
+confidence(x, data, ...)
 }
 \arguments{
 \item{x}{the object to access information from}
