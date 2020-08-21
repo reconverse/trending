@@ -7,6 +7,6 @@
 ## usethis namespace: end
 NULL
 
-#' @importFrom stats predict glm lm
+#' @importFrom stats predict glm lm family qbinom qgamma qnbinom qnorm qpois qt
 #' @importFrom rlang syms .data
 NULL

@@ -89,16 +89,10 @@ pred_data <- select(dat[[1]], date, day , weekday)
 
 fitted_model <- fit(model, fitting_data)
 
-# prediction intervals
+# confidence and prediction intervals
 pred <- predict(fitted_model, pred_data)
 glimpse(pred)
 plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
-
-# prediction intervals
-conf <- confidence(fitted_model, pred_data)
-glimpse(conf)
-plot(conf, date_axis = "date", y = "pred",
-     fitted_data = fitting_data, fitted_y = "count")
 
 ```
 

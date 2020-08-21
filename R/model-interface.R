@@ -157,109 +157,103 @@ print.trending_model_fit <- function(x, ...) {
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
 
-add_prediction_interval <- function(model, data, alpha) {
-  UseMethod("add_prediction_interval")
-}
-
-add_confidence_interval <- function(model, data, alpha) {
-  UseMethod("add_confidence_interval")
-}
-
-add_prediction_interval.default <- function(model, data, alpha) {
-  suppressWarnings(
-    ciTools::add_pi(
-      tb = data,
-      fit = model,
-      alpha = alpha,
-      names = c("lower-pi", "upper-pi")
-    )
-  )
-}
-
-add_confidence_interval.default <- function(model, data, alpha) {
-  suppressWarnings(
-  ciTools::add_ci(
-    tb = data,
-    fit = model,
-    alpha = alpha,
-    names = c("lower-ci", "upper-ci")
-  )
-  )
+add_intervals <- function(model, data, alpha) {
+  UseMethod("add_intervals")
 }
 
 
-add_prediction_interval.negbin <- function(model, data, alpha) {
-  mu <- predict(model, newdata = data, type = "response")
-  theta <- model$theta
-  stopifnot(theta > 0)
-  # this ignores the uncertainty around mu and theta
-  dplyr::bind_cols(
-    data,
-    tibble::tibble(
-      pred = mu,
-      `lower-pi` = stats::qnbinom(alpha / 2, mu = mu, size = theta),
-      `upper-pi` = stats::qnbinom(1 - alpha / 2, mu = mu, size = theta),
-    )
-  )
+add_intervals.default <- function(model, data, alpha) {
+  stop("Cannot add intervals for this model type")
+}
+
+add_intervals.lm <- function(model, data, alpha) {
+  ci <- predict(model, data, interval = "confidence")
+  pi <- predict(model, data, interval = "prediction")
+  intervals <- cbind(as.data.frame(ci), as.data.frame(pi)[,-1])
+  colnames(intervals) <- c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi")
+  cbind(data, intervals)
+}
+
+add_intervals.glm <- function(model, data, alpha = 0.05) {
+
+  # confidence intervals
+  ilink <- family(model)$linkinv
+  pred <- as.data.frame(predict(model, data, type = "link", se.fit = TRUE))
+  data$pred <- ilink(pred$fit)
+  data$`lower-ci` <- ilink(pred$fit + qnorm(alpha / 2) * pred$se.fit)
+  data$`upper-ci` <- ilink(pred$fit + qnorm(1 - alpha / 2) * pred$se.fit)
+
+
+  # prediction intervals
+  overdispersion <- summary(model)$dispersion
+  fam <- family(model)$family
+  if (fam == "poisson") {
+    data$`lower-pi` <- qpois(alpha / 2, lambda = data$`lower-ci`)
+    data$`upper-pi` <- qpois(1 - alpha / 2, lambda = data$`upper-ci`)
+  } else if (fam == "quasipoisson") {
+    data$`lower-pi` <- qnbinom(alpha / 2, mu = data$`lower-ci`, size = data$`lower-ci` / (overdispersion - 1))
+    data$`upper-pi` <- qnbinom(1 - alpha / 2, mu = data$`upper-ci`, size = data$`upper-ci` / (overdispersion - 1))
+  } else if (fam == "gamma") {
+    data$`lower-pi` <- qgamma(alpha / 2, shape = 1 / overdispersion, rate = 1 / (data$`lower-ci` * overdispersion))
+    data$`upper-pi` <- qgamma(1 - alpha / 2, shape = 1 / overdispersion, rate = 1 / (data$`upper-ci` * overdispersion))
+  } else if (fam == "binomial") {
+    data$`lower-pi` <- qbinom(alpha / 2, size = model$prior.weights, prob = data$`lower-ci` / model$prior.weights)
+    data$`upper-pi` <- qbinom(1 - alpha / 2, size = model$prior.weights, prob = data$`upper-ci` / model$prior.weights)
+  } else if (fam == "gaussian") {
+    sigma_sq <- overdispersion
+    se_terms <- pred$se.fit
+    t_quant <- qt(p = alpha / 2, df = model$df.residual, lower.tail = FALSE)
+    se_global <- sqrt(sigma_sq + se_terms^2)
+    data$`lower-pi` <- data$fitted - t_quant * se_global
+    data$`upper-pi` <- data$fitted + t_quant * se_global
+  } else if (grepl("Negative Binomial", fam)) {
+    theta <- model$theta
+    setheta <- model$SE.theta
+    data$`lower-pi` = qnbinom(alpha / 2, mu = data$`lower-ci`, size = theta + qnorm(alpha / 2) * setheta)
+    data$`upper-pi` = qnbinom(1 - alpha / 2, mu = data$`upper-ci`, size = theta + qnorm(alpha / 2) * setheta)
+  } else {
+    stop("Unsupported glm family type")
+  }
+  data
 }
 
 
-add_prediction_interval.brmsfit <- function(model, data, alpha) {
+add_intervals.brmsfit <- function(model, data, alpha) {
   fit <- predict(model, data)
   interval <- brms::predictive_interval(
     model,
     newdata = data,
     prob = 1 - alpha
   )
-  dplyr::bind_cols(
+  dat <- dplyr::bind_cols(
     data,
     tibble::tibble(
+
       pred = fit[, 1],
       `lower-pi` = interval[, 1],
       `upper-pi` = interval[, 2]
     )
   )
-}
 
-
-add_confidence_interval.brmsfit <- function(model, data, alpha) {
   fit <- stats::fitted(model, data, probs = c(alpha/2, 1 - alpha/2))
   colnames(fit)[3:4] <- c("lower-ci", "upper-ci")
-  cbind(data, fit)
-}
+  cbind(dat, fit)
 
+}
 
 model_fit <- function(model, formula) {
   out <- list(
     model = model,
     predict = function(newdata, alpha = 0.05) {
-      #suppressWarnings(
-      #  suppressMessages(
-          res <- add_prediction_interval(
+          res <- add_intervals(
             data = newdata,
             model = model,
             alpha = alpha
           )
-      #  )
-      #)
       col_name <- as.character(formula[[2]])
       res <- append_observed_column(res, res[[col_name]])
       class(res) <- c("trending_model_prediction", class(res))
       res
-    },
-    confidence = function(newdata, alpha = 0.05) {
-      #suppressWarnings(
-      #  suppressMessages(
-      res <- add_confidence_interval(
-        data = newdata,
-        model = model,
-        alpha = alpha
-      )
-      res
-      class(res) <- c("trending_model_confidence", class(res))
-      res
-      #  )
-      #)
     }
 
   )

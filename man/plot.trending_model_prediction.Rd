@@ -8,8 +8,10 @@
   x,
   date_axis,
   y = "pred",
-  lower = "lower-pi",
-  upper = "upper-pi",
+  lower_ci = "lower-ci",
+  upper_ci = "upper-ci",
+  lower_pi = "lower-pi",
+  upper_pi = "upper-pi",
   fitted_data = NULL,
   fitted_y = NULL,
   ...
@@ -20,11 +22,15 @@
 
 \item{date_axis}{Variable in x representing the date axis.}
 
-\item{y}{Variable in x representing the counts (predicted or estimated)}
+\item{y}{Variable in x representing the counts (predicted or estimated).}
 
-\item{lower}{Variable in x representing the lower (pi/ci) interval.}
+\item{lower_ci}{Variable in x representing the lower confidence interval.}
 
-\item{upper}{Variable in x representing the upper (pi/ci) interval.}
+\item{upper_ci}{Variable in x representing the upper confidence interval.}
+
+\item{lower_pi}{Variable in x representing the lower prediction interval.}
+
+\item{upper_pi}{Variable in x representing the upper prediction interval.}
 
 \item{fitted_data}{The data used to fit the plot (optional).}
 

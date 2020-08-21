@@ -5,14 +5,11 @@
 \alias{trending_model_fit-accessors}
 \alias{trending_model_fit-class}
 \alias{predict.trending_model_fit}
-\alias{confidence.trending_model_fit}
 \title{Accessors for trending_model_fit objects}
 \usage{
 \method{get_model}{trending_model_fit}(x, ...)
 
 \method{predict}{trending_model_fit}(object, new_data, alpha = 0.05, ...)
-
-\method{confidence}{trending_model_fit}(object, new_data, alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model} or
@@ -20,13 +17,13 @@
 
 \item{...}{Not currently used}
 
-\item{object}{an \code{trending_model_fit} object}
+\item{object}{a \code{trending_model_fit} object}
 
 \item{new_data}{a \code{data.frame} containing data for which predictions are to be
 derived}
 
-\item{alpha}{the alpha threshold to be used for confidence intervals,
-defaulting to 0.05, i.e. 95\% confidence intervals are derived}
+\item{alpha}{the alpha threshold to be used for prediction intervals,
+defaulting to 0.05, i.e. 95\% prediction intervals are derived}
 }
 \description{
 These functions can be used to access information stored in

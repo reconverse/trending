@@ -40,18 +40,5 @@ predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
   object$predict(newdata = new_data, alpha = alpha)
 }
 
-#' @export
-#' @rdname trending_model_fit-accessors
-#' @aliases confidence.trending_model_fit
-#' @param object an `trending_model_fit` object
-#' @param new_data a `data.frame` containing data for which predictions are to be
-#'   derived
-#' @param alpha the alpha threshold to be used for confidence intervals,
-#'   defaulting to 0.05, i.e. 95% confidence intervals are derived
-confidence.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
-  ellipsis::check_dots_empty()
-  object$confidence(newdata = new_data, alpha = alpha)
-}
-
 
 
