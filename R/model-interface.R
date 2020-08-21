@@ -171,7 +171,7 @@ add_intervals.lm <- function(model, data, alpha) {
   pi <- predict(model, data, interval = "prediction")
   intervals <- cbind(as.data.frame(ci), as.data.frame(pi)[,-1])
   colnames(intervals) <- c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi")
-  cbind(data, intervals)
+  dplyr::bind_cols(data, intervals)
 }
 
 add_intervals.glm <- function(model, data, alpha = 0.05) {
