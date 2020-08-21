@@ -167,8 +167,8 @@ add_intervals.default <- function(model, data, alpha) {
 }
 
 add_intervals.lm <- function(model, data, alpha) {
-  ci <- predict(model, data, interval = "confidence")
-  pi <- predict(model, data, interval = "prediction")
+  ci <- predict(model, data, interval = "confidence", level = 1 - alpha)
+  pi <- predict(model, data, interval = "prediction", level = 1 - alpha)
   intervals <- cbind(as.data.frame(ci), as.data.frame(pi)[,-1])
   colnames(intervals) <- c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi")
   dplyr::bind_cols(data, intervals)
@@ -206,13 +206,22 @@ add_intervals.glm <- function(model, data, alpha = 0.05) {
     se_global <- sqrt(sigma_sq + se_terms^2)
     data$`lower-pi` <- data$fitted - t_quant * se_global
     data$`upper-pi` <- data$fitted + t_quant * se_global
-  } else if (grepl("Negative Binomial", fam)) {
+  } else if (inherits(model, "negbin")) {
     theta <- model$theta
     setheta <- model$SE.theta
     data$`lower-pi` = qnbinom(alpha / 2, mu = data$`lower-ci`, size = theta + qnorm(alpha / 2) * setheta)
-    data$`upper-pi` = qnbinom(1 - alpha / 2, mu = data$`upper-ci`, size = theta + qnorm(alpha / 2) * setheta)
+    data$`upper-pi` <- qnbinom(1 - alpha / 2, mu = data$`upper-ci`, size = theta + qnorm(alpha / 2) * setheta)
   } else {
     stop("Unsupported glm family type")
+  }
+
+  # corrections for extremes
+  if (isTRUE(all.equal(alpha, 0))) {
+    data$`lower-pi` <- ifelse(is.infinite(data$`lower-ci`), -Inf, data$`lower-pi`)
+    data$`upper-pi` <- ifelse(is.infinite(data$`upper-ci`), Inf, data$`upper-pi`)
+    if (inherits(model, "negbin")) {
+      data$`lower-pi` <- ifelse(is.nan(data$`lower-pi`), 0, data$`lower-pi`)
+    }
   }
   data
 }
@@ -266,3 +275,5 @@ append_observed_column <- function(data, value) {
   data[["observed"]] <- value
   data
 }
+
+
