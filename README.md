@@ -51,7 +51,7 @@ interface on which other packages can be developed
 
 ``` r
 library(trendbreaker)  # for data
-library(trending)      # for trends
+library(trending)      # for trend fitting
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data

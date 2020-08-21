@@ -61,7 +61,7 @@ packages can be developed
 ### An individual model 
 ```{r, warning=FALSE}
 library(trendbreaker)  # for data
-library(trending)      # for trends
+library(trending)      # for trend fitting
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
