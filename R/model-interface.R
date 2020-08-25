@@ -254,11 +254,12 @@ model_fit <- function(model, formula) {
   out <- list(
     model = model,
     predict = function(newdata, alpha = 0.05) {
-          res <- add_intervals(
-            data = newdata,
-            model = model,
-            alpha = alpha
-          )
+      suppressMessages(
+        res <- add_intervals(
+          data = newdata,
+          model = model,
+          alpha = alpha)
+      )
       col_name <- as.character(formula[[2]])
       res <- append_observed_column(res, res[[col_name]])
       class(res) <- c("trending_model_prediction", class(res))
