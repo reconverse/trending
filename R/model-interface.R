@@ -247,7 +247,7 @@ add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
       data$`lower-pi` <- ifelse(is.nan(data$`lower-pi`), 0, data$`lower-pi`)
     }
   }
-  data
+  tibble::as_tibble(data)
 }
 
 
