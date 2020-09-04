@@ -198,8 +198,6 @@ add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
   data$`lower-ci` <- lower
   data$`upper-ci` <- upper
 
-
-
   # prediction intervals
   fam <- family(model)$family
   if (uncertain) {
@@ -278,6 +276,9 @@ model_fit <- function(model, formula) {
   out <- list(
     model = model,
     predict = function(newdata, alpha = 0.05) {
+      if (missing(newdata)) {
+        newdata <- model$model
+      }
       suppressMessages(
         res <- add_intervals(
           data = newdata,
