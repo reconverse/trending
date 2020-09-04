@@ -58,7 +58,6 @@
 #'   predictive power) or `evaluate_aic` (faster, focuses on goodness-of-fit
 #'   rather than predictive power)
 #'
-#'
 #' @export
 #' @rdname evaluate_models
 #' @aliases evaluate_resampling
@@ -85,7 +84,6 @@ evaluate_resampling <- function(model,
 }
 
 
-
 #' @export
 #' @rdname evaluate_models
 #' @aliases evaluate_aic
@@ -99,15 +97,11 @@ evaluate_aic <- function(model, data, ...) {
 }
 
 
-
 #' @export
 #' @rdname evaluate_models
 #' @aliases evaluate_models
 evaluate_models <- function(data, models, method = evaluate_resampling, ...) {
   ellipsis::check_dots_used()
-  # dplyr::bind_rows(out, .id = "model")
-  # data <- dplyr::select(data, ..., everything())
-  # TODO: think about one metric per col
   out <- lapply(models, function(model) method(model, data, ...))
   out <- dplyr::bind_rows(out, .id = "model")
   tidyr::pivot_wider(

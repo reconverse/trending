@@ -66,4 +66,14 @@ fit.trending_model <- function(x, data, ...) {
 }
 
 
-
+#' @export
+#' @rdname trending_model-accessors
+#' @aliases fit.list
+fit.list <- function(x, data, ...) {
+  if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
+    stop("list entrys should be `trending_model` objects")
+  }
+  res <- lapply(x, fit, data)
+  class(res) <- c("trending_model_fit_list", class(res))
+  res
+}

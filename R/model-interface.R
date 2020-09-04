@@ -94,7 +94,6 @@ lm_model <- function(formula, ...) {
 }
 
 
-
 #' @export
 #' @rdname trending_model
 #' @aliases brms_model
@@ -113,7 +112,6 @@ brms_model <- function(formula, family, ...) {
 }
 
 
-
 #' @export
 #' @rdname trending_model
 #' @aliases format.trending_model
@@ -121,7 +119,6 @@ format.trending_model <- function(x, ...) {
   ellipsis::check_dots_empty()
   paste0("Untrained trending model type: ", x[["model_class"]])
 }
-
 
 
 #' @export
@@ -133,7 +130,6 @@ print.trending_model <- function(x, ...) {
 }
 
 
-
 #' @export
 #' @rdname trending_model
 #' @aliases format.trending_model_fit
@@ -142,7 +138,6 @@ format.trending_model_fit <- function(x, ...) {
   tmp <- append("Fitted trending model:\n", utils::capture.output(x$model))
   paste(tmp,  collapse = "\n")
 }
-
 
 
 #' @export
@@ -166,6 +161,7 @@ add_intervals.default <- function(model, data, alpha) {
   stop("Cannot add intervals for this model type")
 }
 
+
 add_intervals.lm <- function(model, data, alpha) {
   ci <- predict(model, data, interval = "confidence", level = 1 - alpha)
   pi <- predict(model, data, interval = "prediction", level = 1 - alpha)
@@ -175,25 +171,33 @@ add_intervals.lm <- function(model, data, alpha) {
 }
 
 
+## this code uses takes a similar approach to that of add_pi_glm.R in the 
+## ciTools package but instead of simulating the uncertainty around the
+## prediction it creates a prediction interval based on the upper and lower
+## bounds of the confidence interval.
 add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
 
-  # confidence intervals (~ from ciTools)
+  # calculate fit and standard error on the link scale
   out <- predict(model, data, se.fit = TRUE, type = "link")
-  if (family(model)$family %in% c("binomial", "poisson"))
-    crit_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
-  else
-    crit_val <- qt(p = 1 - alpha/2, df = model$df.residual)
-  inverselink <- family(model)$linkinv
-  pred <- inverselink(out$fit)
-  upper <- inverselink(out$fit + crit_val *  out$se.fit)
-  lower <- inverselink(out$fit - crit_val * out$se.fit)
+  if (family(model)$family %in% c("binomial", "poisson")) {
+    critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
+  } else {
+    critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
+  }
+
+  # use the above output to generate a confidence interval
+  inverse_link <- family(model)$linkinv
+  pred <- inverse_link(out$fit)
+  upper <- inverse_link(out$fit + critical_val * out$se.fit)
+  lower <- inverse_link(out$fit - critical_val * out$se.fit)
+  # account for a decreasing link function
   if (model$family$link %in% c("inverse", "1/mu^2")) {
-    ## need to do something like this for any decreasing link
-    ## function.
     upr <- lower
     lower <- upper
     upper <- upr
   }
+
+  # add the prediction and bounds to the original data
   data$pred <- pred
   data$`lower-ci` <- lower
   data$`upper-ci` <- upper
@@ -210,7 +214,7 @@ add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
   if (inherits(model, "negbin")) {
     theta <- model$theta
     setheta <- model$SE.theta
-    data$`lower-pi` = qnbinom(alpha / 2, mu = lower, size = theta)
+    data$`lower-pi` <- qnbinom(alpha / 2, mu = lower, size = theta)
     data$`upper-pi` <- qnbinom(1 - alpha / 2, mu = upper, size = theta)
   } else if (fam == "poisson") {
     data$`lower-pi` <- qpois(alpha / 2, lambda = lower)
@@ -259,18 +263,16 @@ add_intervals.brmsfit <- function(model, data, alpha) {
   dat <- dplyr::bind_cols(
     data,
     tibble::tibble(
-
       pred = fit[, 1],
       `lower-pi` = interval[, 1],
       `upper-pi` = interval[, 2]
     )
   )
-
   fit <- stats::fitted(model, data, probs = c(alpha/2, 1 - alpha/2))
   colnames(fit)[3:4] <- c("lower-ci", "upper-ci")
   cbind(dat, fit)
-
 }
+
 
 model_fit <- function(model, formula) {
   out <- list(
@@ -301,5 +303,3 @@ append_observed_column <- function(data, value) {
   data[["observed"]] <- value
   data
 }
-
-

@@ -7,6 +7,7 @@
 \alias{get_response.trending_model}
 \alias{get_family.trending_model}
 \alias{fit.trending_model}
+\alias{fit.list}
 \title{Accessors for trending_model objects}
 \usage{
 \method{get_formula}{trending_model}(x, ...)
@@ -16,6 +17,8 @@
 \method{get_family}{trending_model}(x, ...)
 
 \method{fit}{trending_model}(x, data, ...)
+
+\method{fit}{list}(x, data, ...)
 }
 \arguments{
 \item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, or

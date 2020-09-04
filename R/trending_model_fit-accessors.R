@@ -27,12 +27,13 @@ get_model.trending_model_fit <- function(x, ...) {
   x$model
 }
 
+
 #' @export
 #' @rdname trending_model_fit-accessors
 #' @aliases predict.trending_model_fit
 #' @param object a `trending_model_fit` object
-#' @param new_data a `data.frame` containing data for which predictions are to be
-#'   derived
+#' @param new_data a `data.frame` containing data for which predictions are to
+#'   be derived
 #' @param alpha the alpha threshold to be used for prediction intervals,
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived
 predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
@@ -41,4 +42,21 @@ predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
 }
 
 
-
+#' @export
+#' @rdname trending_model_fit-accessors
+#' @aliases predict.trending_model_fit
+#' @param object a `trending_model_fit_list` object
+#' @param new_data a `data.frame` containing data for which predictions are to
+#'   be derived
+#' @param alpha the alpha threshold to be used for prediction intervals,
+#'   defaulting to 0.05, i.e. 95% prediction intervals are derived
+predict.trending_model_fit_list <- function(object, new_data, alpha = 0.05, ...) {
+  ellipsis::check_dots_empty()
+  if (missing(new_data)) {
+    res <- lapply(object, predict, alpha = alpha)
+  } else {
+    res <- lapply(object, predict, new_data, alpha = alpha)
+  }
+  class(res) <- c("trending_model_prediction_list", class(res))
+  res
+}
