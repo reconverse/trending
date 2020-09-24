@@ -36,9 +36,6 @@ Imports:
     dplyr,
     tibble,
     rlang,
-    rsample,
-    yardstick,
-    tidyr,
     utils,
     ggplot2,
     purrr
