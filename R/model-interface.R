@@ -152,20 +152,20 @@ print.trending_model_fit <- function(x, ...) {
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
 
-add_intervals <- function(model, data, alpha) {
+add_intervals <- function(model, data, alpha, ...) {
   UseMethod("add_intervals")
 }
 
 
-add_intervals.default <- function(model, data, alpha) {
+add_intervals.default <- function(model, data, alpha, ...) {
   stop("Cannot add intervals for this model type")
 }
 
 
-add_intervals.lm <- function(model, data, alpha) {
+add_intervals.lm <- function(model, data, alpha, ...) {
   ci <- predict(model, data, interval = "confidence", level = 1 - alpha)
   pi <- predict(model, data, interval = "prediction", level = 1 - alpha)
-  intervals <- cbind(as.data.frame(ci), as.data.frame(pi)[,-1])
+  intervals <- cbind(as.data.frame(ci), as.data.frame(pi)[, -1])
   colnames(intervals) <- c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi")
   dplyr::bind_cols(data, intervals)
 }
@@ -175,7 +175,7 @@ add_intervals.lm <- function(model, data, alpha) {
 ## ciTools package but instead of simulating the uncertainty around the
 ## prediction it creates a prediction interval based on the upper and lower
 ## bounds of the confidence interval.
-add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
+add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE, ...) {
 
   # calculate fit and standard error on the link scale
   out <- predict(model, data, se.fit = TRUE, type = "link")
@@ -253,7 +253,7 @@ add_intervals.glm <- function(model, data, alpha = 0.05, uncertain = TRUE) {
 }
 
 
-add_intervals.brmsfit <- function(model, data, alpha) {
+add_intervals.brmsfit <- function(model, data, alpha, ...) {
   fit <- predict(model, data)
   interval <- brms::predictive_interval(
     model,
