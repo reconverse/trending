@@ -52,10 +52,11 @@ predict.trending_model_fit <- function(object, new_data, alpha = 0.05, ...) {
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived
 predict.trending_model_fit_list <- function(object, new_data, alpha = 0.05, ...) {
   ellipsis::check_dots_empty()
+  object <- combine_safe_results(object)
   if (missing(new_data)) {
-    res <- lapply(object, predict, alpha = alpha)
+    res <- purrr::transpose(purrr::map(object, purrr::safely(predict), alpha = alpha))
   } else {
-    res <- lapply(object, predict, new_data, alpha = alpha)
+    res <- purrr::transpose(purrr::map(object, purrr::safely(predict), new_data = new_data, alpha = alpha))
   }
   class(res) <- c("trending_model_prediction_list", class(res))
   res
