@@ -7,7 +7,9 @@
 \method{plot}{trending_model_prediction}(
   x,
   date_axis,
-  y = "pred",
+  counts = "pred",
+  plot_ci = TRUE,
+  plot_pi = TRUE,
   lower_ci = "lower-ci",
   upper_ci = "upper-ci",
   lower_pi = "lower-pi",
@@ -22,7 +24,11 @@
 
 \item{date_axis}{Variable in x representing the date axis.}
 
-\item{y}{Variable in x representing the counts (predicted or estimated).}
+\item{counts}{Variable in x representing the counts (predicted or estimated).}
+
+\item{plot_ci}{Should confidence intervals be plotted (\code{TRUE}/\code{FALSE})}
+
+\item{plot_pi}{Should prediction intervals be plotted (\code{TRUE}/\code{FALSE})}
 
 \item{lower_ci}{Variable in x representing the lower confidence interval.}
 

@@ -47,6 +47,9 @@ an intuitive interface on which other packages can be developed
   and generate confidence and prediction intervals for future data using `fit()`
   and `predict()`.
 
+- **Plotting functionality** A basic plotting method for trending model
+  predictions.
+
 \* &nbsp;Requires [MASS](https://CRAN.R-project.org/package=MASS)  
 \*\* Requires [brms](https://CRAN.R-project.org/package=brms)
   
@@ -55,32 +58,33 @@ an intuitive interface on which other packages can be developed
 
 ### An individual model 
 ```{r, warning=FALSE}
-library(trendbreaker)  # for data
-library(trending)      # for trend fitting
+library(outbreaks)  # for data
+library(trending)   # for trend fitting
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
-data(nhs_pathways_covid19)
+data(covid19_england_nhscalls_2020)
 
 # define a model
-model = glm_nb_model(count ~ day + weekday)
+model  <- glm_nb_model(count ~ day + weekday)
 
-# select last 6 weeks of data and group
-first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 8*7
-pathways_recent <- 
-  nhs_pathways_covid19 %>% 
-  filter(date >= first_date) %>% 
-  group_by(date, day, weekday) %>% 
+# select 6 weeks of data (from a period when the prevalence was decreasing)
+last_date <- as.Date("2020-05-28")
+first_date <- last_date - 8*7
+pathways_recent <-
+  covid19_england_nhscalls_2020 %>%
+  filter(date >= first_date, date <= last_date) %>%
+  group_by(date, day, weekday) %>%
   summarise(count = sum(count), .groups = "drop")
 
 # split data for fitting and prediction
-dat <- 
+dat <-
   pathways_recent %>%
-  group_by(date <= first_date + 6*7) %>% 
+  group_by(date <= first_date + 6*7) %>%
   group_split()
 
 fitting_data <- dat[[2]]
-pred_data <- select(dat[[1]], date, day , weekday)
+pred_data <- select(dat[[1]], date, day, weekday)
 
 fitted_model <- fit(model, fitting_data)
 

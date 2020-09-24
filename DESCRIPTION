@@ -43,4 +43,5 @@ Suggests:
     testthat,
     MASS,
     brms,
-    covr
+    covr,
+    outbreaks

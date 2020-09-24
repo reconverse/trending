@@ -39,6 +39,9 @@ developed
     to data and generate confidence and prediction intervals for future
     data using `fit()` and `predict()`.
 
+  - **Plotting functionality** A basic plotting method for trending
+    model predictions.
+
 \*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
 \*\* Requires [brms](https://CRAN.R-project.org/package=brms)
 
@@ -47,32 +50,33 @@ developed
 ### An individual model
 
 ``` r
-library(trendbreaker)  # for data
-library(trending)      # for trend fitting
+library(outbreaks)  # for data
+library(trending)   # for trend fitting
 library(dplyr, warn.conflicts = FALSE)  # for data manipulation
 
 # load data
-data(nhs_pathways_covid19)
+data(covid19_england_nhscalls_2020)
 
 # define a model
-model = glm_nb_model(count ~ day + weekday)
+model  <- glm_nb_model(count ~ day + weekday)
 
-# select last 6 weeks of data and group
-first_date <- max(nhs_pathways_covid19$date, na.rm = TRUE) - 8*7
-pathways_recent <- 
-  nhs_pathways_covid19 %>% 
-  filter(date >= first_date) %>% 
-  group_by(date, day, weekday) %>% 
+# select 6 weeks of data (from a period when the prevalence was decreasing)
+last_date <- as.Date("2020-05-28")
+first_date <- last_date - 8*7
+pathways_recent <-
+  covid19_england_nhscalls_2020 %>%
+  filter(date >= first_date, date <= last_date) %>%
+  group_by(date, day, weekday) %>%
   summarise(count = sum(count), .groups = "drop")
 
 # split data for fitting and prediction
-dat <- 
+dat <-
   pathways_recent %>%
-  group_by(date <= first_date + 6*7) %>% 
+  group_by(date <= first_date + 6*7) %>%
   group_split()
 
 fitting_data <- dat[[2]]
-pred_data <- select(dat[[1]], date, day , weekday)
+pred_data <- select(dat[[1]], date, day, weekday)
 
 fitted_model <- fit(model, fitting_data)
 
@@ -85,10 +89,10 @@ glimpse(pred)
 #> $ day        <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
 #> $ weekday    <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest…
 #> $ pred       <dbl> 12682, 10625, 10262, 13840, 11036, 10659, 10295, 9943, 833…
-#> $ `lower-ci` <dbl> 11390, 9299, 8955, 11749, 9782, 9416, 9064, 8724, 7138, 68…
+#> $ `lower-ci` <dbl> 11390, 9299, 8956, 11749, 9782, 9416, 9064, 8724, 7138, 68…
 #> $ `upper-ci` <dbl> 14122, 12140, 11759, 16303, 12450, 12066, 11693, 11333, 97…
-#> $ `lower-pi` <dbl> 8107, 6617, 6373, 8362, 6962, 6701, 6450, 6208, 5078, 4889…
-#> $ `upper-pi` <dbl> 18871, 16224, 15715, 21784, 16638, 16124, 15627, 15145, 12…
+#> $ `lower-pi` <dbl> 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889…
+#> $ `upper-pi` <dbl> 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 12…
 plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
 ```
 
