@@ -44,4 +44,7 @@ Suggests:
     MASS,
     brms,
     covr,
-    outbreaks
+    outbreaks,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

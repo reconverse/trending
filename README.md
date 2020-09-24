@@ -45,55 +45,44 @@ developed
 \*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
 \*\* Requires [brms](https://CRAN.R-project.org/package=brms)
 
-## Example usage
+# Installing the package
 
-### An individual model
+Once it is released on [CRAN](https://CRAN.R-project.org), you will be
+able to install the stable version of the package with:
 
 ``` r
-library(outbreaks)  # for data
-library(trending)   # for trend fitting
-library(dplyr, warn.conflicts = FALSE)  # for data manipulation
-
-# load data
-data(covid19_england_nhscalls_2020)
-
-# define a model
-model  <- glm_nb_model(count ~ day + weekday)
-
-# select 6 weeks of data (from a period when the prevalence was decreasing)
-last_date <- as.Date("2020-05-28")
-first_date <- last_date - 8*7
-pathways_recent <-
-  covid19_england_nhscalls_2020 %>%
-  filter(date >= first_date, date <= last_date) %>%
-  group_by(date, day, weekday) %>%
-  summarise(count = sum(count), .groups = "drop")
-
-# split data for fitting and prediction
-dat <-
-  pathways_recent %>%
-  group_by(date <= first_date + 6*7) %>%
-  group_split()
-
-fitting_data <- dat[[2]]
-pred_data <- select(dat[[1]], date, day, weekday)
-
-fitted_model <- fit(model, fitting_data)
-
-# confidence and prediction intervals
-pred <- predict(fitted_model, pred_data)
-glimpse(pred)
-#> Rows: 14
-#> Columns: 8
-#> $ date       <date> 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-1…
-#> $ day        <int> 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71
-#> $ weekday    <fct> rest_of_week, weekend, weekend, monday, rest_of_week, rest…
-#> $ pred       <dbl> 12682, 10625, 10262, 13840, 11036, 10659, 10295, 9943, 833…
-#> $ `lower-ci` <dbl> 11390, 9299, 8956, 11749, 9782, 9416, 9064, 8724, 7138, 68…
-#> $ `upper-ci` <dbl> 14122, 12140, 11759, 16303, 12450, 12066, 11693, 11333, 97…
-#> $ `lower-pi` <dbl> 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889…
-#> $ `upper-pi` <dbl> 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 12…
-plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
+install.packages("trending")
 ```
 
-<img src="man/figures/README-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+The development version can be installed from
+[GitHub](https://github.com/) with:
+
+``` r
+if (!require(remotes)) {
+  install.packages("remotes")
+}
+remotes::install_github("reconhub/trending", build_vignettes = TRUE)
+```
+
+# Resources
+
+## Vignettes
+
+An overview of *trending* is provided in the included vignette: \*
+`vignette("Introduction", package = "trending")`
+
+## Websites
+
+The following websites are available:
+
+  - The *trending* project on *github*, useful for developers,
+    contributors, and users wanting to post issues, bug reports and
+    feature requests: <br> <https://github.com/reconhub/trending>
+
+## Getting help online
+
+Bug reports and feature requests should be posted on *github* using the
+[*issue* system](https://github.com/reconhub/incidence2/issues). All
+other questions should be posted on the **RECON** slack channel see
+<https://www.repidemicsconsortium.org/forum/> for details on how to
+join.

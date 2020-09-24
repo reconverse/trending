@@ -44,3 +44,5 @@ vignettes/*.pdf
 # pkgdown site
 docs/
 README.html
+inst/doc
+docs
