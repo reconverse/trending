@@ -71,7 +71,7 @@ lm_model_fit <- function(model, formula) {
           alpha = alpha
         )
       }
-
+      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )
@@ -121,6 +121,7 @@ glm_model_fit <- function(model, formula) {
         )
       }
 
+      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )
@@ -164,6 +165,7 @@ brms_model_fit <- function(model, formula) {
         )
       }
 
+      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )
