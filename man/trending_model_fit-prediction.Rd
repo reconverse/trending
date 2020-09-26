@@ -3,6 +3,7 @@
 \name{predict.trending_model_fit}
 \alias{predict.trending_model_fit}
 \alias{predict.trending_model_fit_glm}
+\alias{predict.trending_model_fit_list}
 \title{Predict methods}
 \usage{
 \method{predict}{trending_model_fit}(
@@ -14,6 +15,15 @@
 )
 
 \method{predict}{trending_model_fit_glm}(
+  object,
+  new_data,
+  alpha = 0.05,
+  interval = c("both", "ci", "pi", "none"),
+  uncertain = TRUE,
+  ...
+)
+
+\method{predict}{trending_model_fit_list}(
   object,
   new_data,
   alpha = 0.05,
@@ -34,6 +44,8 @@ defaulting to 0.05, i.e. 95\% prediction intervals are derived.}
 \item{interval}{Which interval to add to the data.  Can be one of \code{ci}
 (confidence interval), \code{pi} (prediction interval), \code{both} (both intervals)
 or \code{none} (no intervals added).}
+
+\item{...}{Not currently used.}
 
 \item{uncertain}{Default TRUE.  If FALSE uncertainty in the fitted paramaters
 is ignored when generating the prediction intervals.  These will lead to

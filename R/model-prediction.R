@@ -14,6 +14,7 @@
 #' @param uncertain Default TRUE.  If FALSE uncertainty in the fitted paramaters
 #'   is ignored when generating the prediction intervals.  These will lead to
 #'   narrower intervals.
+#' @param ... Not currently used.
 #'
 #' @export
 #' @rdname trending_model_fit-prediction
@@ -47,13 +48,8 @@ predict.trending_model_fit_glm <- function(object,
 
 
 #' @export
-#' @rdname trending_model_fit-accessors
-#' @aliases predict.trending_model_fit
-#' @param object a `trending_model_fit_list` object
-#' @param new_data a `data.frame` containing data for which predictions are to
-#'   be derived
-#' @param alpha the alpha threshold to be used for prediction intervals,
-#'   defaulting to 0.05, i.e. 95% prediction intervals are derived
+#' @rdname trending_model_fit-prediction
+#' @aliases predict.trending_model_fit_list
 predict.trending_model_fit_list <- function(object, 
                                             new_data,
                                             alpha = 0.05,

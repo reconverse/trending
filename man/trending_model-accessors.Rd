@@ -19,8 +19,6 @@
 brms_model}
 
 \item{...}{further arguments passed to other methods}
-
-\item{data}{a \code{data.frame} to be used to train the model#'}
 }
 \description{
 These functions can be used to access information stored in \code{trending_model}

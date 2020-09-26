@@ -40,7 +40,8 @@ Imports:
     ggplot2,
     purrr,
     yardstick,
-    rsample
+    rsample,
+    tidyr
 Suggests: 
     testthat,
     MASS,
