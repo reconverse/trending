@@ -14,9 +14,13 @@
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
 #'   brms_model
 #'
+#' @name trending_model_fit
+NULL
+
+
+#' @export
 #' @rdname trending_model_fit
 #' @aliases fit.trending_model
-#' @export
 fit.trending_model <- function(x, data, ...) {
   x$fit(data)
 }

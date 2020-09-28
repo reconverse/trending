@@ -16,6 +16,9 @@
 #'   narrower intervals.
 #' @param ... Not currently used.
 #'
+#' @name trending_model_fit-prediction
+NULL
+
 #' @export
 #' @rdname trending_model_fit-prediction
 #' @aliases predict.trending_model_fit

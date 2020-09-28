@@ -37,8 +37,11 @@
 #'
 #' @author Dirk Schumacher
 #'
-#' @aliases trending_model trending_models
-#'
+#' @aliases trending_models
+#' @name trending_model
+NULL
+
+
 #' @export
 #' @rdname trending_model
 #' @aliases glm_model
