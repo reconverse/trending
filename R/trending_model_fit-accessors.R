@@ -17,6 +17,7 @@
 #'
 #' @rdname trending_model_fit-accessors
 #' @aliases get_model.trending_model_fit
+#' @export
 get_model.trending_model_fit <- function(x, ...) {
   ellipsis::check_dots_empty()
   x$model
