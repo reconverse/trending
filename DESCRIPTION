@@ -51,3 +51,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Remotes: reconhub/outbreaks
