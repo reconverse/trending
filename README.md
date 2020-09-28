@@ -45,7 +45,7 @@ developed
 \*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
 \*\* Requires [brms](https://CRAN.R-project.org/package=brms)
 
-# Installing the package
+## Installing the package
 
 Once it is released on [CRAN](https://CRAN.R-project.org), you will be
 able to install the stable version of the package with:

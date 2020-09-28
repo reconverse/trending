@@ -12,15 +12,10 @@
 #' * `get_family()`: get the model family, indicating the type of distribution
 #'   assumed for the response variable
 #'
-#' * `fit()`: fit a model using data to obtain a
-#' [`trending_model_fit`](trending_model_fit) object
-#'
 #' @author Thibaut Jombart, Dirk Schumacher
 #'
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
 #'   brms_model
-#'
-#' @param data a `data.frame` to be used to train the model#'
 #'
 #' @param ... further arguments passed to other methods
 #'
@@ -58,22 +53,3 @@ get_family.trending_model <- function(x, ...) {
 }
 
 
-#' @export
-#' @rdname trending_model-accessors
-#' @aliases fit.trending_model
-fit.trending_model <- function(x, data, ...) {
-  x$fit(data)
-}
-
-
-#' @export
-#' @rdname trending_model-accessors
-#' @aliases fit.list
-fit.list <- function(x, data, ...) {
-  if (!all(purrr::map_lgl(x, inherits, "trending_model"))) {
-    stop("list entrys should be `trending_model` objects")
-  }
-  res <- purrr::transpose(purrr::map(x, purrr::safely(fit), data))
-  class(res) <- c("trending_model_fit_list", class(res))
-  res
-}

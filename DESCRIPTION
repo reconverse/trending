@@ -38,7 +38,10 @@ Imports:
     rlang,
     utils,
     ggplot2,
-    purrr
+    purrr,
+    yardstick,
+    rsample,
+    tidyr
 Suggests: 
     testthat,
     MASS,

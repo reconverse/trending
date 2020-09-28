@@ -2,7 +2,7 @@ test_that("lm_model", {
   model <- lm_model(hp ~ cyl)
   suppressWarnings(fit <- fit(model, mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
-  nms <- c(names(mtcars), c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi", "observed"))
+  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
   expect_true(inherits(fit$model, "lm"))
   expect_true(inherits(fit, "trending_model_fit"))
@@ -13,7 +13,7 @@ test_that("glm_model", {
   model <- glm_model(hp ~ cyl, family = poisson)
   suppressWarnings(fit <- fit(model, mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
-  nms <- c(names(mtcars), c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi", "observed"))
+  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
   expect_true(inherits(fit$model, "glm"))
   expect_true(inherits(fit, "trending_model_fit"))
@@ -24,7 +24,7 @@ test_that("glm_nb_model", {
   model <- glm_nb_model(hp ~ cyl)
   suppressWarnings(fit <- fit(model, mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
-  nms <- c(names(mtcars), c("pred", "lower-ci", "upper-ci", "lower-pi", "upper-pi", "observed"))
+  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
   expect_true(inherits(fit$model, "negbin"))
   expect_true(inherits(fit, "trending_model_fit"))

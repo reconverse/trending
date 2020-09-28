@@ -6,8 +6,6 @@
 \alias{trending_model-class}
 \alias{get_response.trending_model}
 \alias{get_family.trending_model}
-\alias{fit.trending_model}
-\alias{fit.list}
 \title{Accessors for trending_model objects}
 \usage{
 \method{get_formula}{trending_model}(x, ...)
@@ -15,18 +13,12 @@
 \method{get_response}{trending_model}(x, ...)
 
 \method{get_family}{trending_model}(x, ...)
-
-\method{fit}{trending_model}(x, data, ...)
-
-\method{fit}{list}(x, data, ...)
 }
 \arguments{
 \item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, or
 brms_model}
 
 \item{...}{further arguments passed to other methods}
-
-\item{data}{a \code{data.frame} to be used to train the model#'}
 }
 \description{
 These functions can be used to access information stored in \code{trending_model}
@@ -39,8 +31,6 @@ The following accessors are available:
 \item \code{get_response()}: get the name of the response variable
 \item \code{get_family()}: get the model family, indicating the type of distribution
 assumed for the response variable
-\item \code{fit()}: fit a model using data to obtain a
-\url{trending_model_fit} object
 }
 }
 \author{

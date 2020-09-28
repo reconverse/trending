@@ -2,31 +2,15 @@
 % Please edit documentation in R/trending_model_fit-accessors.R
 \name{get_model.trending_model_fit}
 \alias{get_model.trending_model_fit}
-\alias{trending_model_fit-accessors}
-\alias{trending_model_fit-class}
-\alias{predict.trending_model_fit}
-\alias{predict.trending_model_fit_list}
 \title{Accessors for trending_model_fit objects}
 \usage{
 \method{get_model}{trending_model_fit}(x, ...)
-
-\method{predict}{trending_model_fit}(object, new_data, alpha = 0.05, ...)
-
-\method{predict}{trending_model_fit_list}(object, new_data, alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model} or
 \code{brms_model}}
 
 \item{...}{Not currently used}
-
-\item{object}{a \code{trending_model_fit_list} object}
-
-\item{new_data}{a \code{data.frame} containing data for which predictions are to
-be derived}
-
-\item{alpha}{the alpha threshold to be used for prediction intervals,
-defaulting to 0.05, i.e. 95\% prediction intervals are derived}
 }
 \description{
 These functions can be used to access information stored in
@@ -36,8 +20,6 @@ These functions can be used to access information stored in
 The following accessors are available:
 \itemize{
 \item \code{get_model()}: get the fitted model stored in the object
-\item \code{predict()}: get model predictions for user-provided data, including
-average predictions and prediction intervals
 }
 }
 \author{
