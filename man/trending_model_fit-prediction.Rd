@@ -12,7 +12,6 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
-  uncertain = TRUE,
   ...
 )
 
@@ -21,6 +20,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
+  simulate_pi = FALSE,
   uncertain = TRUE,
   ...
 )
@@ -30,6 +30,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
+  simulate_pi = FALSE,
   uncertain = TRUE,
   ...
 )
@@ -47,12 +48,14 @@ defaulting to 0.05, i.e. 95\% prediction intervals are derived.}
 (confidence interval), \code{pi} (prediction interval), \code{both} (both intervals)
 or \code{none} (no intervals added).}
 
-\item{uncertain}{Only used for glm models.  Default TRUE.  If FALSE and a
-glm type model uncertainty in the fitted paramaters is ignored when
-generating the prediction intervals.  These will lead to narrower
-intervals.}
-
 \item{...}{Not currently used.}
+
+\item{simulate_pi}{Only used for glm models. Default FALSE. If TRUE then
+prediction intervals are generated using simulation.}
+
+\item{uncertain}{Only used for glm models.  Default TRUE.  If FALSE (and
+\code{simulate_pi} is also FALSE) uncertainty in the fitted paramaters is
+ignored when generating the prediction intervals.}
 }
 \description{
 These functions can be used to generated estimated values and associated
