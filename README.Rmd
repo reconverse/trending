@@ -70,10 +70,7 @@ if (!require(remotes)) {
 }
 remotes::install_github("reconhub/trending", build_vignettes = TRUE)
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> development
 # Resources
 
 ## Vignettes
