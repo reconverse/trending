@@ -7,16 +7,16 @@
 #' @details The following interfaces are available:
 #'
 #' * `lm_model`: interface for linear models implemented in
-#'   [`stats::lm`](stats::lm).
+#'   [stats::lm()].
 #'
 #' * `glm_model`: interface for generalised linear models (GLMs) implemented in
-#'   `[stats::glm](stats::glm)`.
+#'   [stats::glm()].
 #'
 #' * `glm_nb_model`: interface for negative binomial generalied linear models
-#'   implemented in [`MASS::glm_nb`](MASS::glm_nb).
+#'   implemented in [MASS::glm.nb].
 #'
 #' * `brms_model`: interface for Bayesian regression models implemented in
-#'   [`brms::brm`](brms::brm).
+#'   [brms::brm].
 #'
 #' @param formula The formula of the model, with the response variable on the
 #'   left of a tilde symbol, and predictors on the right hand-side; variable
@@ -27,9 +27,9 @@
 #'
 #' @param x A `trending_model` or `trending_model_fit` object.
 #'
-#' @param ... Further arguments passed underlying models: `lm` for `lm_model`,
-#'   `glm` for `glm_model`, `MASS::glm_nb` for `glm_nb_model`, `brms::brm` for
-#'   `brms_model`.  Not used for `print` and `format`.
+#' @param ... Further arguments passed underlying models: `lm` for [lm_model()],
+#'   `glm` for [glm_model()], [MASS::glm.nb()] for `glm_nb_model`, [brms::brm()]
+#'   for `brms_model`.  Not used for `print` and `format`.
 #'
 #' @return  A `trending_model` object (S3 class inheriting `list`), containing
 #'   items which can be accessed by various accessors - see

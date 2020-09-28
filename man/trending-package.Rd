@@ -4,9 +4,11 @@
 \name{trending-package}
 \alias{trending}
 \alias{trending-package}
-\title{trending: What the Package Does (One Line, Title Case)}
+\title{trending: Model Temporal Trends}
 \description{
-What the package does (one paragraph).
+Provides a coherent interface to multiple modelling tools for
+  fitting trends along with a standardised approach for generating confidence
+  and prediction intervals.
 }
 \seealso{
 Useful links:

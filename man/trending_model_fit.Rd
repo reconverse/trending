@@ -4,6 +4,7 @@
 \alias{trending_model_fit}
 \alias{fit.trending_model}
 \alias{fit.list}
+\alias{trending_model_fit_list}
 \title{Fitting for trending_model objects}
 \usage{
 \method{fit}{trending_model}(x, data, ...)
@@ -20,6 +21,5 @@ brms_model}
 }
 \description{
 \code{\link[=fit]{fit()}} fits a model using the given data to obtain an object of type
-\url{trending_model_fit} or
-\url{trending_model_fit_list}
+\code{trending_model_fit} or  \code{trending_model_fit_list}.
 }

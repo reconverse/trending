@@ -65,43 +65,58 @@ pred_data <- select(dat[[1]], date, day, weekday)
 
 fitted_model <- fit(model, fitting_data)
 
-# confidence and prediction intervals
-pred <- predict(fitted_model, pred_data)
-glimpse(pred)
-plot(pred, "date", fitted_data = fitting_data, fitted_y = "count")
+# no intervals
+fitted_model %>% 
+  predict(pred_data, interval = "none") %>% 
+  glimpse()
+
+# confidence intervals
+fitted_model %>% 
+  predict(pred_data, interval = "ci") %>% 
+  glimpse()
+
+# prediction intervals
+fitted_model %>% 
+  predict(pred_data, interval = "pi") %>% 
+  glimpse()
+
+# both intervals (default)
+fitted_model %>% 
+  predict(pred_data) %>% 
+  glimpse()
+
+# plot
+fitted_model %>% 
+  predict(pred_data) %>% 
+  plot("date", fitted_data = fitting_data, fitted_y = "count")
 ```
 
-### Model selection
+## Multiple models
+Trending makes use of [purrr::safely()] to handle lists of models.  In this
+situation the fitted output wil be of class [`trending_model_fit_list`] which
+is a list with components result and error. If an error occurred, error is an 
+error object and result has a NULL value (otherwise). If the model does not
+error then result is the corresponding model output and the error entry will be
+NULL.
 
-You can define a number of different regression models using a common interface.
-Once defined you can use different strategies to select the
-best-fitting/best-predicting model.
-
-As an example we try to predict `hp` of the famous `mtcars` dataset.  Of course,
-this is just a toy example. Usually you would use the package to predict counts
-data in a time series.
-
-First we define some potential models:
 ```{r}
-models <- list(
-  null = lm_model(hp ~ 1),
-  glm_poisson = glm_model(hp ~ 1 + cyl + drat + wt + qsec + am, poisson),
-  lm_complex = lm_model(hp ~ 1 + cyl + drat + wt + qsec + am),
-  negbin_complex = glm_nb_model(hp ~ 1 + cyl + drat + wt + qsec + am)
+models  <- list(
+  simple = lm_model(count ~ day),
+  glm_negbin = glm_nb_model(count ~ day + weekday),
+  will_error = glm_nb_model(count ~ day + nonexistant)
 )
+
+models %>%
+  fit(fitting_data) %>%
+  glimpse()
 ```
 
-Then we evaluate them using [N-Fold cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)).
-
-```{r, message=FALSE, warning=FALSE}
-# we do CV and evaluate three loss function:
-# Root-mean-squared error, the huber-loss and mean absolute error.
-# The package works with `yardstick` by default.
-out <- capture.output( # no log output in readme :)
-  auto_select <- select_model(mtcars, models,
-    method = evaluate_resampling,
-    metrics = list(yardstick::rmse, yardstick::huber_loss, yardstick::mae)
-  )
-)
-auto_select$leaderboard
+Similarly [`trending_model_fit_list`] objects can then be used with [predict]
+```{r}
+models %>%
+  fit(fitting_data) %>% 
+  predict(pred_data) %>% 
+  glimpse()
 ```
+
+

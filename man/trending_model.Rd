@@ -37,9 +37,9 @@ input to other functions.}
 
 \item{family}{The model family to be used for the response variable.}
 
-\item{...}{Further arguments passed underlying models: \code{lm} for \code{lm_model},
-\code{glm} for \code{glm_model}, \code{MASS::glm_nb} for \code{glm_nb_model}, \code{brms::brm} for
-\code{brms_model}.  Not used for \code{print} and \code{format}.}
+\item{...}{Further arguments passed underlying models: \code{lm} for \code{\link[=lm_model]{lm_model()}},
+\code{glm} for \code{\link[=glm_model]{glm_model()}}, \code{\link[MASS:glm.nb]{MASS::glm.nb()}} for \code{glm_nb_model}, \code{\link[brms:brm]{brms::brm()}}
+for \code{brms_model}.  Not used for \code{print} and \code{format}.}
 
 \item{x}{A \code{trending_model} or \code{trending_model_fit} object.}
 }
@@ -57,13 +57,13 @@ interfaces.
 The following interfaces are available:
 \itemize{
 \item \code{lm_model}: interface for linear models implemented in
-\url{stats::lm}.
+\code{\link[stats:lm]{stats::lm()}}.
 \item \code{glm_model}: interface for generalised linear models (GLMs) implemented in
-\verb{[stats::glm](stats::glm)}.
+\code{\link[stats:glm]{stats::glm()}}.
 \item \code{glm_nb_model}: interface for negative binomial generalied linear models
-implemented in \url{MASS::glm_nb}.
+implemented in \link[MASS:glm.nb]{MASS::glm.nb}.
 \item \code{brms_model}: interface for Bayesian regression models implemented in
-\url{brms::brm}.
+\link[brms:brm]{brms::brm}.
 }
 }
 \author{

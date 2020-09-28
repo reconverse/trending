@@ -11,9 +11,10 @@
 #' @param interval Which interval to add to the data.  Can be one of `ci`
 #'   (confidence interval), `pi` (prediction interval), `both` (both intervals)
 #'   or `none` (no intervals added).
-#' @param uncertain Default TRUE.  If FALSE uncertainty in the fitted paramaters
-#'   is ignored when generating the prediction intervals.  These will lead to
-#'   narrower intervals.
+#' @param uncertain Only used for glm models.  Default TRUE.  If FALSE and a
+#'   glm type model uncertainty in the fitted paramaters is ignored when 
+#'   generating the prediction intervals.  These will lead to narrower 
+#'   intervals.
 #' @param ... Not currently used.
 #'
 #' @name trending_model_fit-prediction
@@ -26,6 +27,7 @@ predict.trending_model_fit <- function(object,
                                        new_data,
                                        alpha = 0.05,
                                        interval = c("both", "ci", "pi", "none"),
+                                       uncertain = TRUE,
                                        ...) {
   ellipsis::check_dots_empty()
   object$predict(newdata = new_data, alpha = alpha, interval = interval)

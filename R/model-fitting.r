@@ -1,8 +1,7 @@
 #' Fitting for trending_model objects
 #'
 #' [fit()] fits a model using the given data to obtain an object of type
-#'   [trending_model_fit](trending_model_fit) or
-#'   [trending_model_fit_list](trending_model_fit_list)
+#'   `trending_model_fit` or  `trending_model_fit_list`.
 #'
 #' @param x The output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
 #'   brms_model or a list of these objects.
@@ -28,7 +27,7 @@ fit.trending_model <- function(x, data, ...) {
 
 #' @export
 #' @rdname trending_model_fit
-#' @aliases fit.list
+#' @aliases fit.list trending_model_fit_list
 fit.list <- function(x, data, ...) {
   if (!all(purrr::map_lgl(x, inherits, "trending_model"))) {
     stop("list entrys should be `trending_model` objects")

@@ -1,5 +1,5 @@
 Package: trending
-Title: What the Package Does (One Line, Title Case)
+Title: Model Temporal Trends
 Version: 0.0.0.9000
 Authors@R:
     c(
@@ -23,7 +23,9 @@ Authors@R:
         comment = c(ORCID = "0000-0002-8587-7113")
       )
     )
-Description: What the package does (one paragraph).
+Description: Provides a coherent interface to multiple modelling tools for
+  fitting trends along with a standardised approach for generating confidence
+  and prediction intervals.
 URL: https://github.com/reconhub/trending
 BugReports: https://github.com/reconhub/trending/issues
 License: MIT + file LICENSE
@@ -34,14 +36,10 @@ RoxygenNote: 7.1.1
 Imports: 
     ellipsis,
     dplyr,
-    tibble,
     rlang,
     utils,
     ggplot2,
-    purrr,
-    yardstick,
-    rsample,
-    tidyr
+    purrr
 Suggests: 
     testthat,
     MASS,
