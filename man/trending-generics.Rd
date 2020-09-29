@@ -5,7 +5,6 @@
 \alias{trending-generics}
 \alias{get_formula}
 \alias{get_response}
-\alias{get_family}
 \alias{fit}
 \title{S3 generics for trending}
 \usage{
@@ -14,8 +13,6 @@ get_model(x, ...)
 get_formula(x, ...)
 
 get_response(x, ...)
-
-get_family(x, ...)
 
 fit(x, data, ...)
 }

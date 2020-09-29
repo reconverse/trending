@@ -35,13 +35,6 @@ get_response <- function(x, ...) {
 
 #' @export
 #' @rdname trending-generics
-get_family <- function(x, ...) {
-  UseMethod("get_family", x)
-}
-
-
-#' @export
-#' @rdname trending-generics
 fit <- function(x, data, ...) {
   UseMethod("fit", x)
 }

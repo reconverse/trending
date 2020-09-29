@@ -46,9 +46,6 @@ NULL
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family, ...) {
-  if (!is.character(family)) {
-    family <- deparse(substitute(family))
-  }
   structure(
     eval(bquote(list(
       model_class = "glm",

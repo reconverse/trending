@@ -5,14 +5,11 @@
 \alias{trending_model-accessors}
 \alias{trending_model-class}
 \alias{get_response.trending_model}
-\alias{get_family.trending_model}
 \title{Accessors for trending_model objects}
 \usage{
 \method{get_formula}{trending_model}(x, ...)
 
 \method{get_response}{trending_model}(x, ...)
-
-\method{get_family}{trending_model}(x, ...)
 }
 \arguments{
 \item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, or
@@ -29,8 +26,6 @@ The following accessors are available:
 \itemize{
 \item \code{get_formula()}: get the formula used to model temporal trends
 \item \code{get_response()}: get the name of the response variable
-\item \code{get_family()}: get the model family, indicating the type of distribution
-assumed for the response variable
 }
 }
 \author{

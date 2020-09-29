@@ -5,8 +5,6 @@ test_that("trending_model accessors", {
 
   expect_identical(get_formula(model_lm), y ~ x)
   expect_identical(get_response(model_lm), "y")
-  expect_identical(get_family(model_lm), "gaussian")
-  expect_identical(get_family(model_glm), "poisson")
 })
 
 test_that("trending_model_fit accessors", {
