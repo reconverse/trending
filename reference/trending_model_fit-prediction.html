@@ -146,7 +146,7 @@ confidence/prediction intervals for trending_model_fit objects.</p>
   <span class='va'>new_data</span>,
   alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
   interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"ci"</span>, <span class='st'>"pi"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -157,7 +157,7 @@ confidence/prediction intervals for trending_model_fit objects.</p>
   <span class='va'>new_data</span>,
   alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
   interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"ci"</span>, <span class='st'>"pi"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -191,7 +191,7 @@ or <code>none</code> (no intervals added).</p></td>
     </tr>
     <tr>
       <th>simulate_pi</th>
-      <td><p>Only used for glm models. Default FALSE. If TRUE then
+      <td><p>Only used for glm models. Default TRUE. If TRUE then
 prediction intervals are generated using simulation.</p></td>
     </tr>
     <tr>
