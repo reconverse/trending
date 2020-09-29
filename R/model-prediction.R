@@ -40,7 +40,7 @@ predict.trending_model_fit_glm <- function(object,
                                            new_data,
                                            alpha = 0.05,
                                            interval = c("both", "ci", "pi", "none"),
-                                           simulate_pi = TRUE,
+                                           simulate_pi = FALSE,
                                            uncertain = TRUE,
                                            ...) {
   ellipsis::check_dots_empty()
@@ -60,7 +60,7 @@ predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             interval = c("both", "ci", "pi", "none"),
-                                            simulate_pi = TRUE,
+                                            simulate_pi = FALSE,
                                             uncertain = TRUE,
                                             ...) {
   ellipsis::check_dots_empty()

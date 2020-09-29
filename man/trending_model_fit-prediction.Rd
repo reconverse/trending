@@ -20,7 +20,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
-  simulate_pi = TRUE,
+  simulate_pi = FALSE,
   uncertain = TRUE,
   ...
 )
@@ -30,7 +30,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
-  simulate_pi = TRUE,
+  simulate_pi = FALSE,
   uncertain = TRUE,
   ...
 )
