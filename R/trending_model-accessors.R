@@ -36,7 +36,3 @@ get_response.trending_model <- function(x, ...) {
   as.character(form)[2]
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ciTools
