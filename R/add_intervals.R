@@ -36,7 +36,7 @@ add_prediction_interval.lm <- function(model, data, alpha, ...) {
 }
 
 
-add_confidence_interval.glm <- function(model, data, alpha, sim, uncertain) {
+add_confidence_interval.glm <- function(model, data, alpha, ...) {
 
     # calculate fit and standard error on the link scale
   out <- predict(model, data, se.fit = TRUE, type = "link")
@@ -67,79 +67,93 @@ add_confidence_interval.glm <- function(model, data, alpha, sim, uncertain) {
 }
 
 
-add_prediction_interval.glm <- function(model, data, alpha, sim, uncertain) {
+add_prediction_interval.glm <- function(model, data, alpha, simulate_pi, uncertain, ...) {
 
+  if (simulate_pi) {
+    resp <- as.character(formula(model)[2])
+    if (is.null(data[[resp]])) {   # Hack to fix bug in ciTools
+      data[[resp]] <- data$pred
+      data <- ciTools::add_pi(df = data, fit = model, alpha = alpha,
+                              names = c("lower_pi", "upper_pi"),
+                              yhatName = "predpred")
+      data[[resp]] <- NULL
+    } else {
+      data <- ciTools::add_pi(df = data, fit = model, alpha = alpha,
+                              names = c("lower_pi", "upper_pi"),
+                              yhatName = "predpred")
+    }
+    data$predpred <- NULL
+  } else {
     # calculate fit and standard error on the link scale
-  out <- predict(model, data, se.fit = TRUE, type = "link")
-  if (family(model)$family %in% c("binomial", "poisson")) {
-    critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
-  } else {
-    critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
-  }
+    out <- predict(model, data, se.fit = TRUE, type = "link")
+    if (family(model)$family %in% c("binomial", "poisson")) {
+      critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
+    } else {
+      critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
+    }
 
-  # use the above output to generate a confidence interval
-  inverse_link <- family(model)$linkinv
-  pred <- inverse_link(out$fit)
-  upper_ci <- inverse_link(out$fit + critical_val * out$se.fit)
-  lower_ci <- inverse_link(out$fit - critical_val * out$se.fit)
+    # use the above output to generate a confidence interval
+    inverse_link <- family(model)$linkinv
+    pred <- inverse_link(out$fit)
+    upper_ci <- inverse_link(out$fit + critical_val * out$se.fit)
+    lower_ci <- inverse_link(out$fit - critical_val * out$se.fit)
 
-  # account for a decreasing link function
-  if (model$family$link %in% c("inverse", "1/mu^2")) {
-    upr <- lower_ci
-    lower_ci <- upper_ci
-    upper_ci <- upr
-  }
+    # account for a decreasing link function
+    if (model$family$link %in% c("inverse", "1/mu^2")) {
+      upr <- lower_ci
+      lower_ci <- upper_ci
+      upper_ci <- upr
+    }
 
-  # prediction intervals
-  fam <- family(model)$family
-  if (uncertain) {
-    lower <- lower_ci
-    upper <- upper_ci
-  } else {
-    lower <- pred
-    upper <- pred
-  }
-  if (inherits(model, "negbin")) {
-    theta <- model$theta
-    setheta <- model$SE.theta
-    data$lower_pi <- qnbinom(alpha / 2, mu = lower, size = theta)
-    data$upper_pi <- qnbinom(1 - alpha / 2, mu = upper, size = theta)
-  } else if (fam == "poisson") {
-    data$lower_pi <- qpois(alpha / 2, lambda = lower)
-    data$upper_pi <- qpois(1 - alpha / 2, lambda = upper)
-  } else if (fam == "quasipoisson") {
-    overdispersion <- summary(fit)$dispersion
-    data$lower_pi <- qnbinom(alpha / 2, mu = lower, size = lower / (overdispersion - 1))
-    data$upper_pi <- qnbinom(1 - alpha / 2, mu = upper, size = upper / (overdispersion - 1))
-  } else if (fam == "gamma") {
-    overdispersion <- summary(fit)$dispersion
-    data$lower_pi <- qgamma(alpha / 2, shape = 1 / overdispersion, rate = 1 / (lower * overdispersion))
-    data$upper_pi <- qgamma(1 - alpha / 2, shape = 1 / overdispersion, rate = 1 / (upper * overdispersion))
-  } else if (fam == "binomial") {
-    data$lower_pi <- qbinom(alpha / 2, size = model$prior.weights, prob = lower / model$prior.weights)
-    data$upper_pi <- qbinom(1 - alpha / 2, size = model$prior.weights, prob = upper / model$prior.weights)
-  } else if (fam == "gaussian") {
-    sigma_sq <- summary(model)$dispersion
-    se_terms <- out$se.fit
-    t_quant <- qt(p = alpha / 2, df = model$df.residual, lower.tail = FALSE)
-    se_global <- sqrt(sigma_sq + se_terms^2)
-    data$lower_pi <- data$fitted - t_quant * se_global
-    data$upper_pi <- data$fitted + t_quant * se_global
-  } else {
-    stop("Unsupported glm family type")
-  }
-
-  # corrections for extremes
-  if (isTRUE(all.equal(alpha, 0))) {
-    data$lower_pi <- ifelse(is.infinite(lower_ci), -Inf, data$lower_pi)
-    data$upper_pi <- ifelse(is.infinite(upper_ci), Inf, data$upper_pi)
+    # prediction intervals
+    fam <- family(model)$family
+    if (uncertain) {
+      lower <- lower_ci
+      upper <- upper_ci
+    } else {
+      lower <- pred
+      upper <- pred
+    }
     if (inherits(model, "negbin")) {
-      data$lower_pi <- ifelse(is.nan(data$lower_pi), 0, data$lower_pi)
+      theta <- model$theta
+      setheta <- model$SE.theta
+      data$lower_pi <- qnbinom(alpha / 2, mu = lower, size = theta)
+      data$upper_pi <- qnbinom(1 - alpha / 2, mu = upper, size = theta)
+    } else if (fam == "poisson") {
+      data$lower_pi <- qpois(alpha / 2, lambda = lower)
+      data$upper_pi <- qpois(1 - alpha / 2, lambda = upper)
+    } else if (fam == "quasipoisson") {
+      overdispersion <- summary(fit)$dispersion
+      data$lower_pi <- qnbinom(alpha / 2, mu = lower, size = lower / (overdispersion - 1))
+      data$upper_pi <- qnbinom(1 - alpha / 2, mu = upper, size = upper / (overdispersion - 1))
+    } else if (fam == "gamma") {
+      overdispersion <- summary(fit)$dispersion
+      data$lower_pi <- qgamma(alpha / 2, shape = 1 / overdispersion, rate = 1 / (lower * overdispersion))
+      data$upper_pi <- qgamma(1 - alpha / 2, shape = 1 / overdispersion, rate = 1 / (upper * overdispersion))
+    } else if (fam == "binomial") {
+      data$lower_pi <- qbinom(alpha / 2, size = model$prior.weights, prob = lower / model$prior.weights)
+      data$upper_pi <- qbinom(1 - alpha / 2, size = model$prior.weights, prob = upper / model$prior.weights)
+    } else if (fam == "gaussian") {
+      sigma_sq <- summary(model)$dispersion
+      se_terms <- out$se.fit
+      t_quant <- qt(p = alpha / 2, df = model$df.residual, lower.tail = FALSE)
+      se_global <- sqrt(sigma_sq + se_terms^2)
+      data$lower_pi <- data$fitted - t_quant * se_global
+      data$upper_pi <- data$fitted + t_quant * se_global
+    } else {
+      stop("Unsupported glm family type")
+    }
+
+    # corrections for extremes
+    if (isTRUE(all.equal(alpha, 0))) {
+      data$lower_pi <- ifelse(is.infinite(lower_ci), -Inf, data$lower_pi)
+      data$upper_pi <- ifelse(is.infinite(upper_ci), Inf, data$upper_pi)
+      if (inherits(model, "negbin")) {
+        data$lower_pi <- ifelse(is.nan(data$lower_pi), 0, data$lower_pi)
+      }
     }
   }
-
   data
-
 }
 
 

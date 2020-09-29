@@ -8,6 +8,6 @@
 NULL
 
 #' @importFrom stats predict glm lm family qbinom qgamma qnbinom qnorm qpois qt
-#' @importFrom stats formula fitted setNames na.omit
+#' @importFrom stats fitted setNames na.omit formula
 #' @importFrom rlang syms .data
 NULL

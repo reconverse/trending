@@ -39,7 +39,8 @@ Imports:
     rlang,
     utils,
     ggplot2,
-    purrr
+    purrr,
+    ciTools
 Suggests: 
     testthat,
     MASS,
