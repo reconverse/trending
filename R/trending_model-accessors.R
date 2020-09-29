@@ -9,9 +9,6 @@
 #'
 #' * `get_response()`: get the name of the response variable
 #'
-#' * `get_family()`: get the model family, indicating the type of distribution
-#'   assumed for the response variable
-#'
 #' @author Thibaut Jombart, Dirk Schumacher
 #'
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
@@ -37,19 +34,6 @@ get_response.trending_model <- function(x, ...) {
   ellipsis::check_dots_empty()
   form <- get_formula(x)
   as.character(form)[2]
-}
-
-
-#' @export
-#' @rdname trending_model-accessors
-#' @aliases get_family.trending_model
-get_family.trending_model <- function(x, ...) {
-  ellipsis::check_dots_empty()
-  if (inherits(x, "trending_lm")) {
-    "gaussian"
-  } else {
-    as.list(environment(x$fit))$family
-  }
 }
 
 
