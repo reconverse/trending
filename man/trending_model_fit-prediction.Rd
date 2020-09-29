@@ -20,7 +20,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
-  simulate_pi = FALSE,
+  simulate_pi = TRUE,
   uncertain = TRUE,
   ...
 )
@@ -30,7 +30,7 @@
   new_data,
   alpha = 0.05,
   interval = c("both", "ci", "pi", "none"),
-  simulate_pi = FALSE,
+  simulate_pi = TRUE,
   uncertain = TRUE,
   ...
 )
@@ -50,7 +50,7 @@ or \code{none} (no intervals added).}
 
 \item{...}{Not currently used.}
 
-\item{simulate_pi}{Only used for glm models. Default FALSE. If TRUE then
+\item{simulate_pi}{Only used for glm models. Default TRUE. If TRUE then
 prediction intervals are generated using simulation.}
 
 \item{uncertain}{Only used for glm models.  Default TRUE.  If FALSE (and

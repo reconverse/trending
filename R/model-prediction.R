@@ -11,7 +11,7 @@
 #' @param interval Which interval to add to the data.  Can be one of `ci`
 #'   (confidence interval), `pi` (prediction interval), `both` (both intervals)
 #'   or `none` (no intervals added).
-#' @param simulate_pi Only used for glm models. Default FALSE. If TRUE then
+#' @param simulate_pi Only used for glm models. Default TRUE. If TRUE then
 #'   prediction intervals are generated using simulation. 
 #' @param uncertain Only used for glm models.  Default TRUE.  If FALSE (and
 #'   `simulate_pi` is also FALSE) uncertainty in the fitted paramaters is
@@ -40,7 +40,7 @@ predict.trending_model_fit_glm <- function(object,
                                            new_data,
                                            alpha = 0.05,
                                            interval = c("both", "ci", "pi", "none"),
-                                           simulate_pi = FALSE,
+                                           simulate_pi = TRUE,
                                            uncertain = TRUE,
                                            ...) {
   ellipsis::check_dots_empty()
@@ -60,7 +60,7 @@ predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             interval = c("both", "ci", "pi", "none"),
-                                            simulate_pi = FALSE,
+                                            simulate_pi = TRUE,
                                             uncertain = TRUE,
                                             ...) {
   ellipsis::check_dots_empty()

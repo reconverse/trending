@@ -89,7 +89,7 @@ glm_model_fit <- function(model, formula) {
     predict = function(newdata,
                        alpha = 0.05,
                        interval = c("both", "ci", "pi", "none"),
-                       simulate_pi = FALSE,
+                       simulate_pi = TRUE,
                        uncertain = TRUE) {
 
       interval <- match.arg(interval)
