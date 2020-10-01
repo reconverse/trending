@@ -96,7 +96,6 @@
 <ul>
 <li><p><strong>Model specification:</strong> Interfaces to common models through intuitive functions; <code><a href="../reference/trending_model.html">lm_model()</a></code>, <code><a href="../reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code>* and <code>brms_model</code>**.</p></li>
 <li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="../reference/get_model.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
-<li><p><strong>Plotting functionality</strong> A basic plotting method for trending model predictions.</p></li>
 </ul>
 </div>
 <div id="example-usage" class="section level1">
@@ -136,63 +135,48 @@
 
 <span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span>
 
-<span class="co"># no intervals</span>
+<span class="co"># default</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, interval <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 14</span>
-<span class="co">#&gt; Columns: 4</span>
-<span class="co">#&gt; $ date    &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19, …</span>
-<span class="co">#&gt; $ day     &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
-<span class="co">#&gt; $ weekday &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_of…</span>
-<span class="co">#&gt; $ pred    &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
-
-<span class="co"># confidence intervals</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, interval <span class="op">=</span> <span class="st">"ci"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 14</span>
-<span class="co">#&gt; Columns: 6</span>
-<span class="co">#&gt; $ date     &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19,…</span>
-<span class="co">#&gt; $ day      &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
-<span class="co">#&gt; $ weekday  &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_o…</span>
-<span class="co">#&gt; $ pred     &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
-<span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365…</span>
-<span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065…</span>
-
-<span class="co"># prediction intervals</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, interval <span class="op">=</span> <span class="st">"pi"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 14</span>
-<span class="co">#&gt; Columns: 6</span>
-<span class="co">#&gt; $ date     &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19,…</span>
-<span class="co">#&gt; $ day      &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
-<span class="co">#&gt; $ weekday  &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_o…</span>
-<span class="co">#&gt; $ pred     &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, …</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 1299…</span>
-
-<span class="co"># both intervals (default)</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 14</span>
 <span class="co">#&gt; Columns: 8</span>
 <span class="co">#&gt; $ date     &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19,…</span>
 <span class="co">#&gt; $ day      &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
 <span class="co">#&gt; $ weekday  &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_o…</span>
-<span class="co">#&gt; $ pred     &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
+<span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065…</span>
 <span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, …</span>
 <span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 1299…</span>
 
-<span class="co"># plot</span>
+<span class="co"># without prediction intervals</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="st">"date"</span>, fitted_data <span class="op">=</span> <span class="va">fitting_data</span>, fitted_y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></pre></div>
-<p><img src="Introduction_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, add_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 14</span>
+<span class="co">#&gt; Columns: 6</span>
+<span class="co">#&gt; $ date     &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19,…</span>
+<span class="co">#&gt; $ day      &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
+<span class="co">#&gt; $ weekday  &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_o…</span>
+<span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
+<span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365…</span>
+<span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065…</span>
+
+<span class="co"># without uncertainty</span>
+<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, uncertainty <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 14</span>
+<span class="co">#&gt; Columns: 8</span>
+<span class="co">#&gt; $ date     &lt;date&gt; 2020-05-15, 2020-05-16, 2020-05-17, 2020-05-18, 2020-05-19,…</span>
+<span class="co">#&gt; $ day      &lt;int&gt; 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71</span>
+<span class="co">#&gt; $ weekday  &lt;fct&gt; rest_of_week, weekend, weekend, monday, rest_of_week, rest_o…</span>
+<span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658…</span>
+<span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365…</span>
+<span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065…</span>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, …</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 1299…</span></pre></div>
 </div>
 <div id="multiple-models" class="section level2">
 <h2 class="hasAnchor">
@@ -201,6 +185,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   simple <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">lm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span><span class="op">)</span>,
+  glm_poisson <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>,
   glm_negbin <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span>,
   will_error <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistant</span><span class="op">)</span>
 <span class="op">)</span>
@@ -208,27 +193,37 @@
 <span class="va">models</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ result:List of 3</span>
-<span class="co">#&gt;   ..$ simple    :List of 2</span>
-<span class="co">#&gt;   .. ..$ model  :List of 12</span>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ fitted_trending_model:List of 4</span>
+<span class="co">#&gt;   ..$ simple     :List of 2</span>
+<span class="co">#&gt;   .. ..$ fitted_model:List of 12</span>
 <span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span>
-<span class="co">#&gt;   .. ..$ predict:function (newdata, alpha = 0.05, interval = c("both", "ci", "pi", "none"))  </span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "trending_model_fit_lm" "trending_model_fit" "list"</span>
-<span class="co">#&gt;   ..$ glm_negbin:List of 2</span>
-<span class="co">#&gt;   .. ..$ model  :List of 30</span>
+<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
+<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
+<span class="co">#&gt;   ..$ glm_poisson:List of 2</span>
+<span class="co">#&gt;   .. ..$ fitted_model:List of 30</span>
+<span class="co">#&gt;   .. .. ..- attr(*, "class")= chr [1:2] "glm" "lm"</span>
+<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
+<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
+<span class="co">#&gt;   ..$ glm_negbin :List of 2</span>
+<span class="co">#&gt;   .. ..$ fitted_model:List of 30</span>
 <span class="co">#&gt;   .. .. ..- attr(*, "class")= chr [1:3] "negbin" "glm" "lm"</span>
-<span class="co">#&gt;   .. ..$ predict:function (newdata, alpha = 0.05, interval = c("both", "ci", "pi", "none"), </span>
-<span class="co">#&gt;     simulate_pi = FALSE, uncertain = TRUE)  </span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "trending_model_fit_glm" "trending_model_fit" "list"</span>
-<span class="co">#&gt;   ..$ will_error: NULL</span>
-<span class="co">#&gt;  $ error :List of 3</span>
-<span class="co">#&gt;   ..$ simple    : NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin: NULL</span>
-<span class="co">#&gt;   ..$ will_error:List of 2</span>
+<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
+<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
+<span class="co">#&gt;   ..$ will_error : NULL</span>
+<span class="co">#&gt;  $ fitting_error        :List of 4</span>
+<span class="co">#&gt;   ..$ simple     : NULL</span>
+<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
+<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
+<span class="co">#&gt;   ..$ will_error :List of 2</span>
 <span class="co">#&gt;   .. ..$ message: chr "object 'nonexistant' not found"</span>
 <span class="co">#&gt;   .. ..$ call   : language eval(predvars, data, env)</span>
 <span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"</span>
+<span class="co">#&gt;  $ fitting_warning      :List of 4</span>
+<span class="co">#&gt;   ..$ simple     : NULL</span>
+<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
+<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
+<span class="co">#&gt;   ..$ will_error : NULL</span>
 <span class="co">#&gt;  - attr(*, "class")= chr [1:2] "trending_model_fit_list" "list"</span></pre></div>
 <p>Similarly [<code>trending_model_fit_list</code>] objects can then be used with [predict]</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -236,35 +231,49 @@
   <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ result:List of 3</span>
-<span class="co">#&gt;   ..$ :Classes 'trending_model_prediction' and 'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ output            :List of 4</span>
+<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
 <span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
 <span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
 <span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
-<span class="co">#&gt;   .. ..$ pred    : num [1:14] 5813 4720 3627 2534 1441 ...</span>
+<span class="co">#&gt;   .. ..$ estimate: num [1:14] 5813 4720 3627 2534 1441 ...</span>
 <span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 234 -1053 -2341 -3631 -4922 ...</span>
 <span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11392 10492 9594 8699 7804 ...</span>
 <span class="co">#&gt;   .. ..$ lower_pi: num [1:14] -13007 -14158 -15311 -16467 -17626 ...</span>
 <span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 24632 23597 22565 21535 20508 ...</span>
-<span class="co">#&gt;   ..$ :Classes 'trending_model_prediction' and 'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
 <span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
 <span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
 <span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
-<span class="co">#&gt;   .. ..$ pred    : num [1:14] 12682 10625 10262 13840 11036 ...</span>
+<span class="co">#&gt;   .. ..$ estimate: num [1:14] 11535 11103 10686 10286 9900 ...</span>
+<span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 11484 11052 10636 10236 9850 ...</span>
+<span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11587 11154 10737 10336 9950 ...</span>
+<span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 11275 10846 10434 10038 9656 ...</span>
+<span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 11798 11361 10941 10536 10146 ...</span>
+<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
+<span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
+<span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
+<span class="co">#&gt;   .. ..$ estimate: num [1:14] 12682 10625 10262 13840 11036 ...</span>
 <span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 11390 9299 8956 11749 9782 ...</span>
 <span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 14122 12140 11759 16303 12450 ...</span>
 <span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 8107 6618 6373 8363 6962 ...</span>
 <span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 18870 16223 15714 21784 16638 ...</span>
 <span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;  $ error :List of 3</span>
+<span class="co">#&gt;  $ prediction_error  :List of 4</span>
+<span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ :List of 2</span>
 <span class="co">#&gt;   .. ..$ message: chr "no applicable method for 'predict' applied to an object of class \"c('simpleError', 'error', 'condition')\""</span>
 <span class="co">#&gt;   .. ..$ call   : language UseMethod("predict")</span>
 <span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "trending_model_prediction_list" "list"</span></pre></div>
+<span class="co">#&gt;  $ prediction_warning:List of 4</span>
+<span class="co">#&gt;   ..$ : NULL</span>
+<span class="co">#&gt;   ..$ : NULL</span>
+<span class="co">#&gt;   ..$ : NULL</span>
+<span class="co">#&gt;   ..$ : NULL</span></pre></div>
 </div>
 </div>
   </div>

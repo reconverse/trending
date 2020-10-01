@@ -132,35 +132,10 @@ confidence/prediction intervals for trending_model_fit objects.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for trending_model_fit</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  <span class='va'>new_data</span>,
-  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
-  interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"ci"</span>, <span class='st'>"pi"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for trending_model_fit_glm</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  <span class='va'>new_data</span>,
-  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
-  interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"ci"</span>, <span class='st'>"pi"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>, uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for trending_model_fit_list</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  <span class='va'>new_data</span>,
-  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
-  interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"ci"</span>, <span class='st'>"pi"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>, uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,25 +155,18 @@ be derived.</p></td>
 defaulting to 0.05, i.e. 95% prediction intervals are derived.</p></td>
     </tr>
     <tr>
-      <th>interval</th>
-      <td><p>Which interval to add to the data.  Can be one of <code>ci</code>
-(confidence interval), <code>pi</code> (prediction interval), <code>both</code> (both intervals)
-or <code>none</code> (no intervals added).</p></td>
+      <th>add_pi</th>
+      <td><p>Add a prediction interval to the output. Default TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>uncertain</th>
+      <td><p>Only used for glm models.  Default TRUE.  If FALSE
+uncertainty in the fitted paramaters is ignored when generating the
+prediction intervals.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
-    </tr>
-    <tr>
-      <th>simulate_pi</th>
-      <td><p>Only used for glm models. Default TRUE. If TRUE then
-prediction intervals are generated using simulation.</p></td>
-    </tr>
-    <tr>
-      <th>uncertain</th>
-      <td><p>Only used for glm models.  Default TRUE.  If FALSE (and
-<code>simulate_pi</code> is also FALSE) uncertainty in the fitted paramaters is
-ignored when generating the prediction intervals.</p></td>
     </tr>
     </table>
 
