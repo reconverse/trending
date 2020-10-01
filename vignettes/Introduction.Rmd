@@ -100,7 +100,7 @@ models  <- list(
 
 models %>%
   fit(fitting_data) %>%
-  str()
+  glimpse()
 ```
 
 Similarly [`trending_model_fit_list`] objects can then be used with [predict]
@@ -108,7 +108,7 @@ Similarly [`trending_model_fit_list`] objects can then be used with [predict]
 models %>%
   fit(fitting_data) %>% 
   predict(pred_data) %>% 
-  str()
+  glimpse()
 ```
 
 
