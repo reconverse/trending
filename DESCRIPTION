@@ -35,10 +35,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     utils,
-    stats
+    stats,
+    MASS
 Suggests: 
     testthat,
-    MASS,
     brms,
     covr,
     outbreaks,

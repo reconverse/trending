@@ -63,7 +63,6 @@ glm_model <- function(formula, family, ...) {
 #' @rdname trending_model
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula, ...) {
-  check_suggests("MASS")
   structure(
     eval(bquote(list(
       model_class = "MASS::glm.nb",

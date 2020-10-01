@@ -32,15 +32,14 @@ developed
 ## Main features
 
   - **Model specification:** Interfaces to common models through
-    intuitive functions; `lm_model()`, `glm_model()`, `glm_nb_model`\*
-    and `brms_model`\*\*.
+    intuitive functions; `lm_model()`, `glm_model()`, `glm_nb_model` and
+    `brms_model`\*.
 
   - **Model fitting and prediction:** Once specified, models can be fit
     to data and generate confidence and prediction intervals for future
     data using `fit()` and `predict()`.
 
-\*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
-\*\* Requires [brms](https://CRAN.R-project.org/package=brms)
+\*   Requires [brms](https://CRAN.R-project.org/package=brms)
 
 ## Installing the package
 

@@ -22,11 +22,13 @@ an intuitive interface on which other packages can be developed
 # Main features
 
 - **Model specification:** Interfaces to common models through intuitive
-  functions; `lm_model()`, `glm_model()`, `glm_nb_model`* and `brms_model`**.
+  functions; `lm_model()`, `glm_model()`, `glm_nb_model` and `brms_model`*.
 
 - **Model fitting and prediction:** Once specified, models can be fit to data
   and generate confidence and prediction intervals for future data using `fit()`
   and `predict()`.
+
+\* &nbsp; Requires [brms](https://CRAN.R-project.org/package=brms)
 
 # Example usage
 
