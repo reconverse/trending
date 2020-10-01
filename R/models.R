@@ -116,7 +116,6 @@ brms_model <- function(formula, family, ...) {
 #' @rdname trending_model
 #' @aliases format.trending_model
 format.trending_model <- function(x, ...) {
-  ellipsis::check_dots_empty()
   paste0("Untrained trending model type: ", x[["model_class"]])
 }
 
@@ -125,7 +124,6 @@ format.trending_model <- function(x, ...) {
 #' @rdname trending_model
 #' @aliases print.trending_model
 print.trending_model <- function(x, ...) {
-  ellipsis::check_dots_empty()
   cat(format(x))
 }
 
@@ -134,7 +132,6 @@ print.trending_model <- function(x, ...) {
 #' @rdname trending_model
 #' @aliases format.trending_model_fit
 format.trending_model_fit <- function(x, ...) {
-  ellipsis::check_dots_empty()
   tmp <- append(
     "Fitted trending model:",
     utils::capture.output(x$fitted_model)
@@ -147,6 +144,5 @@ format.trending_model_fit <- function(x, ...) {
 #' @rdname trending_model
 #' @aliases print.trending_model_fit
 print.trending_model_fit <- function(x, ...) {
-  ellipsis::check_dots_empty()
   cat(format(x))
 }

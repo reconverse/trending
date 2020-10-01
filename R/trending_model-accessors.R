@@ -22,7 +22,6 @@
 #' @rdname trending_model-accessors
 #' @aliases get_formula.trending_model
 get_formula.trending_model <- function(x, ...) {
-  ellipsis::check_dots_empty()
   as.list(environment(x$fit))$formula
 }
 
@@ -31,7 +30,6 @@ get_formula.trending_model <- function(x, ...) {
 #' @rdname trending_model-accessors
 #' @aliases get_response.trending_model
 get_response.trending_model <- function(x, ...) {
-  ellipsis::check_dots_empty()
   form <- get_formula(x)
   as.character(form)[2]
 }

@@ -50,7 +50,6 @@ predict.trending_model_fit_list <- function(object,
                                             add_pi = TRUE,
                                             uncertain = TRUE,
                                             ...) {
-  ellipsis::check_dots_empty()
   object <- combine_safe_results(object)
   if (missing(new_data)) {
     res <- base_transpose(
