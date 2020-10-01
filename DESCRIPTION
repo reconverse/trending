@@ -36,9 +36,7 @@ RoxygenNote: 7.1.1
 Imports: 
     ellipsis,
     dplyr,
-    rlang,
     utils,
-    ggplot2,
     purrr,
     ciTools
 Suggests: 

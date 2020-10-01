@@ -39,9 +39,6 @@ developed
     to data and generate confidence and prediction intervals for future
     data using `fit()` and `predict()`.
 
-  - **Plotting functionality** A basic plotting method for trending
-    model predictions.
-
 \*  Requires [MASS](https://CRAN.R-project.org/package=MASS)  
 \*\* Requires [brms](https://CRAN.R-project.org/package=brms)
 

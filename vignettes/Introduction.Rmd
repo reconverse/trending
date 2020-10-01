@@ -28,9 +28,6 @@ an intuitive interface on which other packages can be developed
   and generate confidence and prediction intervals for future data using `fit()`
   and `predict()`.
 
-- **Plotting functionality** A basic plotting method for trending model
-  predictions.
-
 # Example usage
 
 ## An individual model 
@@ -84,11 +81,6 @@ fitted_model %>%
 fitted_model %>% 
   predict(pred_data) %>% 
   glimpse()
-
-# plot
-fitted_model %>% 
-  predict(pred_data) %>% 
-  plot("date", fitted_data = fitting_data, fitted_y = "count")
 ```
 
 ## Multiple models
