@@ -38,7 +38,8 @@ Imports:
     dplyr,
     utils,
     purrr,
-    ciTools
+    ciTools,
+    stats
 Suggests: 
     testthat,
     MASS,
