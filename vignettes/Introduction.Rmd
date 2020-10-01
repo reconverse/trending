@@ -62,24 +62,19 @@ pred_data <- select(dat[[1]], date, day, weekday)
 
 fitted_model <- fit(model, fitting_data)
 
-# no intervals
+# default
 fitted_model %>% 
-  predict(pred_data, interval = "none") %>%
+  predict(pred_data) %>%
   glimpse()
 
-# confidence intervals
+# without prediction intervals
 fitted_model %>% 
-  predict(pred_data, interval = "ci") %>% 
+  predict(pred_data, add_pi = FALSE) %>% 
   glimpse()
 
-# prediction intervals
+# without uncertainty
 fitted_model %>% 
-  predict(pred_data, interval = "pi") %>% 
-  glimpse()
-
-# both intervals (default)
-fitted_model %>% 
-  predict(pred_data) %>% 
+  predict(pred_data, uncertainty = FALSE) %>% 
   glimpse()
 ```
 
@@ -94,6 +89,7 @@ NULL.
 ```{r}
 models  <- list(
   simple = lm_model(count ~ day),
+  glm_poisson = glm_model(count ~ day, family = "poisson"),
   glm_negbin = glm_nb_model(count ~ day + weekday),
   will_error = glm_nb_model(count ~ day + nonexistant)
 )

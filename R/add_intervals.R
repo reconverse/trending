@@ -11,6 +11,48 @@ add_confidence_interval.default <- function(model, data, alpha, ...) {
   stop("Cannot add confidence interval for this model type")
 }
 
+add_confidence_interval.lm <- function(model, data, alpha, ...) {
+  ci <- as.data.frame(
+    predict(model, data, interval = "confidence", level = 1 - alpha)
+  )
+  ci <- setNames(ci, c("Estimate", "lower_ci", "upper_ci"))
+  cbind(data, ci)
+}
+
+add_confidence_interval.glm <- function(model, data, alpha, ...) {
+  out <- predict(model, data, se.fit = TRUE, type = "link")
+    if (family(model)$family %in% c("binomial", "poisson")) {
+      critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
+    } else {
+      critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
+    }
+
+    # use the above output to generate a confidence interval
+    inverse_link <- family(model)$linkinv
+    pred <- inverse_link(out$fit)
+    upper <- inverse_link(out$fit + critical_val * out$se.fit)
+    lower <- inverse_link(out$fit - critical_val * out$se.fit)
+    
+    # account for a decreasing link function
+    if (model$family$link %in% c("inverse", "1/mu^2")) {
+      upr <- lower
+      lower <- upper
+      upper <- upr
+    }
+
+    # add the interval to the original data
+    cbind(
+      data, 
+      data.frame(Estimate = pred, lower_ci = lower, upper_ci = upper)
+    )
+}
+ 
+add_confidence_interval.brmsfit <- function(model, data, alpha, ...) {
+  ci <- fitted(model, data, probs = c(alpha/2, 1 - alpha/2))[-2]
+  ci <- setNames(ci, c("Estimate", "lower_ci", "upper_ci"))
+  cbind(data, ci)
+}
+
 
 add_prediction_interval <- function(model, data, alpha, ...) {
   UseMethod("add_prediction_interval")
@@ -22,13 +64,6 @@ add_prediction_interval.default <- function(model, data, alpha, ...) {
 }
 
 
-add_confidence_interval.lm <- function(model, data, alpha, ...) {
-  ci <- predict(model, data, interval = "confidence", level = 1 - alpha)
-  ci <- setNames(as.data.frame(ci)[, -1], c("lower_ci", "upper_ci"))
-  cbind(data, ci)
-}
-
-
 add_prediction_interval.lm <- function(model, data, alpha, ...) {
   pi <- predict(model, data, interval = "prediction", level = 1 - alpha)
   pi <- setNames(as.data.frame(pi)[, -1], c("lower_pi", "upper_pi"))
@@ -36,59 +71,10 @@ add_prediction_interval.lm <- function(model, data, alpha, ...) {
 }
 
 
-add_confidence_interval.glm <- function(model, data, alpha, ...) {
-
-    # calculate fit and standard error on the link scale
-  out <- predict(model, data, se.fit = TRUE, type = "link")
-  if (family(model)$family %in% c("binomial", "poisson")) {
-    critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
-  } else {
-    critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
-  }
-
-  # use the above output to generate a confidence interval
-  inverse_link <- family(model)$linkinv
-  pred <- inverse_link(out$fit)
-  upper <- inverse_link(out$fit + critical_val * out$se.fit)
-  lower <- inverse_link(out$fit - critical_val * out$se.fit)
-
-  # account for a decreasing link function
-  if (model$family$link %in% c("inverse", "1/mu^2")) {
-    upr <- lower
-    lower <- upper
-    upper <- upr
-  }
-
-  # add the interval to the original data
-  data$lower_ci <- lower
-  data$upper_ci <- upper
-
-  data
-}
-
-
 add_prediction_interval.glm <- function(model, data, alpha, uncertain, ...) {
-
-  # calculate fit and standard error on the link scale
-  out <- predict(model, data, se.fit = TRUE, type = "link")
-  if (family(model)$family %in% c("binomial", "poisson")) {
-    critical_val <- qnorm(p = 1 - alpha/2, mean = 0, sd = 1)
-  } else {
-    critical_val <- qt(p = 1 - alpha/2, df = model$df.residual)
-  }
-
-  # use the above output to generate a confidence interval
-  inverse_link <- family(model)$linkinv
-  pred <- inverse_link(out$fit)
-  upper_ci <- inverse_link(out$fit + critical_val * out$se.fit)
-  lower_ci <- inverse_link(out$fit - critical_val * out$se.fit)
-
-  # account for a decreasing link function
-  if (model$family$link %in% c("inverse", "1/mu^2")) {
-    upr <- lower_ci
-    lower_ci <- upper_ci
-    upper_ci <- upr
-  }
+  pred <- data$Estimate
+  lower_ci <- data$lower_ci
+  upper_ci <- data$upper_ci
 
   # prediction intervals
   fam <- family(model)$family
@@ -140,17 +126,9 @@ add_prediction_interval.glm <- function(model, data, alpha, uncertain, ...) {
   data
 }
 
-add_confidence_interval.brmsfit <- function(model, data, alpha, ...) {
-  ci <- fitted(model, data, interval = "confidence", level = 1 - alpha)
-  ci <- setNames(as.data.frame(ci)[, 3:4], c("lower_ci", "upper_ci"))
-  cbind(data, ci)
-}
-
 
 add_prediction_interval.brmsfit <- function(model, data, alpha, ...) {
   pi <- brms::predictive_interval(model, newdata = data, prob = 1 - alpha)
   pi <- setNames(as.data.frame(pi)[, 1:2], c("lower_pi", "upper_pi"))
   cbind(data, pi)
 }
-
-

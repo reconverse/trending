@@ -48,132 +48,24 @@ safe_fit <- function(x, data, ...) {
   )
 }
 
-lm_model_fit <- function(model, formula) {
+
+model_fit <- function(model, formula) {
   out <- list(
-    model = model,
-    predict = function(newdata,
-                       alpha = 0.05,
-                       interval = c("both", "ci", "pi", "none")) {
-
-      interval <- match.arg(interval)
-
+    fitted_model = model,
+    predict = function(newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) {
+      
       # if no data given use the fitting data set
       if (missing(newdata)) {
         newdata <- model$model
       }
 
-      # calculate prediction irrespective of intervals
-      result <- cbind(newdata, pred = predict(model, newdata))
-
-      # add confidence interval
-      if (interval == "both" || interval == "ci") {
-        result <- add_confidence_interval(
-          model = model,
-          data = result,
-          alpha = alpha
-        )
-      }
-
-      # add prediction interval
-      if (interval == "both" || interval == "pi") {
-        result <- add_prediction_interval(
-          model = model,
-          data = result,
-          alpha = alpha
-        )
+      result <- add_confidence_interval(model, newdata, alpha)
+      if (add_pi) {
+        result <- add_prediction_interval(model, result, alpha, uncertain)
       }
       result
     }
   )
-  class(out) <- c("trending_model_fit_lm", "trending_model_fit", class(out))
-  out
-}
-
-
-glm_model_fit <- function(model, formula) {
-  out <- list(
-    model = model,
-    predict = function(newdata,
-                       alpha = 0.05,
-                       interval = c("both", "ci", "pi", "none"),
-                       uncertain = TRUE) {
-
-      interval <- match.arg(interval)
-
-      # if no data given use the fitting data set
-      if (missing(newdata)) {
-        newdata <- model$model
-      }
-
-      # calculate prediction irrespective of intervals
-      result <- cbind(newdata, pred = predict(model, newdata, type = "response"))
-
-      # add confidence interval
-      if (interval == "both" || interval == "ci") {
-        result <- add_confidence_interval(
-          model = model,
-          data = result,
-          alpha = alpha,
-          uncertain = uncertain
-        )
-      }
-
-      # add prediction interval
-      if (interval == "both" || interval == "pi") {
-        result <- add_prediction_interval(
-          model = model,
-          data = result,
-          alpha = alpha,
-          uncertain = uncertain
-        )
-      }
-
-      result
-    }
-  )
-  class(out) <- c("trending_model_fit_glm", "trending_model_fit", class(out))
-  out
-}
-
-
-brms_model_fit <- function(model, formula) {
-  out <- list(
-    model = model,
-    predict = function(newdata,
-                       alpha = 0.05,
-                       interval = c("both", "ci", "pi", "none")) {
-
-      interval <- match.arg(interval)
-
-      # if no data given use the fitting data set
-      if (missing(newdata)) {
-        newdata <- model$data
-      }
-
-      # calculate prediction irrespective of intervals
-      result <- cbind(newdata, pred = predict(model, newdata)[, 1])
-
-      # add confidence interval
-      if (interval == "both" || interval == "ci") {
-        result <- add_confidence_interval(
-          model = model,
-          data = result,
-          alpha = alpha
-        )
-      }
-
-      # add prediction interval
-      if (interval == "both" || interval == "pi") {
-        result <- add_prediction_interval(
-          model = model,
-          data = result,
-          alpha = alpha
-        )
-      }
-
-      result
-    }
-  )
-  class(out) <- c("trending_model_fit_brms", "trending_model_fit", class(out))
+  class(out) <- c("trending_model_fit", class(out))
   out
 }

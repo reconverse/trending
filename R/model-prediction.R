@@ -37,29 +37,11 @@ safe_predict <- function(object, new_data, alpha, interval, uncertain, ...) {
 predict.trending_model_fit <- function(object, 
                                        new_data,
                                        alpha = 0.05,
-                                       interval = c("both", "ci", "pi", "none"),
+                                       add_pi = TRUE,
+                                       uncertain = TRUE,
                                        ...) {
-  object$predict(newdata = new_data, alpha = alpha, interval = interval)
+  object$predict(newdata = new_data, alpha = alpha, add_pi = add_pi, uncertain = uncertain)
 }
-
-
-#' @export
-#' @rdname trending_model_fit-prediction
-#' @aliases predict.trending_model_fit_glm
-predict.trending_model_fit_glm <- function(object,
-                                           new_data,
-                                           alpha = 0.05,
-                                           interval = c("both", "ci", "pi", "none"),
-                                           uncertain = TRUE,
-                                           ...) {
-  ellipsis::check_dots_empty()
-  object$predict(newdata = new_data, 
-                 alpha = alpha, 
-                 interval = interval,
-                 uncertain = uncertain)
-}
-
-
 
 #' @export
 #' @rdname trending_model_fit-prediction
@@ -94,6 +76,6 @@ predict.trending_model_fit_list <- function(object,
       )
     )
   }
-  names(res) <- c("output", "fitting_error", "fitting_warning")
+  names(res) <- c("output", "prediction_error", "prediction_warning")
   res
 }

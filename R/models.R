@@ -51,7 +51,7 @@ glm_model <- function(formula, family, ...) {
       model_class = "glm",
       fit = function(data) {
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
-        glm_model_fit(model, formula)
+        model_fit(model, formula)
       }
     ))),
     class = c("trending_glm", "trending_model")
@@ -69,7 +69,7 @@ glm_nb_model <- function(formula, ...) {
       model_class = "MASS::glm.nb",
       fit = function(data) {
         model <- MASS::glm.nb(formula = .(formula), data = data, ...)
-        glm_model_fit(model, formula)
+        model_fit(model, formula)
       }
     ))),
     class = c("trending_glm_nb", "trending_model")
@@ -86,7 +86,7 @@ lm_model <- function(formula, ...) {
       model_class = "lm",
       fit = function(data) {
         model <- lm(formula = .(formula), data = data, ...)
-        lm_model_fit(model, formula)
+        model_fit(model, formula)
       }
     ))),
     class = c("trending_lm", "trending_model")
@@ -104,7 +104,7 @@ brms_model <- function(formula, family, ...) {
       model_class = "brms",
       fit = function(data) {
         model <- brms::brm(formula = .(formula), data = data, family = .(family), ...)
-        brms_model_fit(model, formula)
+        model_fit(model, formula)
       }
     ))),
     class = c("trending_brms", "trending_model")
@@ -137,7 +137,7 @@ format.trending_model_fit <- function(x, ...) {
   ellipsis::check_dots_empty()
   tmp <- append(
     "Fitted trending model:",
-    utils::capture.output(x$model)
+    utils::capture.output(x$fitted_model)
   )
   paste(tmp,  collapse = "\n")
 }
