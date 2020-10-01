@@ -8,9 +8,7 @@
 #'   be derived.
 #' @param alpha The alpha threshold to be used for prediction intervals,
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
-#' @param interval Which interval to add to the data.  Can be one of `ci`
-#'   (confidence interval), `pi` (prediction interval), `both` (both intervals)
-#'   or `none` (no intervals added).
+#' @param add_pi Add a prediction interval to the output. Default TRUE.
 #' @param uncertain Only used for glm models.  Default TRUE.  If FALSE 
 #'   uncertainty in the fitted paramaters is ignored when generating the
 #'   prediction intervals.
@@ -19,10 +17,10 @@
 #' @name trending_model_fit-prediction
 NULL
 
-safe_predict <- function(object, new_data, alpha, interval, uncertain, ...) {
+safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
   tryCatch(
     list(predict(object = object, new_data = new_data, alpha = alpha,
-                 interval = interval, uncertain = uncertain, ...),
+                 add_pi = add_pi, uncertain = uncertain, ...),
          NULL,
          NULL
         ),
@@ -49,7 +47,7 @@ predict.trending_model_fit <- function(object,
 predict.trending_model_fit_list <- function(object, 
                                             new_data,
                                             alpha = 0.05,
-                                            interval = c("both", "ci", "pi", "none"),
+                                            add_pi = TRUE,
                                             uncertain = TRUE,
                                             ...) {
   ellipsis::check_dots_empty()
@@ -60,7 +58,7 @@ predict.trending_model_fit_list <- function(object,
         object, 
         safe_predict, 
         alpha = alpha,
-        interval = interval, 
+        add_pi = add_pi, 
         uncertain = uncertain
       )
     )
@@ -71,7 +69,7 @@ predict.trending_model_fit_list <- function(object,
         safe_predict,
         new_data = new_data,
         alpha = alpha,
-        interval = interval,
+        add_pi = add_pi,
         uncertain = uncertain
       )
     )

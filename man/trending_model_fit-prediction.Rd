@@ -8,14 +8,7 @@
 \usage{
 \method{predict}{trending_model_fit}(object, new_data, alpha = 0.05, add_pi = TRUE, uncertain = TRUE, ...)
 
-\method{predict}{trending_model_fit_list}(
-  object,
-  new_data,
-  alpha = 0.05,
-  interval = c("both", "ci", "pi", "none"),
-  uncertain = TRUE,
-  ...
-)
+\method{predict}{trending_model_fit_list}(object, new_data, alpha = 0.05, add_pi = TRUE, uncertain = TRUE, ...)
 }
 \arguments{
 \item{object}{A \code{trending_model_fit} or \code{trending_model_fit_list} object.}
@@ -26,15 +19,13 @@ be derived.}
 \item{alpha}{The alpha threshold to be used for prediction intervals,
 defaulting to 0.05, i.e. 95\% prediction intervals are derived.}
 
+\item{add_pi}{Add a prediction interval to the output. Default TRUE.}
+
 \item{uncertain}{Only used for glm models.  Default TRUE.  If FALSE
 uncertainty in the fitted paramaters is ignored when generating the
 prediction intervals.}
 
 \item{...}{Not currently used.}
-
-\item{interval}{Which interval to add to the data.  Can be one of \code{ci}
-(confidence interval), \code{pi} (prediction interval), \code{both} (both intervals)
-or \code{none} (no intervals added).}
 }
 \description{
 These functions can be used to generated estimated values and associated

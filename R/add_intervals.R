@@ -15,7 +15,7 @@ add_confidence_interval.lm <- function(model, data, alpha, ...) {
   ci <- as.data.frame(
     predict(model, data, interval = "confidence", level = 1 - alpha)
   )
-  ci <- setNames(ci, c("Estimate", "lower_ci", "upper_ci"))
+  ci <- setNames(ci, c("estimate", "lower_ci", "upper_ci"))
   cbind(data, ci)
 }
 
@@ -43,13 +43,13 @@ add_confidence_interval.glm <- function(model, data, alpha, ...) {
     # add the interval to the original data
     cbind(
       data, 
-      data.frame(Estimate = pred, lower_ci = lower, upper_ci = upper)
+      data.frame(estimate = pred, lower_ci = lower, upper_ci = upper)
     )
 }
  
 add_confidence_interval.brmsfit <- function(model, data, alpha, ...) {
   ci <- fitted(model, data, probs = c(alpha/2, 1 - alpha/2))[-2]
-  ci <- setNames(ci, c("Estimate", "lower_ci", "upper_ci"))
+  ci <- setNames(ci, c("estimate", "lower_ci", "upper_ci"))
   cbind(data, ci)
 }
 
@@ -72,7 +72,8 @@ add_prediction_interval.lm <- function(model, data, alpha, ...) {
 
 
 add_prediction_interval.glm <- function(model, data, alpha, uncertain, ...) {
-  pred <- data$Estimate
+  out <- predict(model, data, se.fit = TRUE, type = "link")
+  pred <- data$estimate
   lower_ci <- data$lower_ci
   upper_ci <- data$upper_ci
 

@@ -4,10 +4,10 @@ test_that("lm_model", {
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
   
-  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
-  nms2 <- c("hp", "cyl", c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms <- c(names(mtcars), c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms2 <- c("hp", "cyl", c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
-  expect_true(inherits(fit$model, "lm"))
+  expect_true(inherits(fit$fitted_model, "lm"))
   expect_true(inherits(fit, "trending_model_fit"))
   expect_identical(names(pred), nms)
   expect_identical(names(pred2), nms2)
@@ -19,10 +19,10 @@ test_that("glm_model", {
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
   
-  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
-  nms2 <- c("hp", "cyl", c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms <- c(names(mtcars), c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms2 <- c("hp", "cyl", c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
-  expect_true(inherits(fit$model, "glm"))
+  expect_true(inherits(fit$fitted_model, "glm"))
   expect_true(inherits(fit, "trending_model_fit"))
   expect_identical(names(pred), nms)
   expect_identical(names(pred2), nms2)
@@ -34,10 +34,10 @@ test_that("glm_nb_model", {
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
 
-  nms <- c(names(mtcars), c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
-  nms2 <- c("hp", "cyl", c("pred", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms <- c(names(mtcars), c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
+  nms2 <- c("hp", "cyl", c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
-  expect_true(inherits(fit$model, "negbin"))
+  expect_true(inherits(fit$fitted_model, "negbin"))
   expect_true(inherits(fit, "trending_model_fit"))
   expect_identical(names(pred), nms)
   expect_identical(names(pred2), nms2)
@@ -64,7 +64,7 @@ test_that("list models", {
 #   model <- brms_model(hp ~ cyl, family = brms::negbinomial())
 #   suppressWarnings(fit <- fit(model, mtcars))
 #   suppressWarnings(pred <- predict(fit, mtcars))
-#   nms <- c(names(mtcars), "pred", "lower", "upper", "observed")
+#   nms <- c(names(mtcars), "estimate", "lower", "upper", "observed")
 #
 #   expect_true(inherits(fit$model, "brmsfit"))
 #   expect_true(inherits(fit, "trending_model_fit"))
