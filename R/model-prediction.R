@@ -11,15 +11,25 @@
 #' @param interval Which interval to add to the data.  Can be one of `ci`
 #'   (confidence interval), `pi` (prediction interval), `both` (both intervals)
 #'   or `none` (no intervals added).
-#' @param simulate_pi Only used for glm models. Default TRUE. If TRUE then
-#'   prediction intervals are generated using simulation. 
-#' @param uncertain Only used for glm models.  Default TRUE.  If FALSE (and
-#'   `simulate_pi` is also FALSE) uncertainty in the fitted paramaters is
-#'   ignored when generating the prediction intervals.
+#' @param uncertain Only used for glm models.  Default TRUE.  If FALSE 
+#'   uncertainty in the fitted paramaters is ignored when generating the
+#'   prediction intervals.
 #' @param ... Not currently used.
 #'
 #' @name trending_model_fit-prediction
 NULL
+
+safe_predict <- function(object, new_data, alpha, interval, uncertain, ...) {
+  tryCatch(
+    list(predict(object = object, new_data = new_data, alpha = alpha,
+                 interval = interval, uncertain = uncertain, ...),
+         NULL,
+         NULL
+        ),
+    error = function(e) list(NULL, e, NULL),
+    warning = function(w) list(NULL, NULL, w)
+  )
+}
 
 #' @export
 #' @rdname trending_model_fit-prediction
@@ -40,14 +50,12 @@ predict.trending_model_fit_glm <- function(object,
                                            new_data,
                                            alpha = 0.05,
                                            interval = c("both", "ci", "pi", "none"),
-                                           simulate_pi = FALSE,
                                            uncertain = TRUE,
                                            ...) {
   ellipsis::check_dots_empty()
   object$predict(newdata = new_data, 
                  alpha = alpha, 
                  interval = interval,
-                 simulate_pi = simulate_pi,
                  uncertain = uncertain)
 }
 
@@ -60,35 +68,32 @@ predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             interval = c("both", "ci", "pi", "none"),
-                                            simulate_pi = FALSE,
                                             uncertain = TRUE,
                                             ...) {
   ellipsis::check_dots_empty()
   object <- combine_safe_results(object)
   if (missing(new_data)) {
-    res <- purrr::transpose(
-      purrr::map(
+    res <- base_transpose(
+      lapply(
         object, 
-        purrr::safely(predict), 
+        safe_predict, 
         alpha = alpha,
         interval = interval, 
-        simulate_pi = simulate_pi,
         uncertain = uncertain
       )
     )
   } else {
-    res <- purrr::transpose(
-      purrr::map(
+    res <- base_transpose(
+      lapply(
         object,
-        purrr::safely(predict),
+        safe_predict,
         new_data = new_data,
         alpha = alpha,
         interval = interval,
-        simulate_pi = simulate_pi,
         uncertain = uncertain
       )
     )
   }
-  class(res) <- c("trending_model_prediction_list", class(res))
+  names(res) <- c("output", "fitting_error", "fitting_warning")
   res
 }

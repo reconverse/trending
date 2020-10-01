@@ -21,18 +21,18 @@ NULL
 #' @rdname trending_model_fit
 #' @aliases fit.trending_model
 fit.trending_model <- function(x, data, ...) {
-  x$fit(data)
+    x$fit(data)
 }
-
 
 #' @export
 #' @rdname trending_model_fit
 #' @aliases fit.list trending_model_fit_list
 fit.list <- function(x, data, ...) {
-  if (!all(purrr::map_lgl(x, inherits, "trending_model"))) {
+  if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entrys should be `trending_model` objects")
   }
-  res <- purrr::transpose(purrr::map(x, purrr::safely(fit), data))
+  res <- base_transpose(lapply(x, safe_fit, data, ...))
+  names(res) <- c("fitted_trending_model", "fitting_error", "fitting_warning")
   class(res) <- c("trending_model_fit_list", class(res))
   res
 }
@@ -40,6 +40,14 @@ fit.list <- function(x, data, ...) {
 # ------------------------------------------------------------------------- #
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
+safe_fit <- function(x, data, ...) {
+  tryCatch(
+    list(fit(x, data, ...), NULL, NULL),
+    error = function(e) list(NULL, e, NULL),
+    warning = function(w) list(NULL, NULL, w)
+  )
+}
+
 lm_model_fit <- function(model, formula) {
   out <- list(
     model = model,
@@ -74,7 +82,6 @@ lm_model_fit <- function(model, formula) {
           alpha = alpha
         )
       }
-      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )
@@ -89,7 +96,6 @@ glm_model_fit <- function(model, formula) {
     predict = function(newdata,
                        alpha = 0.05,
                        interval = c("both", "ci", "pi", "none"),
-                       simulate_pi = FALSE,
                        uncertain = TRUE) {
 
       interval <- match.arg(interval)
@@ -108,7 +114,6 @@ glm_model_fit <- function(model, formula) {
           model = model,
           data = result,
           alpha = alpha,
-          simulate_pi = simulate_pi,
           uncertain = uncertain
         )
       }
@@ -119,12 +124,10 @@ glm_model_fit <- function(model, formula) {
           model = model,
           data = result,
           alpha = alpha,
-          simulate_pi = simulate_pi,
           uncertain = uncertain
         )
       }
 
-      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )
@@ -168,7 +171,6 @@ brms_model_fit <- function(model, formula) {
         )
       }
 
-      class(result) <- c("trending_model_prediction", class(result))
       result
     }
   )

@@ -36,8 +36,6 @@ RoxygenNote: 7.1.1
 Imports: 
     ellipsis,
     utils,
-    purrr,
-    ciTools,
     stats
 Suggests: 
     testthat,
@@ -46,5 +44,6 @@ Suggests:
     covr,
     outbreaks,
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr
 VignetteBuilder: knitr

@@ -52,8 +52,8 @@ test_that("list models", {
   suppressWarnings(pred2 <- predict(fit))
 
   expect_true(inherits(fit, "trending_model_fit_list"))
-  expect_true(inherits(pred, "trending_model_prediction_list"))
-  expect_true(inherits(pred2, "trending_model_prediction_list"))
+  expect_true(inherits(pred, "list"))
+  expect_true(inherits(pred2, "list"))
 
   expect_error(fit(list(model, "bob"), mtcars),
                "list entrys should be `trending_model` objects")

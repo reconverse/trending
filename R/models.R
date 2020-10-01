@@ -135,7 +135,10 @@ print.trending_model <- function(x, ...) {
 #' @aliases format.trending_model_fit
 format.trending_model_fit <- function(x, ...) {
   ellipsis::check_dots_empty()
-  tmp <- append("Fitted trending model:\n", utils::capture.output(x$model))
+  tmp <- append(
+    "Fitted trending model:",
+    utils::capture.output(x$model)
+  )
   paste(tmp,  collapse = "\n")
 }
 
