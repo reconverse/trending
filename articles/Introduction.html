@@ -212,19 +212,16 @@
 <span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
 <span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
 <span class="co">#&gt;   ..$ will_error : NULL</span>
-<span class="co">#&gt;  $ fitting_error        :List of 4</span>
-<span class="co">#&gt;   ..$ simple     : NULL</span>
-<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
-<span class="co">#&gt;   ..$ will_error :List of 2</span>
-<span class="co">#&gt;   .. ..$ message: chr "object 'nonexistant' not found"</span>
-<span class="co">#&gt;   .. ..$ call   : language eval(predvars, data, env)</span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"</span>
 <span class="co">#&gt;  $ fitting_warning      :List of 4</span>
 <span class="co">#&gt;   ..$ simple     : NULL</span>
 <span class="co">#&gt;   ..$ glm_poisson: NULL</span>
 <span class="co">#&gt;   ..$ glm_negbin : NULL</span>
 <span class="co">#&gt;   ..$ will_error : NULL</span>
+<span class="co">#&gt;  $ fitting_error        :List of 4</span>
+<span class="co">#&gt;   ..$ simple     : NULL</span>
+<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
+<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
+<span class="co">#&gt;   ..$ will_error : chr "object 'nonexistant' not found"</span>
 <span class="co">#&gt;  - attr(*, "class")= chr [1:2] "trending_model_fit_list" "list"</span></pre></div>
 <p>Similarly [<code>trending_model_fit_list</code>] objects can then be used with [predict]</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -234,7 +231,7 @@
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ output            :List of 4</span>
-<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ simple     :'data.frame':  14 obs. of  8 variables:</span>
 <span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
 <span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
 <span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
@@ -243,7 +240,7 @@
 <span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11392 10492 9594 8699 7804 ...</span>
 <span class="co">#&gt;   .. ..$ lower_pi: num [1:14] -13007 -14158 -15311 -16467 -17626 ...</span>
 <span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 24632 23597 22565 21535 20508 ...</span>
-<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ glm_poisson:'data.frame':  14 obs. of  8 variables:</span>
 <span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
 <span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
 <span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
@@ -252,7 +249,7 @@
 <span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11587 11154 10737 10336 9950 ...</span>
 <span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 11275 10846 10434 10038 9656 ...</span>
 <span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 11798 11361 10941 10536 10146 ...</span>
-<span class="co">#&gt;   ..$ :'data.frame': 14 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ glm_negbin :'data.frame':  14 obs. of  8 variables:</span>
 <span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
 <span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
 <span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
@@ -261,20 +258,17 @@
 <span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 14122 12140 11759 16303 12450 ...</span>
 <span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 8107 6618 6373 8363 6962 ...</span>
 <span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 18870 16223 15714 21784 16638 ...</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;  $ prediction_error  :List of 4</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ :List of 2</span>
-<span class="co">#&gt;   .. ..$ message: chr "no applicable method for 'predict' applied to an object of class \"c('simpleError', 'error', 'condition')\""</span>
-<span class="co">#&gt;   .. ..$ call   : language UseMethod("predict")</span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"</span>
+<span class="co">#&gt;   ..$ will_error : NULL</span>
 <span class="co">#&gt;  $ prediction_warning:List of 4</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ : NULL</span>
-<span class="co">#&gt;   ..$ : NULL</span></pre></div>
+<span class="co">#&gt;   ..$ simple     : NULL</span>
+<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
+<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
+<span class="co">#&gt;   ..$ will_error : NULL</span>
+<span class="co">#&gt;  $ prediction_error  :List of 4</span>
+<span class="co">#&gt;   ..$ simple     : NULL</span>
+<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
+<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
+<span class="co">#&gt;   ..$ will_error : chr "no applicable method for 'predict' applied to an object of class \"NULL\""</span></pre></div>
 </div>
 </div>
   </div>
