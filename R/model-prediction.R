@@ -17,17 +17,17 @@
 #' @name trending_model_fit-prediction
 NULL
 
-safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
-  tryCatch(
-    list(predict(object = object, new_data = new_data, alpha = alpha,
-                 add_pi = add_pi, uncertain = uncertain, ...),
-         NULL,
-         NULL
-        ),
-    error = function(e) list(NULL, e, NULL),
-    warning = function(w) list(NULL, NULL, w)
-  )
-}
+#safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
+#  tryCatch(
+#    list(res <- predict(object = object, new_data = new_data, alpha = alpha,
+#                        add_pi = add_pi, uncertain = uncertain, ...),
+#         NULL,
+#         NULL
+#        ),
+#    error = function(e) list(NULL, e, NULL),
+#    warning = function(w) list(res, NULL, w)
+#  )
+#}
 
 #' @export
 #' @rdname trending_model_fit-prediction
@@ -54,7 +54,7 @@ predict.trending_model_fit_list <- function(object,
     res <- base_transpose(
       lapply(
         object[[1]], 
-        safe_predict, 
+        safely(predict), 
         alpha = alpha,
         add_pi = add_pi, 
         uncertain = uncertain
@@ -64,7 +64,7 @@ predict.trending_model_fit_list <- function(object,
     res <- base_transpose(
       lapply(
         object[[1]],
-        safe_predict,
+        safely(predict),
         new_data = new_data,
         alpha = alpha,
         add_pi = add_pi,
@@ -72,6 +72,6 @@ predict.trending_model_fit_list <- function(object,
       )
     )
   }
-  names(res) <- c("output", "prediction_error", "prediction_warning")
+  names(res) <- c("output", "prediction_warning", "prediction_error")
   res
 }
