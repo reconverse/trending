@@ -135,7 +135,7 @@ format.trending_model_fit <- function(x, ...) {
     "Fitted trending model:",
     utils::capture.output(x$fitted_model)
   )
-  paste(tmp,  collapse = "\n")
+  paste(tmp, collapse = "\n")
 }
 
 

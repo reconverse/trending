@@ -3,7 +3,7 @@ test_that("lm_model", {
   suppressWarnings(fit <- fit(model, mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
-  
+
   nms <- c(names(mtcars), c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
   nms2 <- c("hp", "cyl", c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
@@ -18,7 +18,7 @@ test_that("glm_model", {
   suppressWarnings(fit <- fit(model, mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
-  
+
   nms <- c(names(mtcars), c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
   nms2 <- c("hp", "cyl", c("estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi"))
 
@@ -46,7 +46,7 @@ test_that("glm_nb_model", {
 test_that("list models", {
   model <- glm_model(hp ~ cyl, family = poisson)
   model2 <- glm_nb_model(hp ~ cyl)
-  
+
   suppressWarnings(fit <- fit(list(model, model2), mtcars))
   suppressWarnings(pred <- predict(fit, mtcars))
   suppressWarnings(pred2 <- predict(fit))
@@ -55,8 +55,10 @@ test_that("list models", {
   expect_true(inherits(pred, "list"))
   expect_true(inherits(pred2, "list"))
 
-  expect_error(fit(list(model, "bob"), mtcars),
-               "list entrys should be `trending_model` objects")
+  expect_error(
+    fit(list(model, "bob"), mtcars),
+    "list entrys should be `trending_model` objects"
+  )
 })
 
 # test_that("brms", {
@@ -70,4 +72,3 @@ test_that("list models", {
 #   expect_true(inherits(fit, "trending_model_fit"))
 #   expect_identical(names(pred), nms)
 # })
-

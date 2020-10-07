@@ -2,14 +2,14 @@
 #'
 #' These functions can be used to generated estimated values and associated
 #'   confidence/prediction intervals for trending_model_fit objects.
-#' 
+#'
 #' @param object A `trending_model_fit` or `trending_model_fit_list` object.
 #' @param new_data A `data.frame` containing data for which predictions are to
 #'   be derived.
 #' @param alpha The alpha threshold to be used for prediction intervals,
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
 #' @param add_pi Add a prediction interval to the output. Default TRUE.
-#' @param uncertain Only used for glm models.  Default TRUE.  If FALSE 
+#' @param uncertain Only used for glm models.  Default TRUE.  If FALSE
 #'   uncertainty in the fitted paramaters is ignored when generating the
 #'   prediction intervals.
 #' @param ... Not currently used.
@@ -17,7 +17,7 @@
 #' @name trending_model_fit-prediction
 NULL
 
-#safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
+# safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
 #  tryCatch(
 #    list(res <- predict(object = object, new_data = new_data, alpha = alpha,
 #                        add_pi = add_pi, uncertain = uncertain, ...),
@@ -27,12 +27,12 @@ NULL
 #    error = function(e) list(NULL, e, NULL),
 #    warning = function(w) list(res, NULL, w)
 #  )
-#}
+# }
 
 #' @export
 #' @rdname trending_model_fit-prediction
 #' @aliases predict.trending_model_fit
-predict.trending_model_fit <- function(object, 
+predict.trending_model_fit <- function(object,
                                        new_data,
                                        alpha = 0.05,
                                        add_pi = TRUE,
@@ -44,7 +44,7 @@ predict.trending_model_fit <- function(object,
 #' @export
 #' @rdname trending_model_fit-prediction
 #' @aliases predict.trending_model_fit_list
-predict.trending_model_fit_list <- function(object, 
+predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             add_pi = TRUE,
@@ -53,10 +53,10 @@ predict.trending_model_fit_list <- function(object,
   if (missing(new_data)) {
     res <- base_transpose(
       lapply(
-        object[[1]], 
-        safely(predict), 
+        object[[1]],
+        safely(predict),
         alpha = alpha,
-        add_pi = add_pi, 
+        add_pi = add_pi,
         uncertain = uncertain
       )
     )

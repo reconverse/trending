@@ -1,5 +1,4 @@
 test_that("trending_model accessors", {
-
   model_lm <- lm_model(y ~ x)
   model_glm <- glm_model(y ~ x, family = poisson)
 
@@ -8,9 +7,8 @@ test_that("trending_model accessors", {
 })
 
 test_that("trending_model_fit accessors", {
-
   x <- 1:10
-  y <- 2*x + 3
+  y <- 2 * x + 3
   dat <- data.frame(x, y)
   model_lm <- lm_model(y ~ x)
   fitted_model <- fit(model_lm, dat)

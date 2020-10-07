@@ -33,4 +33,3 @@ get_response.trending_model <- function(x, ...) {
   form <- get_formula(x)
   as.character(form)[2]
 }
-

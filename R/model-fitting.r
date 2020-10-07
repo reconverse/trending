@@ -21,7 +21,7 @@ NULL
 #' @rdname trending_model_fit
 #' @aliases fit.trending_model
 fit.trending_model <- function(x, data, ...) {
-    x$fit(data)
+  x$fit(data)
 }
 
 #' @export
@@ -31,7 +31,7 @@ fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entrys should be `trending_model` objects")
   }
-  #res <- base_transpose(lapply(x, safe_fit, data, ...))
+  # res <- base_transpose(lapply(x, safe_fit, data, ...))
   res <- base_transpose(lapply(x, safely(fit), data, ...))
   names(res) <- c("fitted_trending_model", "fitting_warning", "fitting_error")
   class(res) <- c("trending_model_fit_list", class(res))
@@ -41,20 +41,11 @@ fit.list <- function(x, data, ...) {
 # ------------------------------------------------------------------------- #
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
-#safe_fit <- function(x, data, ...) {
-#  tryCatch(
-#    list(res <- fit(x, data, ...), NULL, NULL),
-#    error = function(e) list(NULL, e, NULL),
-#    warning = function(w) list(res, NULL, w)
-#  )
-#}
-
-
 model_fit <- function(model, formula) {
   out <- list(
     fitted_model = model,
     predict = function(newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) {
-      
+
       # if no data given use the fitting data set
       if (missing(newdata)) {
         newdata <- model$model
