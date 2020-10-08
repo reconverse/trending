@@ -44,5 +44,8 @@ Suggests:
     outbreaks,
     knitr,
     rmarkdown,
-    dplyr
+    dplyr,
+    ciTools,
+    ggplot2,
+    patchwork
 VignetteBuilder: knitr

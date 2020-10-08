@@ -13,20 +13,22 @@
 #' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
 #'   brms_model
 #'
-#' @name trending_model_fit
-NULL
+#' @export
+fit <- function(x, data, ...) {
+  UseMethod("fit", x)
+}
 
 
 #' @export
-#' @rdname trending_model_fit
-#' @aliases fit.trending_model
+#' @rdname fit
+#' @aliases fit.trending_model trending_model_fit
 fit.trending_model <- function(x, data, ...) {
   x$fit(data)
 }
 
 #' @export
-#' @rdname trending_model_fit
-#' @aliases fit.list trending_model_fit_list
+#' @rdname fit
+#' @aliases trending_model_fit trending_model_fit_list
 fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entrys should be `trending_model` objects")
