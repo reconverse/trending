@@ -102,7 +102,7 @@ p1 / p2
 
 ```
 
-## Example 1 - Quassipoisson
+## Example 2 - Quassipoisson
 
 ```{r quasipoisson}
 # generate data
