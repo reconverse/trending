@@ -1,0 +1,150 @@
+---
+title: "Prediction intervals for GLMs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prediction intervals for GLMs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+# Overview
+Our implementation of prediction intervals follows that described by Gavin
+Simpson in two posts on his [blog](https://fromthebottomoftheheap.net). Whilst
+what follows is a brief overview, more detail, including discussion on whether
+or not it makes sense to calculate these intervals, can be found in the following
+[post](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/).
+
+
+## Confidence interval
+To calculate prediction intervals we first calculate the confidence interval on
+the scale of the linear predictor.  The upper and lower bounds of this interval,
+are then fed in to the inverse link function which in turn gives us a confidence
+interval on the expected response.
+
+## Prediction interval
+Once we have calculated the confidence interval on the response we feed the
+upper and lower bounds, in to the quantile function associated with the relevant
+distribution.  The maximum and minimum values of the output are then used as the
+upper and lower bounds of our prediction interval.
+
+
+# Comparison to a bootstrap approach
+Below we compare the prediction intervals from trending with those generated
+by the [`ciTools`](https://CRAN.R-project.org/package=ciTools) package.
+`ciTools` uses a parametric bootstrap approach so the expectation is that
+`trending` will produce a more conservative (wider) interval when we allow for
+uncertainty around the estimate, and a less conservative (narrower) interval
+when uncertainty is ignored.
+
+The following examples build on those discussed in the 
+[ciTools glm vignette](https://cran.r-project.org/web/packages/ciTools/vignettes/ciTools-glm-vignette.html):
+
+## Example 1 - Poisson
+
+```{r poisson}
+library(ciTools)
+library(trending)
+library(ggplot2)
+library(patchwork)
+library(MASS)
+
+
+# generate data
+x <- rnorm(100, mean = 0)
+y <- rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+dat <- data.frame(x = x, y = y)
+fit <- glm(y ~ x , family = poisson(link = "log"))
+
+# use ciTools to add prediction interval
+dat1 <- add_pi(dat, fit, names = c("lpb", "upb"), alpha = 0.1, nsims = 20000)
+head(dat1)
+
+# add intervals with trending (no uncertainty in parameters)
+poisson_model <- glm_model(y ~ x, family = "poisson")
+fitted_model <- fit(poisson_model, dat)
+dat2 <- predict(fitted_model, uncertain = FALSE, alpha = 0.1)
+head(dat2)
+
+# add intervals with trending (uncertainty in parameters)
+dat3 <- predict(fitted_model, alpha = 0.1)
+head(dat3)
+
+# plots
+p1 <- ggplot(dat1, aes(x, y)) +
+  geom_point(size = 1) +
+  geom_line(aes(y = pred), size = 1.2) +
+  geom_ribbon(aes(ymin = lpb, ymax = upb), alpha = 0.2) +
+  geom_ribbon(aes(ymin = `lower_pi`, ymax = `upper_pi`), data = dat2, alpha = 0.4) +
+  ggtitle("Poisson regression with prediction intervals and no uncertainty in parameters", 
+          subtitle = "Model fit (black line), with bootstrap intervals (gray), parametric intervals (dark gray)") +
+  coord_cartesian(ylim=c(0, 30))
+
+p2 <- ggplot(dat1, aes(x, y)) +
+  geom_point(size = 1) +
+  geom_line(aes(y = pred), size = 1.2) +
+  geom_ribbon(aes(ymin = lpb, ymax = upb), alpha = 0.4) +
+  geom_ribbon(aes(ymin = `lower_pi`, ymax = `upper_pi`), data = dat3, alpha = 0.2) +
+  ggtitle("Poisson regression with prediction intervals and uncertainty in parameters", 
+          subtitle = "Model fit (black line), with parametric intervals (gray), bootstrap intervals (dark gray)") +
+  coord_cartesian(ylim=c(0, 30))
+
+p1 / p2
+
+```
+
+## Example 1 - Quassipoisson
+
+```{r quasipoisson}
+# generate data
+x <- runif(n = 100, min = 0, max = 2)
+mu <- exp(1 + x)
+y <- rnegbin(n = 100, mu = mu, theta = mu/(5 - 1))
+dat <- data.frame(x = x, y = y)
+fit <- glm(y ~ x, family = quasipoisson(link = "log"))
+
+# use ciTools to add prediction interval
+dat1 <- add_pi(dat, fit, names = c("lpb", "upb"), alpha = 0.1, nsims = 20000)
+head(dat1)
+
+# add intervals with trending (no uncertainty in parameters)
+quasipoisson_model <- glm_model(y ~ x, family = quasipoisson(link = "log"))
+fitted_model <- fit(quasipoisson_model, dat)
+dat2 <- predict(fitted_model, uncertain = FALSE, alpha = 0.1)
+head(dat2)
+
+# add intervals with trending (uncertainty in parameters)
+dat3 <- predict(fitted_model, alpha = 0.1)
+head(dat3)
+
+# plots
+p3 <- ggplot(dat1, aes(x, y)) +
+  geom_point(size = 1) +
+  geom_line(aes(y = pred), size = 1.2) +
+  geom_ribbon(aes(ymin = lpb, ymax = upb), alpha = 0.2) +
+  geom_ribbon(aes(ymin = `lower_pi`, ymax = `upper_pi`), data = dat2, alpha = 0.4) +
+  ggtitle("Quasipoisson regression with prediction intervals and no uncertainty in parameters", 
+          subtitle = "Model fit (black line), with bootstrap intervals (gray), parametric intervals (dark gray)") +
+  coord_cartesian(ylim=c(0, 30))
+
+p4 <- ggplot(dat1, aes(x, y)) +
+  geom_point(size = 1) +
+  geom_line(aes(y = pred), size = 1.2) +
+  geom_ribbon(aes(ymin = lpb, ymax = upb), alpha = 0.4) +
+  geom_ribbon(aes(ymin = `lower_pi`, ymax = `upper_pi`), data = dat3, alpha = 0.2) +
+  ggtitle("Quasipoisson regression with prediction intervals and uncertainty in parameters", 
+          subtitle = "Model fit (black line), with parametric intervals (gray), bootstrap intervals (dark gray)") +
+  coord_cartesian(ylim=c(0, 30))
+
+p3 / p4
+
+```

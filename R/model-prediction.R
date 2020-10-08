@@ -17,18 +17,6 @@
 #' @name trending_model_fit-prediction
 NULL
 
-# safe_predict <- function(object, new_data, alpha, add_pi, uncertain, ...) {
-#  tryCatch(
-#    list(res <- predict(object = object, new_data = new_data, alpha = alpha,
-#                        add_pi = add_pi, uncertain = uncertain, ...),
-#         NULL,
-#         NULL
-#        ),
-#    error = function(e) list(NULL, e, NULL),
-#    warning = function(w) list(res, NULL, w)
-#  )
-# }
-
 #' @export
 #' @rdname trending_model_fit-prediction
 #' @aliases predict.trending_model_fit

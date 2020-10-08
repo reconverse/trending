@@ -91,11 +91,11 @@ add_prediction_interval.glm <- function(model, data, alpha, uncertain, ...) {
     data$lower_pi <- qpois(alpha / 2, lambda = lower)
     data$upper_pi <- qpois(1 - alpha / 2, lambda = upper)
   } else if (fam == "quasipoisson") {
-    overdispersion <- summary(fit)$dispersion
+    overdispersion <- summary(model)$dispersion
     data$lower_pi <- qnbinom(alpha / 2, mu = lower, size = lower / (overdispersion - 1))
     data$upper_pi <- qnbinom(1 - alpha / 2, mu = upper, size = upper / (overdispersion - 1))
   } else if (fam == "gamma") {
-    overdispersion <- summary(fit)$dispersion
+    overdispersion <- summary(model)$dispersion
     data$lower_pi <- qgamma(alpha / 2, shape = 1 / overdispersion, rate = 1 / (lower * overdispersion))
     data$upper_pi <- qgamma(1 - alpha / 2, shape = 1 / overdispersion, rate = 1 / (upper * overdispersion))
   } else if (fam == "binomial") {
