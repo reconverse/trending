@@ -9,9 +9,17 @@
 #' @param data A `data.frame` to be used to train the model.
 #'
 #' @param ... Additional arguments passed to underlying models.
-#'
-#' @param x the output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
-#'   brms_model
+#' 
+#' @examples
+#' x = rnorm(100, mean = 0)
+#' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+#' dat <- data.frame(x = x, y = y)
+#' 
+#' poisson_model <- glm_model(y ~ x , family = "poisson")
+#' negbin_model <- glm_nb_model(y ~ x)
+#' 
+#' fit(poisson_model, dat)
+#' fit(list(poisson_model, negbin_model), dat)
 #'
 #' @export
 fit <- function(x, data, ...) {

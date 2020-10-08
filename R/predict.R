@@ -13,6 +13,19 @@
 #'   uncertainty in the fitted paramaters is ignored when generating the
 #'   prediction intervals.
 #' @param ... Not currently used.
+#' 
+#' x = rnorm(100, mean = 0)
+#' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+#' dat <- data.frame(x = x, y = y)
+#' 
+#' poisson_model <- glm_model(y ~ x , family = "poisson")
+#' negbin_model <- glm_nb_model(y ~ x)
+#' 
+#' fitted_poisson <- fit(poisson_model, dat)
+#' fitted_list <- fit(list(poisson_model, negbin_model), dat)
+#' 
+#' predict(fitted_poisson)
+#' predict(fitted_list)
 #'
 #' @name trending_model_fit-prediction
 NULL

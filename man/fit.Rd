@@ -15,8 +15,8 @@ fit(x, data, ...)
 \method{fit}{list}(x, data, ...)
 }
 \arguments{
-\item{x}{the output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, or
-brms_model}
+\item{x}{The output of functions \code{lm_model}, \code{glm_model}, \code{glm_nb_model}, or
+brms_model or a list of these objects.}
 
 \item{data}{A \code{data.frame} to be used to train the model.}
 
@@ -25,4 +25,16 @@ brms_model}
 \description{
 \code{\link[=fit]{fit()}} fits a model using the given data to obtain an object of type
 \code{trending_model_fit} or  \code{trending_model_fit_list}.
+}
+\examples{
+x = rnorm(100, mean = 0)
+y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+dat <- data.frame(x = x, y = y)
+
+poisson_model <- glm_model(y ~ x , family = "poisson")
+negbin_model <- glm_nb_model(y ~ x)
+
+fit(poisson_model, dat)
+fit(list(poisson_model, negbin_model), dat)
+
 }

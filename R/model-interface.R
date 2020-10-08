@@ -36,7 +36,13 @@
 #'   `?trending_model-accessors`.
 #'
 #' @author Dirk Schumacher
-#'
+#' @examples
+#' x = rnorm(100, mean = 0)
+#' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+#' 
+#' poisson_model <- glm_model(y ~ x , family = "poisson")
+#' negbin_model <- glm_nb_model(y ~ x)
+#' 
 #' @aliases trending_models
 #' @name trending_model
 NULL
