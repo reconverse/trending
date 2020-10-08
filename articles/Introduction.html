@@ -56,6 +56,9 @@
 <li>
       <a href="../articles/Introduction.html">Introduction to trending</a>
     </li>
+    <li>
+      <a href="../articles/prediction_intervals.html">Prediction intervals for GLMs</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -95,7 +98,7 @@
 <a href="#main-features" class="anchor"></a>Main features</h1>
 <ul>
 <li><p><strong>Model specification:</strong> Interfaces to common models through intuitive functions; <code><a href="../reference/trending_model.html">lm_model()</a></code>, <code><a href="../reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code> and <code>brms_model</code>*.</p></li>
-<li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="../reference/get_model.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
+<li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="../reference/fit.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
 </ul>
 <p>*   Requires <a href="https://CRAN.R-project.org/package=brms">brms</a></p>
 </div>
@@ -134,7 +137,7 @@
 <span class="va">fitting_data</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 <span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">date</span>, <span class="va">day</span>, <span class="va">weekday</span><span class="op">)</span>
 
-<span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span>
+<span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span>
 
 <span class="co"># default</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
@@ -192,7 +195,7 @@
 <span class="op">)</span>
 
 <span class="va">models</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ fitted_trending_model:List of 4</span>
@@ -226,7 +229,7 @@
 <p>Similarly [<code>trending_model_fit_list</code>] objects can then be used with [predict]</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="va">models</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/get_model.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
