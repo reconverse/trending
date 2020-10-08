@@ -96,7 +96,7 @@ confidence/prediction intervals for trending_model_fit objects." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Introduction.html">Introduction to trending</a>
+      <a href="../articles/Introduction.html">Introduction</a>
     </li>
     <li>
       <a href="../articles/prediction_intervals.html">Prediction intervals for GLMs</a>
@@ -169,7 +169,16 @@ prediction intervals.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not currently used.</p></td>
+      <td><p>Not currently used.</p>
+<p>x = rnorm(100, mean = 0)
+y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
+dat &lt;- data.frame(x = x, y = y)</p>
+<p>poisson_model &lt;- glm_model(y ~ x , family = "poisson")
+negbin_model &lt;- glm_nb_model(y ~ x)</p>
+<p>fitted_poisson &lt;- fit(poisson_model, dat)
+fitted_list &lt;- fit(list(poisson_model, negbin_model), dat)</p>
+<p>predict(fitted_poisson)
+predict(fitted_list)</p></td>
     </tr>
     </table>
 
