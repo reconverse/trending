@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,19 +93,23 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Using the trending package</li>
     <li>
       <a href="../articles/Introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/prediction_intervals.html">Prediction intervals for GLMs</a>
+      <a href="../articles/prediction_intervals.html">Prediction intervals</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/reconhub/trending/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/reconhub/trending">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,8 +140,27 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-model-interfaces" class="hasAnchor"><a href="#section-model-interfaces" class="anchor"></a>Model interfaces</h2>
+          <p class="section-desc"><p>Functions for building trending_model objects</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="trending_model.html">glm_model()</a></code> <code><a href="trending_model.html">glm_nb_model()</a></code> <code><a href="trending_model.html">lm_model()</a></code> <code><a href="trending_model.html">brms_model()</a></code> </p>
+        </td>
+        <td><p>Modeling interface</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-fitting-and-prediction" class="hasAnchor"><a href="#section-fitting-and-prediction" class="anchor"></a>Fitting and prediction</h2>
+          <p class="section-desc"><p>Functions for fitting models and generating estimates</p></p>
         </th>
       </tr>
       
@@ -154,21 +177,28 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="trending_model.html">glm_model()</a></code> <code><a href="trending_model.html">glm_nb_model()</a></code> <code><a href="trending_model.html">lm_model()</a></code> <code><a href="trending_model.html">brms_model()</a></code> <code><a href="trending_model.html">format(<i>&lt;trending_model&gt;</i>)</a></code> <code><a href="trending_model.html">print(<i>&lt;trending_model&gt;</i>)</a></code> <code><a href="trending_model.html">format(<i>&lt;trending_model_fit&gt;</i>)</a></code> <code><a href="trending_model.html">print(<i>&lt;trending_model_fit&gt;</i>)</a></code> </p>
+          <p><code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit&gt;</i>)</a></code> <code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit_list&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Modeling interface</p></td>
-      </tr><tr>
+        <td><p>Predict methods</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-accessors" class="hasAnchor"><a href="#section-accessors" class="anchor"></a>Accessors</h2>
+          <p class="section-desc"><p>Access object properties</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="trending_model_accessors.html">get_formula()</a></code> <code><a href="trending_model_accessors.html">get_response()</a></code> </p>
         </td>
         <td><p>Accessors for trending_model objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit&gt;</i>)</a></code> <code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit_list&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Predict methods</p></td>
       </tr><tr>
         
         <td>
