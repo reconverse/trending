@@ -1,0 +1,43 @@
+navbar:
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+      - text: "Using the trending package"
+      - text: "Introduction"
+        href: articles/Introduction.html
+      - text: "Prediction intervals"
+        href: articles/prediction_intervals.html
+  - text: Changelog
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/reconhub/trending
+
+reference:
+- title: Model interfaces
+  desc: >
+    Functions for building trending_model objects
+- contents:
+  - lm_model
+  - glm_model
+  - glm_nb_model
+  - brms_model
+
+- title: Fitting and prediction
+  desc: >
+    Functions for fitting models and generating estimates
+- contents:
+  - fit
+  - predict.trending_model_fit
+
+- title: Accessors
+  desc: >
+    Access object properties
+- contents:
+  - get_formula
+  - get_response
+  - get_model

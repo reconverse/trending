@@ -25,8 +25,6 @@
 #'
 #' @param family The model family to be used for the response variable.
 #'
-#' @param x A `trending_model` or `trending_model_fit` object.
-#'
 #' @param ... Further arguments passed underlying models: `lm` for [lm_model()],
 #'   `glm` for [glm_model()], [MASS::glm.nb()] for `glm_nb_model`, [brms::brm()]
 #'   for `brms_model`.  Not used for `print` and `format`.
@@ -114,40 +112,4 @@ brms_model <- function(formula, family, ...) {
     ))),
     class = c("trending_brms", "trending_model")
   )
-}
-
-
-#' @export
-#' @rdname trending_model
-#' @aliases format.trending_model
-format.trending_model <- function(x, ...) {
-  paste0("Untrained trending model type: ", x[["model_class"]])
-}
-
-
-#' @export
-#' @rdname trending_model
-#' @aliases print.trending_model
-print.trending_model <- function(x, ...) {
-  cat(format(x))
-}
-
-
-#' @export
-#' @rdname trending_model
-#' @aliases format.trending_model_fit
-format.trending_model_fit <- function(x, ...) {
-  tmp <- append(
-    "Fitted trending model:",
-    utils::capture.output(x$fitted_model)
-  )
-  paste(tmp, collapse = "\n")
-}
-
-
-#' @export
-#' @rdname trending_model
-#' @aliases print.trending_model_fit
-print.trending_model_fit <- function(x, ...) {
-  cat(format(x))
 }

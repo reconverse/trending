@@ -74,17 +74,11 @@ remotes::install_github("reconhub/trending", build_vignettes = TRUE)
 An overview of *trending* is provided in the included vignette:
 * `vignette("Introduction", package = "trending")`
 
-## Websites
-
-The following websites are available:
-
-- The *trending* project on *github*, useful for developers, contributors, and
-users wanting to post issues, bug reports and feature requests: <br>
-<https://github.com/reconhub/trending>
 
 ## Getting help online
 
-Bug reports and feature requests should be posted on *github* using the [*issue* system](https://github.com/reconhub/incidence2/issues). All other questions
-should be posted on the **RECON** slack channel see 
+Bug reports and feature requests should be posted on *github* using the 
+[*issue* system](https://github.com/reconhub/trending/issues). All other 
+questions should be posted on the **RECON** slack channel see
 <https://www.repidemicsconsortium.org/forum/> for details on how to join.
   
