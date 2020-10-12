@@ -18,8 +18,9 @@ status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](h
 
 <br> **<span style="color: red;">Disclaimer</span>**
 
-This package is a work in progress. Please reach out to the authors
-before using.
+This package is a work in progress. Version 0.1.0 has been released to
+get wider feedback from the community. Please reach out to the authors
+should you have any problems.
 
 # Trending
 
@@ -83,8 +84,7 @@ join.
 
   - John Haman and Matthew Avery; Our implementation of prediction
     intervals was guided by their bootstrapped approach within the
-    [ciTools](https://cran.r-project.org/web/packages/ciTools/index.html)
-    package.
+    [ciTools](https://CRAN.R-project.org/package=ciTools) package.
 
 <!-- end list -->
 

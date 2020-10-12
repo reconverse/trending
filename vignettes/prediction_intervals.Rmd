@@ -47,7 +47,7 @@ uncertainty around the estimate, and a less conservative (narrower) interval
 when uncertainty is ignored.
 
 The following examples build on those discussed in the 
-[ciTools glm vignette](https://cran.r-project.org/web/packages/ciTools/vignettes/ciTools-glm-vignette.html):
+[ciTools glm vignette](https://CRAN.R-project.org/package=ciTools/vignettes/ciTools-glm-vignette.html):
 
 ## Example 1 - Poisson
 
