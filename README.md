@@ -74,3 +74,20 @@ Bug reports and feature requests should be posted on *github* using the
 questions should be posted on the **RECON** slack channel see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.
+
+# Acknowledgements
+
+  - Gavin Simpson; Our method to calculate prediction intervals follows
+    one that he described on his
+    [blog](https://fromthebottomoftheheap.net). \[1\] \[2\]
+
+  - John Haman and Matthew Avery; Our implementation of prediction
+    intervals was guided by their bootstrapped approach within the
+    [ciTools](https://cran.r-project.org/web/packages/ciTools/index.html)
+    package.
+
+<!-- end list -->
+
+1.  <https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/>
+
+2.  <https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-ii/>
