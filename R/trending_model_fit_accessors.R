@@ -27,3 +27,18 @@ get_model <- function(x, ...) {
 get_model.trending_model_fit <- function(x, ...) {
   x$fitted_model
 }
+
+
+#  -----------------------------------------------------------------------------
+#' @rdname trending_model_fit_accessors
+#' @export
+get_data <- function(x, ...) {
+  UseMethod("get_data", x)
+}
+
+#' @rdname trending_model_fit_accessors
+#' @aliases get_data.trending_model_fit
+#' @export
+get_data.trending_model_fit <- function(x, ...) {
+  x$data
+}

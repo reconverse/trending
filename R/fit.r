@@ -39,35 +39,25 @@ fit.trending_model <- function(x, data, ...) {
 #' @aliases trending_model_fit trending_model_fit_list
 fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
-    stop("list entrys should be `trending_model` objects")
+    stop("list entrys should be `trending_model` objects", call. = FALSE)
   }
-  # res <- base_transpose(lapply(x, safe_fit, data, ...))
-  res <- base_transpose(lapply(x, safely(fit), data, ...))
-  names(res) <- c("fitted_trending_model", "fitting_warning", "fitting_error")
-  class(res) <- c("trending_model_fit_list", class(res))
-  res
-}
-
-# ------------------------------------------------------------------------- #
-# ----------------------------- INTERNALS --------------------------------- #
-# ------------------------------------------------------------------------- #
-model_fit <- function(model, formula) {
-  out <- list(
-    fitted_model = model,
-    predict = function(newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) {
-
-      # if no data given use the fitting data set
-      if (missing(newdata)) {
-        newdata <- model$model
-      }
-
-      result <- add_confidence_interval(model, newdata, alpha)
-      if (add_pi) {
-        result <- add_prediction_interval(model, result, alpha, uncertain)
-      }
-      result
-    }
+  res <- transpose(lapply(x, safely(fit), data, ...))
+  out <- tibble::tibble(
+    data = list(data),
+    fitted_model = res[[1]],
+    fitting_warnings = res[[2]],
+    fitting_errors = res[[3]]
   )
-  class(out) <- c("trending_model_fit", class(out))
-  out
+  nms <- names(out)
+  out <- tibble::new_tibble(
+    out,
+    data = nms[1],
+    fitted_model = nms[2],
+    fitting_warnings = nms[3],
+    fitting_errors = nms[4],
+    nrow = nrow(out),
+    class = "trending_model_fit_list"
+  )
+  tibble::validate_tibble(out)
 }
+

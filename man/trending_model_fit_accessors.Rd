@@ -4,11 +4,17 @@
 \alias{trending_model_fit_accessors}
 \alias{get_model}
 \alias{get_model.trending_model_fit}
+\alias{get_data}
+\alias{get_data.trending_model_fit}
 \title{Accessors for trending_model_fit objects}
 \usage{
 get_model(x, ...)
 
 \method{get_model}{trending_model_fit}(x, ...)
+
+get_data(x, ...)
+
+\method{get_data}{trending_model_fit}(x, ...)
 }
 \arguments{
 \item{x}{Object of class \code{\link{trending_model}} (i.e. the output of functions

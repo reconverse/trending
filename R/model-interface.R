@@ -55,7 +55,7 @@ glm_model <- function(formula, family, ...) {
       model_class = "glm",
       fit = function(data) {
         model <- glm(formula = .(formula), family = .(family), data = data, ...)
-        model_fit(model, formula)
+        model_fit(model, data)
       }
     ))),
     class = c("trending_glm", "trending_model")
@@ -72,7 +72,7 @@ glm_nb_model <- function(formula, ...) {
       model_class = "MASS::glm.nb",
       fit = function(data) {
         model <- MASS::glm.nb(formula = .(formula), data = data, ...)
-        model_fit(model, formula)
+        model_fit(model, data)
       }
     ))),
     class = c("trending_glm_nb", "trending_model")
@@ -89,7 +89,7 @@ lm_model <- function(formula, ...) {
       model_class = "lm",
       fit = function(data) {
         model <- lm(formula = .(formula), data = data, ...)
-        model_fit(model, formula)
+        model_fit(model, data)
       }
     ))),
     class = c("trending_lm", "trending_model")
@@ -107,9 +107,34 @@ brms_model <- function(formula, family, ...) {
       model_class = "brms",
       fit = function(data) {
         model <- brms::brm(formula = .(formula), data = data, family = .(family), ...)
-        model_fit(model, formula)
+        model_fit(model, data)
       }
     ))),
     class = c("trending_brms", "trending_model")
   )
+}
+
+
+# ------------------------------------------------------------------------- #
+# ----------------------------- INTERNALS --------------------------------- #
+# ------------------------------------------------------------------------- #
+model_fit <- function(model, data) {
+  out <- list(
+    fitted_model = model,
+    predict = function(newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) {
+
+      # if no data given use the fitting data set
+      if (missing(newdata)) {
+        newdata <- data[all.vars(formula(model))]
+      }
+
+      result <- add_confidence_interval(model, newdata, alpha)
+      if (add_pi) {
+        result <- add_prediction_interval(model, result, alpha, uncertain)
+      }
+      result
+    }
+  )
+  class(out) <- c("trending_model_fit", class(out))
+  out
 }

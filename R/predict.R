@@ -52,9 +52,9 @@ predict.trending_model_fit_list <- function(object,
                                             uncertain = TRUE,
                                             ...) {
   if (missing(new_data)) {
-    res <- base_transpose(
+    res <- transpose(
       lapply(
-        object[[1]],
+        object[[2]],
         safely(predict),
         alpha = alpha,
         add_pi = add_pi,
@@ -62,9 +62,9 @@ predict.trending_model_fit_list <- function(object,
       )
     )
   } else {
-    res <- base_transpose(
+    res <- transpose(
       lapply(
-        object[[1]],
+        object[[2]],
         safely(predict),
         new_data = new_data,
         alpha = alpha,
