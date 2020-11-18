@@ -83,7 +83,8 @@
 
       
 
-      </header><script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Introduction_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Introduction_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction</h1>
@@ -112,8 +113,8 @@
 <div id="an-individual-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-individual-model" class="anchor"></a>An individual model</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>  <span class="co"># for data</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>  <span class="co"># for data</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/trending">trending</a></span><span class="op">)</span>   <span class="co"># for trend fitting</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># for data manipulation</span>
 
@@ -184,98 +185,68 @@
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065…</span>
 <span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, …</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 1299…</span></pre></div>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 1299…</span></code></pre></div>
 </div>
 <div id="multiple-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-models" class="anchor"></a>Multiple models</h2>
-<p>Trending makes use of [purrr::safely()] to handle lists of models. In this situation the fitted output wil be of class [<code>trending_model_fit_list</code>] which is a list with components result and error. If an error occurred, error is an error object and result has a NULL value (otherwise). If the model does not error then result is the corresponding model output and the error entry will be NULL.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<p>When working with a list of models Trending captures both errors and warnings so the user can choose how to proceed. In this situation the fitted output will be of class <code>trending_model_fit_list</code> which is a list with named lists for each model containing components result, warnings and errors. If an error occurs, then the error object is captured and the result has a NULL value. If the model does not error then result is the corresponding model output and the error entry will be NULL. Similarly, the warning component will be a vector of all warnings that occurred.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   simple <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">lm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span><span class="op">)</span>,
   glm_poisson <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>,
   glm_negbin <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span>,
   will_error <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistant</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">models</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ fitted_trending_model:List of 4</span>
-<span class="co">#&gt;   ..$ simple     :List of 2</span>
-<span class="co">#&gt;   .. ..$ fitted_model:List of 12</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "class")= chr "lm"</span>
-<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
-<span class="co">#&gt;   ..$ glm_poisson:List of 2</span>
-<span class="co">#&gt;   .. ..$ fitted_model:List of 30</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "class")= chr [1:2] "glm" "lm"</span>
-<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
-<span class="co">#&gt;   ..$ glm_negbin :List of 2</span>
-<span class="co">#&gt;   .. ..$ fitted_model:List of 30</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "class")= chr [1:3] "negbin" "glm" "lm"</span>
-<span class="co">#&gt;   .. ..$ predict     :function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE)  </span>
-<span class="co">#&gt;   .. ..- attr(*, "class")= chr [1:2] "trending_model_fit" "list"</span>
-<span class="co">#&gt;   ..$ will_error : NULL</span>
-<span class="co">#&gt;  $ fitting_warning      :List of 4</span>
-<span class="co">#&gt;   ..$ simple     : NULL</span>
-<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
-<span class="co">#&gt;   ..$ will_error : NULL</span>
-<span class="co">#&gt;  $ fitting_error        :List of 4</span>
-<span class="co">#&gt;   ..$ simple     : NULL</span>
-<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
-<span class="co">#&gt;   ..$ will_error : chr "object 'nonexistant' not found"</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "trending_model_fit_list" "list"</span></pre></div>
-<p>Similarly [<code>trending_model_fit_list</code>] objects can then be used with [predict]</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">models</span> <span class="op">%&gt;%</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="va">models</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span>
+
+<span class="va">res</span>
+<span class="co">#&gt; # A tibble: 4 x 5</span>
+<span class="co">#&gt;   model_name  data              fitted_model   fitting_warnings fitting_errors</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;            &lt;named list&gt;   &lt;named list&gt;     &lt;named list&gt;  </span>
+<span class="co">#&gt; 1 simple      &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 2 glm_poisson &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 3 glm_negbin  &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 4 will_error  &lt;tibble [43 × 5]&gt; &lt;NULL&gt;         &lt;NULL&gt;           &lt;chr [1]&gt;</span>
+
+<span class="va">res</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 4</span>
+<span class="co">#&gt; Columns: 5</span>
+<span class="co">#&gt; $ model_name       &lt;chr&gt; "simple", "glm_poisson", "glm_negbin", "will_error"</span>
+<span class="co">#&gt; $ data             &lt;list&gt; [&lt;tbl_df[43 x 5]&gt;, &lt;tbl_df[43 x 5]&gt;, &lt;tbl_df[43 x 5…</span>
+<span class="co">#&gt; $ fitted_model     &lt;named list&gt; [[&lt;69201.584, -1092.913, 19109.1089, 11650.02…</span>
+<span class="co">#&gt; $ fitting_warnings &lt;named list&gt; [NULL, NULL, NULL, NULL]</span>
+<span class="co">#&gt; $ fitting_errors   &lt;named list&gt; [NULL, NULL, NULL, "object 'nonexistant' not …</span></code></pre></div>
+<p><code>trending_model_fit_list</code> objects can then be used with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> which similarly captures warnings and errors and returns the model predictions in a column called <strong>output</strong>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">models</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ output            :List of 4</span>
-<span class="co">#&gt;   ..$ simple     :'data.frame':  14 obs. of  8 variables:</span>
-<span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
-<span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
-<span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
-<span class="co">#&gt;   .. ..$ estimate: num [1:14] 5813 4720 3627 2534 1441 ...</span>
-<span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 234 -1053 -2341 -3631 -4922 ...</span>
-<span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11392 10492 9594 8699 7804 ...</span>
-<span class="co">#&gt;   .. ..$ lower_pi: num [1:14] -13007 -14158 -15311 -16467 -17626 ...</span>
-<span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 24632 23597 22565 21535 20508 ...</span>
-<span class="co">#&gt;   ..$ glm_poisson:'data.frame':  14 obs. of  8 variables:</span>
-<span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
-<span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
-<span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
-<span class="co">#&gt;   .. ..$ estimate: num [1:14] 11535 11103 10686 10286 9900 ...</span>
-<span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 11484 11052 10636 10236 9850 ...</span>
-<span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 11587 11154 10737 10336 9950 ...</span>
-<span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 11275 10846 10434 10038 9656 ...</span>
-<span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 11798 11361 10941 10536 10146 ...</span>
-<span class="co">#&gt;   ..$ glm_negbin :'data.frame':  14 obs. of  8 variables:</span>
-<span class="co">#&gt;   .. ..$ date    : Date[1:14], format: "2020-05-15" "2020-05-16" ...</span>
-<span class="co">#&gt;   .. ..$ day     : int [1:14] 58 59 60 61 62 63 64 65 66 67 ...</span>
-<span class="co">#&gt;   .. ..$ weekday : Factor w/ 3 levels "rest_of_week",..: 1 3 3 2 1 1 1 1 3 3 ...</span>
-<span class="co">#&gt;   .. ..$ estimate: num [1:14] 12682 10625 10262 13840 11036 ...</span>
-<span class="co">#&gt;   .. ..$ lower_ci: num [1:14] 11390 9299 8956 11749 9782 ...</span>
-<span class="co">#&gt;   .. ..$ upper_ci: num [1:14] 14122 12140 11759 16303 12450 ...</span>
-<span class="co">#&gt;   .. ..$ lower_pi: num [1:14] 8107 6618 6373 8363 6962 ...</span>
-<span class="co">#&gt;   .. ..$ upper_pi: num [1:14] 18870 16223 15714 21784 16638 ...</span>
-<span class="co">#&gt;   ..$ will_error : NULL</span>
-<span class="co">#&gt;  $ prediction_warning:List of 4</span>
-<span class="co">#&gt;   ..$ simple     : NULL</span>
-<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
-<span class="co">#&gt;   ..$ will_error : NULL</span>
-<span class="co">#&gt;  $ prediction_error  :List of 4</span>
-<span class="co">#&gt;   ..$ simple     : NULL</span>
-<span class="co">#&gt;   ..$ glm_poisson: NULL</span>
-<span class="co">#&gt;   ..$ glm_negbin : NULL</span>
-<span class="co">#&gt;   ..$ will_error : chr "no applicable method for 'predict' applied to an object of class \"NULL\""</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span>
+
+<span class="va">res</span>
+<span class="co">#&gt; # A tibble: 4 x 8</span>
+<span class="co">#&gt;   model_name data  fitted_model fitting_warnings fitting_errors output</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;lis&gt; &lt;named list&gt; &lt;named list&gt;     &lt;named list&gt;   &lt;name&gt;</span>
+<span class="co">#&gt; 1 simple     &lt;tib… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,…</span>
+<span class="co">#&gt; 2 glm_poiss… &lt;tib… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,…</span>
+<span class="co">#&gt; 3 glm_negbin &lt;tib… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,…</span>
+<span class="co">#&gt; 4 will_error &lt;tib… &lt;NULL&gt;       &lt;NULL&gt;           &lt;chr [1]&gt;      &lt;NULL&gt;</span>
+<span class="co">#&gt; # … with 2 more variables: prediction_warnings &lt;named list&gt;,</span>
+<span class="co">#&gt; #   prediction_errors &lt;named list&gt;</span>
+
+<span class="va">res</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 4</span>
+<span class="co">#&gt; Columns: 8</span>
+<span class="co">#&gt; $ model_name          &lt;chr&gt; "simple", "glm_poisson", "glm_negbin", "will_erro…</span>
+<span class="co">#&gt; $ data                &lt;list&gt; [&lt;tbl_df[43 x 5]&gt;, &lt;tbl_df[43 x 5]&gt;, &lt;tbl_df[43 …</span>
+<span class="co">#&gt; $ fitted_model        &lt;named list&gt; [[&lt;69201.584, -1092.913, 19109.1089, 11650…</span>
+<span class="co">#&gt; $ fitting_warnings    &lt;named list&gt; [NULL, NULL, NULL, NULL]</span>
+<span class="co">#&gt; $ fitting_errors      &lt;named list&gt; [NULL, NULL, NULL, "object 'nonexistant' n…</span>
+<span class="co">#&gt; $ output              &lt;named list&gt; [&lt;data.frame[14 x 8]&gt;, &lt;data.frame[14 x 8]…</span>
+<span class="co">#&gt; $ prediction_warnings &lt;named list&gt; [NULL, NULL, NULL, NULL]</span>
+<span class="co">#&gt; $ prediction_errors   &lt;named list&gt; [NULL, NULL, NULL, "no applicable method f…</span></code></pre></div>
 </div>
 </div>
   </div>

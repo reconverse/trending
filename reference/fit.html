@@ -190,7 +190,7 @@ brms_model or a list of these objects.</p></td>
 #&gt; function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) 
 #&gt; {
 #&gt;     if (missing(newdata)) {
-#&gt;         newdata &lt;- model$model
+#&gt;         newdata &lt;- data[all.vars(formula(model))]
 #&gt;     }
 #&gt;     result &lt;- add_confidence_interval(model, newdata, alpha)
 #&gt;     if (add_pi) {
@@ -199,97 +199,17 @@ brms_model or a list of these objects.</p></td>
 #&gt;     }
 #&gt;     result
 #&gt; }
-#&gt; &lt;bytecode: 0x7fd25c96fa78&gt;
-#&gt; &lt;environment: 0x7fd25c972aa8&gt;
+#&gt; &lt;bytecode: 0x7f9cb867c5f0&gt;
+#&gt; &lt;environment: 0x7f9cb867f460&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "trending_model_fit" "list"              </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $fitted_trending_model
-#&gt; $fitted_trending_model[[1]]
-#&gt; $fitted_model
-#&gt; 
-#&gt; Call:  glm(formula = y ~ x, family = "poisson", data = data)
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)            x  
-#&gt;      1.5230       0.4625  
-#&gt; 
-#&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-#&gt; Null Deviance:	    233.5 
-#&gt; Residual Deviance: 114.8 	AIC: 446
-#&gt; 
-#&gt; $predict
-#&gt; function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) 
-#&gt; {
-#&gt;     if (missing(newdata)) {
-#&gt;         newdata &lt;- model$model
-#&gt;     }
-#&gt;     result &lt;- add_confidence_interval(model, newdata, alpha)
-#&gt;     if (add_pi) {
-#&gt;         result &lt;- add_prediction_interval(model, result, alpha, 
-#&gt;             uncertain)
-#&gt;     }
-#&gt;     result
-#&gt; }
-#&gt; &lt;bytecode: 0x7fd25c96fa78&gt;
-#&gt; &lt;environment: 0x7fd25d0ad440&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_model_fit" "list"              
-#&gt; 
-#&gt; $fitted_trending_model[[2]]
-#&gt; $fitted_model
-#&gt; 
-#&gt; Call:  MASS::glm.nb(formula = y ~ x, data = data, init.theta = 30031.55994, 
-#&gt;     link = log)
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)            x  
-#&gt;      1.5230       0.4625  
-#&gt; 
-#&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-#&gt; Null Deviance:	    233.4 
-#&gt; Residual Deviance: 114.7 	AIC: 448
-#&gt; 
-#&gt; $predict
-#&gt; function (newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) 
-#&gt; {
-#&gt;     if (missing(newdata)) {
-#&gt;         newdata &lt;- model$model
-#&gt;     }
-#&gt;     result &lt;- add_confidence_interval(model, newdata, alpha)
-#&gt;     if (add_pi) {
-#&gt;         result &lt;- add_prediction_interval(model, result, alpha, 
-#&gt;             uncertain)
-#&gt;     }
-#&gt;     result
-#&gt; }
-#&gt; &lt;bytecode: 0x7fd25c96fa78&gt;
-#&gt; &lt;environment: 0x7fd258f9ebe8&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_model_fit" "list"              
-#&gt; 
-#&gt; 
-#&gt; $fitting_warning
-#&gt; $fitting_warning[[1]]
-#&gt; NULL
-#&gt; 
-#&gt; $fitting_warning[[2]]
-#&gt; [1] "iteration limit reached" "iteration limit reached"
-#&gt; 
-#&gt; 
-#&gt; $fitting_error
-#&gt; $fitting_error[[1]]
-#&gt; NULL
-#&gt; 
-#&gt; $fitting_error[[2]]
-#&gt; NULL
-#&gt; 
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_model_fit_list" "list"                   </div><div class='input'>
-</div></pre>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 4</span><span>
+#&gt;   data               fitted_model   fitting_warnings fitting_errors
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;df[,2] [100 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;trndng__ [2]&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>           </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;df[,2] [100 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;trndng__ [2]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>        </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>        </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
