@@ -79,15 +79,12 @@ join.
 # Acknowledgements
 
   - Gavin Simpson; Our method to calculate prediction intervals follows
-    one that he described on his
-    [blog](https://fromthebottomoftheheap.net). \[1\] \[2\]
+    one that he described in two posts on his
+    [blog](https://fromthebottomoftheheap.net); see
+    [part 1](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/)
+    and
+    [part 2](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-ii/).
 
   - John Haman and Matthew Avery; Our implementation of prediction
     intervals was guided by their bootstrapped approach within the
     [ciTools](https://CRAN.R-project.org/package=ciTools) package.
-
-<!-- end list -->
-
-1.  <https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/>
-
-2.  <https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-ii/>

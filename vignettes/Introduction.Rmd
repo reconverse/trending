@@ -81,12 +81,14 @@ fitted_model %>%
 ```
 
 ## Multiple models
-Trending makes use of [purrr::safely()] to handle lists of models.  In this
-situation the fitted output wil be of class [`trending_model_fit_list`] which
-is a list with components result and error. If an error occurred, error is an 
-error object and result has a NULL value (otherwise). If the model does not
-error then result is the corresponding model output and the error entry will be
-NULL.
+When working with a list of models Trending captures both errors and warnings
+so the user can choose how to proceed.  In this situation the fitted output will
+be of class `trending_model_fit_list` which is a list with named lists for
+each model containing components result, warnings and errors. If an error
+occurs, then the error object is captured and the result has a NULL value.
+If the model does not error then result is the corresponding model output and
+the error entry will be NULL.  Similarly, the warning component will be a
+vector of all warnings that occurred.
 
 ```{r}
 models  <- list(
@@ -96,17 +98,26 @@ models  <- list(
   will_error = glm_nb_model(count ~ day + nonexistant)
 )
 
-models %>%
-  fit(fitting_data) %>%
-  glimpse()
+res <- models %>%
+  fit(fitting_data)
+
+res
+
+res %>% glimpse()
+
 ```
 
-Similarly [`trending_model_fit_list`] objects can then be used with [predict]
+`trending_model_fit_list` objects can then be used with `predict()` which
+similarly captures warnings and errors and returns the model predictions in a
+column called **output**.
 ```{r}
-models %>%
+res <- models %>%
   fit(fitting_data) %>% 
-  predict(pred_data) %>% 
-  glimpse()
+  predict(pred_data)
+
+res
+
+res %>% glimpse()
 ```
 
 
