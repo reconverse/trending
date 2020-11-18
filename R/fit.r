@@ -42,19 +42,33 @@ fit.list <- function(x, data, ...) {
     stop("list entrys should be `trending_model` objects", call. = FALSE)
   }
   res <- transpose(lapply(x, safely(fit), data, ...))
-  out <- tibble::tibble(
-    data = list(data),
-    fitted_model = res[[1]],
-    fitting_warnings = res[[2]],
-    fitting_errors = res[[3]]
-  )
-  nms <- names(out)
+  nms <- names(x)
+  if (is.null(nms)) {
+    out <- tibble::tibble(
+      data = list(data),
+      fitted_model = res[[1]],
+      fitting_warnings = res[[2]],
+      fitting_errors = res[[3]]
+    )
+    nm_var = NULL
+  } else {
+    out <- tibble::tibble(
+      model_name = nms,
+      data = list(data),
+      fitted_model = res[[1]],
+      fitting_warnings = res[[2]],
+      fitting_errors = res[[3]]
+    )
+    nm_var = "model_name"
+  }
+  
   out <- tibble::new_tibble(
     out,
-    data = nms[1],
-    fitted_model = nms[2],
-    fitting_warnings = nms[3],
-    fitting_errors = nms[4],
+    model_name <- nm_var,
+    data = "data",
+    fitted_model = "fitted_model",
+    fitting_warnings = "fitting_warnings",
+    fitting_errors = "fitting_errors",
     nrow = nrow(out),
     class = "trending_model_fit_list"
   )

@@ -52,23 +52,11 @@ test_that("list models", {
   suppressWarnings(pred2 <- predict(fit))
 
   expect_true(inherits(fit, "trending_model_fit_list"))
-  expect_true(inherits(pred, "list"))
-  expect_true(inherits(pred2, "list"))
+  expect_true(inherits(pred, "tbl_df"))
+  expect_true(inherits(pred2, "tbl_df"))
 
   expect_error(
     fit(list(model, "bob"), mtcars),
     "list entrys should be `trending_model` objects"
   )
 })
-
-# test_that("brms", {
-#   skip_on_cran()
-#   model <- brms_model(hp ~ cyl, family = brms::negbinomial())
-#   suppressWarnings(fit <- fit(model, mtcars))
-#   suppressWarnings(pred <- predict(fit, mtcars))
-#   nms <- c(names(mtcars), "estimate", "lower", "upper", "observed")
-#
-#   expect_true(inherits(fit$model, "brmsfit"))
-#   expect_true(inherits(fit, "trending_model_fit"))
-#   expect_identical(names(pred), nms)
-# })

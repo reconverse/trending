@@ -51,28 +51,30 @@ predict.trending_model_fit_list <- function(object,
                                             add_pi = TRUE,
                                             uncertain = TRUE,
                                             ...) {
+  fitted_model_var <- attr(object, "fitted_model")
   if (missing(new_data)) {
-    res <- transpose(
-      lapply(
-        object[[2]],
-        safely(predict),
-        alpha = alpha,
-        add_pi = add_pi,
-        uncertain = uncertain
-      )
+    res <- lapply(
+      object[[fitted_model_var]],
+      safely(predict),
+      alpha = alpha,
+      add_pi = add_pi,
+      uncertain = uncertain
     )
   } else {
-    res <- transpose(
-      lapply(
-        object[[2]],
-        safely(predict),
-        new_data = new_data,
-        alpha = alpha,
-        add_pi = add_pi,
-        uncertain = uncertain
-      )
+    res <- lapply(
+      object[[fitted_model_var]],
+      safely(predict),
+      new_data = new_data,
+      alpha = alpha,
+      add_pi = add_pi,
+      uncertain = uncertain
     )
   }
-  names(res) <- c("output", "prediction_warning", "prediction_error")
-  res
+  res <- transpose(res)
+  res <- tibble::tibble(
+    output = res[[1]],
+    prediction_warnings = res[[2]],
+    prediction_errors = res[[3]]
+  )
+  new_bare_tibble(cbind(object, res))
 }
