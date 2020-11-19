@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • trending</title>
+<title>Changelog • trending</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -58,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -124,90 +124,30 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/reconhub/trending/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <table class="ref-index">
-
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-model-interfaces" class="hasAnchor"><a href="#section-model-interfaces" class="anchor"></a>Model interfaces</h2>
-          <p class="section-desc"><p>Functions for building trending_model objects</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trending_model.html">glm_model()</a></code> <code><a href="trending_model.html">glm_nb_model()</a></code> <code><a href="trending_model.html">lm_model()</a></code> <code><a href="trending_model.html">brms_model()</a></code> </p>
-        </td>
-        <td><p>Modeling interface</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-fitting-and-prediction" class="hasAnchor"><a href="#section-fitting-and-prediction" class="anchor"></a>Fitting and prediction</h2>
-          <p class="section-desc"><p>Functions for fitting models and generating estimates</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="fit.html">fit()</a></code> </p>
-        </td>
-        <td><p>Fitting for trending_model objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit&gt;</i>)</a></code> <code><a href="trending_model_fit-prediction.html">predict(<i>&lt;trending_model_fit_list&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Predict methods</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-accessors" class="hasAnchor"><a href="#section-accessors" class="anchor"></a>Accessors</h2>
-          <p class="section-desc"><p>Access object properties</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trending_model_accessors.html">get_formula()</a></code> <code><a href="trending_model_accessors.html">get_response()</a></code> </p>
-        </td>
-        <td><p>Accessors for trending_model objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trending_model_fit_accessors.html">get_model()</a></code> <code><a href="trending_model_fit_accessors.html">get_data()</a></code> </p>
-        </td>
-        <td><p>Accessors for trending_model_fit objects</p></td>
-      </tr>
-    </tbody>
-    </table>
+    <div id="trending-002" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.2">
+<a href="#trending-002" class="anchor"></a>trending 0.0.2<small> 2020-11-18 </small>
+</h1>
+<ul>
+<li>fit now returns a subclass of tibble instead of list.</li>
+<li>predict now returns a tibble instead of list.</li>
+<li>better compatibility with dplyr verbs.</li>
+</ul>
+</div>
+    <div id="trending-001" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1">
+<a href="#trending-001" class="anchor"></a>trending 0.0.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -215,6 +155,7 @@
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
