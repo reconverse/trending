@@ -3,9 +3,6 @@
 
 <!-- badges: start -->
 
-[![Project Status: WIP – Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
@@ -18,7 +15,7 @@ status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](h
 
 <br> **<span style="color: red;">Disclaimer</span>**
 
-This package is a work in progress. Version 0.1.0 has been released to
+This package is a work in progress. Version 0.0.2 has been released to
 get wider feedback from the community. Please reach out to the authors
 should you have any problems.
 
@@ -44,8 +41,8 @@ developed
 
 ## Installing the package
 
-Once it is released on [CRAN](https://CRAN.R-project.org), you will be
-able to install the stable version of the package with:
+You can install the stable version from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("trending")
