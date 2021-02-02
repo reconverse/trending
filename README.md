@@ -3,8 +3,6 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
 [![Codecov test
@@ -12,12 +10,6 @@ coverage](https://codecov.io/gh/reconhub/trending/branch/master/graph/badge.svg)
 [![R build
 status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/trending/actions)
 <!-- badges: end -->
-
-<br> **<span style="color: red;">Disclaimer</span>**
-
-This package is a work in progress. Version 0.0.2 has been released to
-get wider feedback from the community. Please reach out to the authors
-should you have any problems.
 
 # Trending
 
