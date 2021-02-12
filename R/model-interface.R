@@ -37,10 +37,10 @@
 #' @examples
 #' x = rnorm(100, mean = 0)
 #' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
-#' 
+#'
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
 #' negbin_model <- glm_nb_model(y ~ x)
-#' 
+#'
 #' @aliases trending_models
 #' @name trending_model
 NULL
@@ -121,7 +121,7 @@ brms_model <- function(formula, family, ...) {
 model_fit <- function(model, data) {
   out <- list(
     fitted_model = model,
-    predict = function(newdata, alpha = 0.05, add_pi = TRUE, uncertain = TRUE) {
+    predict = function(newdata, alpha = 0.05, add_pi = TRUE, simulate_pi = FALSE, uncertain = TRUE) {
 
       # if no data given use the fitting data set
       if (missing(newdata)) {
@@ -129,8 +129,14 @@ model_fit <- function(model, data) {
       }
 
       result <- add_confidence_interval(model, newdata, alpha)
+
       if (add_pi) {
-        result <- add_prediction_interval(model, result, alpha, uncertain)
+        if (simulate_pi) {
+          result <- add_prediction_interval(model, result, alpha, simulate_pi, uncertain)
+        } else {
+          result <- add_prediction_interval(model, result, alpha, simulate_pi, uncertain)
+        }
+
       }
       result
     }

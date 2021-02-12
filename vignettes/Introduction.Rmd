@@ -78,6 +78,11 @@ fitted_model %>%
 fitted_model %>% 
   predict(pred_data, uncertainty = FALSE) %>% 
   glimpse()
+
+# using ciTools to bootstrap prediction intervals
+fitted_model %>% 
+  predict(pred_data, simulate_pi = TRUE) %>% 
+  glimpse()
 ```
 
 ## Multiple models
