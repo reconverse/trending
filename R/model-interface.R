@@ -121,7 +121,7 @@ brms_model <- function(formula, family, ...) {
 model_fit <- function(model, data) {
   out <- list(
     fitted_model = model,
-    predict = function(newdata, alpha = 0.05, add_pi = TRUE, simulate_pi = FALSE, uncertain = TRUE) {
+    predict = function(newdata, alpha = 0.05, add_pi = TRUE, simulate_pi = TRUE, uncertain = TRUE) {
 
       # if no data given use the fitting data set
       if (missing(newdata)) {

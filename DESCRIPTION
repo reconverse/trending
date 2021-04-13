@@ -1,6 +1,6 @@
 Package: trending
 Title: Model Temporal Trends
-Version: 0.0.2.9
+Version: 0.0.3
 Authors@R:
     c(
       person(

@@ -10,7 +10,7 @@
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
 #' @param add_pi Add a prediction interval to the output. Default TRUE.
 #' @param simulate_pi Should the ciTools package be used to simulate prediction
-#'   intervals for glm models.  Default FALSE.
+#'   intervals for glm models.  Default TRUE.
 #' @param uncertain Only used for glm models.  Default TRUE.  If FALSE
 #'   uncertainty in the fitted paramaters is ignored when generating the
 #'   prediction intervals.
@@ -39,7 +39,7 @@ predict.trending_model_fit <- function(object,
                                        new_data,
                                        alpha = 0.05,
                                        add_pi = TRUE,
-                                       simulate_pi = FALSE,
+                                       simulate_pi =TRUE,
                                        uncertain = TRUE,
                                        ...) {
   object$predict(
@@ -58,7 +58,7 @@ predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             add_pi = TRUE,
-                                            simulate_pi = FALSE,
+                                            simulate_pi = TRUE,
                                             uncertain = TRUE,
                                             ...) {
   fitted_model_var <- attr(object, "fitted_model")

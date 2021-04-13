@@ -18,12 +18,10 @@ knitr::opts_chunk$set(
 ```
 
 # Overview
-Our implementation of prediction intervals follows that described by Gavin
-Simpson in two posts on his [blog](https://fromthebottomoftheheap.net). Whilst
-what follows is a brief overview, more detail, including discussion on whether
-or not it makes sense to calculate these intervals, can be found in the following
+Our implementation of prediction intervals (when `simulate_pi` = FALSE) follows
+that described by Gavin Simpson in two posts on his [blog](https://fromthebottomoftheheap.net). Whilst what follows is a brief
+overview, more detail, including discussion on whether or not it makes sense to calculate these intervals, can be found in the following
 [post](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/).
-
 
 ## Confidence interval
 To calculate prediction intervals we first calculate the confidence interval on
@@ -72,11 +70,11 @@ head(dat1)
 # add intervals with trending (no uncertainty in parameters)
 poisson_model <- glm_model(y ~ x, family = "poisson")
 fitted_model <- fit(poisson_model, dat)
-dat2 <- predict(fitted_model, uncertain = FALSE, alpha = 0.1)
+dat2 <- predict(fitted_model, simulate_pi = FALSE, uncertain = FALSE, alpha = 0.1)
 head(dat2)
 
 # add intervals with trending (uncertainty in parameters)
-dat3 <- predict(fitted_model, alpha = 0.1)
+dat3 <- predict(fitted_model, simulate_pi = FALSE, alpha = 0.1)
 head(dat3)
 
 # plots
@@ -119,11 +117,11 @@ head(dat1)
 # add intervals with trending (no uncertainty in parameters)
 quasipoisson_model <- glm_model(y ~ x, family = quasipoisson(link = "log"))
 fitted_model <- fit(quasipoisson_model, dat)
-dat2 <- predict(fitted_model, uncertain = FALSE, alpha = 0.1)
+dat2 <- predict(fitted_model, simulate_pi = FALSE,  uncertain = FALSE, alpha = 0.1)
 head(dat2)
 
 # add intervals with trending (uncertainty in parameters)
-dat3 <- predict(fitted_model, alpha = 0.1)
+dat3 <- predict(fitted_model, simulate_pi = FALSE, alpha = 0.1)
 head(dat3)
 
 # plots

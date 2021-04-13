@@ -79,9 +79,9 @@ fitted_model %>%
   predict(pred_data, uncertainty = FALSE) %>% 
   glimpse()
 
-# using ciTools to bootstrap prediction intervals
+# non-bootstraped (parametric) prediction intervals
 fitted_model %>% 
-  predict(pred_data, simulate_pi = TRUE) %>% 
+  predict(pred_data, simulate_pi = FALSE) %>% 
   glimpse()
 ```
 
