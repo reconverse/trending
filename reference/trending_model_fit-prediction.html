@@ -73,7 +73,7 @@ confidence/prediction intervals for trending_model_fit objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trending</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9</span>
       </span>
     </div>
 
@@ -139,10 +139,26 @@ confidence/prediction intervals for trending_model_fit objects.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for trending_model_fit</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>, uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>new_data</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for trending_model_fit_list</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>new_data</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>, uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>new_data</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,6 +180,11 @@ defaulting to 0.05, i.e. 95% prediction intervals are derived.</p></td>
     <tr>
       <th>add_pi</th>
       <td><p>Add a prediction interval to the output. Default TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>simulate_pi</th>
+      <td><p>Should the ciTools package be used to simulate prediction
+intervals for glm models.  Default FALSE.</p></td>
     </tr>
     <tr>
       <th>uncertain</th>
