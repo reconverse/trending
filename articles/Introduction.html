@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trending</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -155,8 +155,8 @@
 <span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365,…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065.…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, 6…</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 12992…</span>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8916, 7437, 7140, 9589, 7779, 7342, 7147, 6962, 5771, 5490, 7…</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17383, 14678, 14118, 19155, 15115, 14651, 14249, 13685, 11456…</span>
 
 <span class="co"># without prediction intervals</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
@@ -183,12 +183,12 @@
 <span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365,…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065.…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, 6…</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 12992…</span>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8871, 7345, 7013, 9492, 7674, 7353, 7276, 6895, 5827, 5548, 7…</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17194, 14395, 14151, 19142, 15159, 14716, 13912, 13875, 11272…</span>
 
-<span class="co"># using ciTools to bootstrap prediction intervals</span>
+<span class="co"># non-bootstraped (parametric) prediction intervals</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, simulate_pi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 14</span>
 <span class="co">#&gt; Columns: 8</span>
@@ -198,8 +198,8 @@
 <span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365,…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065.…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8944, 7459, 7151, 9813, 7692, 7561, 7124, 6959, 5761, 5531, 7…</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17305, 14398, 14337, 19438, 14926, 14535, 14105, 13571, 11446…</span></code></pre></div>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8107, 6618, 6373, 8363, 6962, 6701, 6450, 6208, 5079, 4889, 6…</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 18870, 16223, 15714, 21784, 16638, 16124, 15626, 15145, 12992…</span></code></pre></div>
 </div>
 <div id="multiple-models" class="section level2">
 <h2 class="hasAnchor">
@@ -259,7 +259,7 @@
 <span class="co">#&gt; $ fitting_warnings    &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;</span>
 <span class="co">#&gt; $ fitting_errors      &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, "object 'nonexistan…</span>
 <span class="co">#&gt; $ output              &lt;named list&gt; [&lt;data.frame[14 x 8]&gt;], [&lt;data.frame[14 x 8…</span>
-<span class="co">#&gt; $ prediction_warnings &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;</span>
+<span class="co">#&gt; $ prediction_warnings &lt;named list&gt; &lt;NULL&gt;, "The response is not continuous, so…</span>
 <span class="co">#&gt; $ prediction_errors   &lt;named list&gt; &lt;NULL&gt;, &lt;NULL&gt;, &lt;NULL&gt;, "no applicable meth…</span></code></pre></div>
 </div>
 </div>
