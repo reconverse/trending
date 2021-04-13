@@ -6,9 +6,25 @@
 \alias{predict.trending_model_fit_list}
 \title{Predict methods}
 \usage{
-\method{predict}{trending_model_fit}(object, new_data, alpha = 0.05, add_pi = TRUE, uncertain = TRUE, ...)
+\method{predict}{trending_model_fit}(
+  object,
+  new_data,
+  alpha = 0.05,
+  add_pi = TRUE,
+  simulate_pi = FALSE,
+  uncertain = TRUE,
+  ...
+)
 
-\method{predict}{trending_model_fit_list}(object, new_data, alpha = 0.05, add_pi = TRUE, uncertain = TRUE, ...)
+\method{predict}{trending_model_fit_list}(
+  object,
+  new_data,
+  alpha = 0.05,
+  add_pi = TRUE,
+  simulate_pi = FALSE,
+  uncertain = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{A \code{trending_model_fit} or \code{trending_model_fit_list} object.}
@@ -20,6 +36,9 @@ be derived.}
 defaulting to 0.05, i.e. 95\% prediction intervals are derived.}
 
 \item{add_pi}{Add a prediction interval to the output. Default TRUE.}
+
+\item{simulate_pi}{Should the ciTools package be used to simulate prediction
+intervals for glm models.  Default FALSE.}
 
 \item{uncertain}{Only used for glm models.  Default TRUE.  If FALSE
 uncertainty in the fitted paramaters is ignored when generating the

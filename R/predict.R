@@ -9,21 +9,23 @@
 #' @param alpha The alpha threshold to be used for prediction intervals,
 #'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
 #' @param add_pi Add a prediction interval to the output. Default TRUE.
+#' @param simulate_pi Should the ciTools package be used to simulate prediction
+#'   intervals for glm models.  Default FALSE.
 #' @param uncertain Only used for glm models.  Default TRUE.  If FALSE
 #'   uncertainty in the fitted paramaters is ignored when generating the
 #'   prediction intervals.
 #' @param ... Not currently used.
-#' 
+#'
 #' x = rnorm(100, mean = 0)
 #' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 #' dat <- data.frame(x = x, y = y)
-#' 
+#'
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
 #' negbin_model <- glm_nb_model(y ~ x)
-#' 
+#'
 #' fitted_poisson <- fit(poisson_model, dat)
 #' fitted_list <- fit(list(poisson_model, negbin_model), dat)
-#' 
+#'
 #' predict(fitted_poisson)
 #' predict(fitted_list)
 #'
@@ -37,9 +39,16 @@ predict.trending_model_fit <- function(object,
                                        new_data,
                                        alpha = 0.05,
                                        add_pi = TRUE,
+                                       simulate_pi = FALSE,
                                        uncertain = TRUE,
                                        ...) {
-  object$predict(newdata = new_data, alpha = alpha, add_pi = add_pi, uncertain = uncertain)
+  object$predict(
+    newdata = new_data,
+    alpha = alpha,
+    add_pi = add_pi,
+    simulate_pi = simulate_pi,
+    uncertain = uncertain
+  )
 }
 
 #' @export
@@ -49,6 +58,7 @@ predict.trending_model_fit_list <- function(object,
                                             new_data,
                                             alpha = 0.05,
                                             add_pi = TRUE,
+                                            simulate_pi = FALSE,
                                             uncertain = TRUE,
                                             ...) {
   fitted_model_var <- attr(object, "fitted_model")
@@ -58,6 +68,7 @@ predict.trending_model_fit_list <- function(object,
       safely(predict),
       alpha = alpha,
       add_pi = add_pi,
+      simulate_pi = simulate_pi,
       uncertain = uncertain
     )
   } else {
@@ -67,6 +78,7 @@ predict.trending_model_fit_list <- function(object,
       new_data = new_data,
       alpha = alpha,
       add_pi = add_pi,
+      simulate_pi = simulate_pi,
       uncertain = uncertain
     )
   }
