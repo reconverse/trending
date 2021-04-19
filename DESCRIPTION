@@ -38,7 +38,6 @@ Imports:
     utils,
     tibble,
     vctrs,
-    dplyr,
     ciTools,
 Suggests: 
     brms,
@@ -48,5 +47,6 @@ Suggests:
     outbreaks,
     patchwork,
     rmarkdown,
+    dplyr,
     testthat
 VignetteBuilder: knitr
