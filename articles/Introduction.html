@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -69,7 +69,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/reconhub/trending">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
       <h1 data-toc-skip>Introduction</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/reconhub/trending/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/reconverse/trending/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
 
     </div>
@@ -114,7 +114,7 @@
 <a href="#an-individual-model" class="anchor"></a>An individual model</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>  <span class="co"># for data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/trending">trending</a></span><span class="op">)</span>   <span class="co"># for trend fitting</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/trending">trending</a></span><span class="op">)</span>   <span class="co"># for trend fitting</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># for data manipulation</span>
 
 <span class="co"># load data</span>
@@ -155,8 +155,8 @@
 <span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365,…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065.…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8811, 7470, 7133, 9433, 7617, 7348, 7240, 6846, 5754, 5577, 7…</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17554, 14446, 13999, 19159, 15262, 14461, 13889, 13762, 11507…</span>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8889, 7293, 7144, 9719, 7657, 7261, 7171, 6945, 5672, 5486, 7…</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 16908, 14509, 13777, 19049, 15296, 14444, 14096, 13792, 11398…</span>
 
 <span class="co"># without prediction intervals</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
@@ -183,8 +183,8 @@
 <span class="co">#&gt; $ estimate &lt;dbl&gt; 12682.379, 10624.988, 10261.987, 13839.821, 11036.028, 10658.…</span>
 <span class="co">#&gt; $ lower_ci &lt;dbl&gt; 11389.734, 9298.983, 8955.560, 11749.030, 9782.389, 9416.365,…</span>
 <span class="co">#&gt; $ upper_ci &lt;dbl&gt; 14121.729, 12140.078, 11758.995, 16302.677, 12450.323, 12065.…</span>
-<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8969, 7285, 7089, 9674, 7665, 7511, 7089, 7039, 5726, 5443, 7…</span>
-<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17160, 14566, 14100, 19278, 14909, 14485, 13916, 13771, 11762…</span>
+<span class="co">#&gt; $ lower_pi &lt;dbl&gt; 8773, 7414, 7126, 9717, 7726, 7409, 7235, 6933, 5770, 5563, 7…</span>
+<span class="co">#&gt; $ upper_pi &lt;dbl&gt; 17289, 14476, 14200, 19328, 15088, 14606, 14196, 13436, 11815…</span>
 
 <span class="co"># non-bootstraped (parametric) prediction intervals</span>
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
@@ -218,12 +218,12 @@
 
 <span class="va">res</span>
 <span class="co">#&gt; # A tibble: 4 x 5</span>
-<span class="co">#&gt;   model_name  data                 fitted_model  fitting_warnings fitting_errors</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;               &lt;named list&gt;  &lt;named list&gt;     &lt;named list&gt;  </span>
-<span class="co">#&gt; 1 simple      &lt;tibble[,5] [43 × 5… &lt;trndng__ [2… &lt;NULL&gt;           &lt;NULL&gt;        </span>
-<span class="co">#&gt; 2 glm_poisson &lt;tibble[,5] [43 × 5… &lt;trndng__ [2… &lt;NULL&gt;           &lt;NULL&gt;        </span>
-<span class="co">#&gt; 3 glm_negbin  &lt;tibble[,5] [43 × 5… &lt;trndng__ [2… &lt;NULL&gt;           &lt;NULL&gt;        </span>
-<span class="co">#&gt; 4 will_error  &lt;tibble[,5] [43 × 5… &lt;NULL&gt;        &lt;NULL&gt;           &lt;chr [1]&gt;</span>
+<span class="co">#&gt;   model_name  data              fitted_model   fitting_warnings fitting_errors</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;            &lt;named list&gt;   &lt;named list&gt;     &lt;named list&gt;  </span>
+<span class="co">#&gt; 1 simple      &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 2 glm_poisson &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 3 glm_negbin  &lt;tibble [43 × 5]&gt; &lt;trndng__ [2]&gt; &lt;NULL&gt;           &lt;NULL&gt;        </span>
+<span class="co">#&gt; 4 will_error  &lt;tibble [43 × 5]&gt; &lt;NULL&gt;         &lt;NULL&gt;           &lt;chr [1]&gt;</span>
 
 <span class="va">res</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 4</span>
@@ -243,10 +243,10 @@
 <span class="co">#&gt; # A tibble: 4 x 8</span>
 <span class="co">#&gt;   model_name  data        fitted_model fitting_warnings fitting_errors output   </span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;      &lt;named list&gt; &lt;named list&gt;     &lt;named list&gt;   &lt;named l&gt;</span>
-<span class="co">#&gt; 1 simple      &lt;tibble[,5… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,8] …</span>
-<span class="co">#&gt; 2 glm_poisson &lt;tibble[,5… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,8] …</span>
-<span class="co">#&gt; 3 glm_negbin  &lt;tibble[,5… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df[,8] …</span>
-<span class="co">#&gt; 4 will_error  &lt;tibble[,5… &lt;NULL&gt;       &lt;NULL&gt;           &lt;chr [1]&gt;      &lt;NULL&gt;   </span>
+<span class="co">#&gt; 1 simple      &lt;tibble [4… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df [14 …</span>
+<span class="co">#&gt; 2 glm_poisson &lt;tibble [4… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df [14 …</span>
+<span class="co">#&gt; 3 glm_negbin  &lt;tibble [4… &lt;trndng__ [… &lt;NULL&gt;           &lt;NULL&gt;         &lt;df [14 …</span>
+<span class="co">#&gt; 4 will_error  &lt;tibble [4… &lt;NULL&gt;       &lt;NULL&gt;           &lt;chr [1]&gt;      &lt;NULL&gt;   </span>
 <span class="co">#&gt; # … with 2 more variables: prediction_warnings &lt;named list&gt;,</span>
 <span class="co">#&gt; #   prediction_errors &lt;named list&gt;</span>
 
