@@ -6,9 +6,9 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
 [![Codecov test
-coverage](https://codecov.io/gh/reconhub/trending/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/trending?branch=master)
+coverage](https://codecov.io/gh/reconverse/trending/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/trending?branch=master)
 [![R build
-status](https://github.com/reconhub/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconhub/trending/actions)
+status](https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/trending/actions)
 <!-- badges: end -->
 
 # Trending
@@ -47,7 +47,7 @@ The development version can be installed from
 if (!require(remotes)) {
   install.packages("remotes")
 }
-remotes::install_github("reconhub/trending", build_vignettes = TRUE)
+remotes::install_github("reconverse/trending", build_vignettes = TRUE)
 ```
 
 # Resources
@@ -60,8 +60,8 @@ An overview of *trending* is provided in the included vignette: \*
 ## Getting help online
 
 Bug reports and feature requests should be posted on *github* using the
-[*issue* system](https://github.com/reconhub/trending/issues). All other
-questions should be posted on the **RECON** slack channel see
+[*issue* system](https://github.com/reconverse/trending/issues). All
+other questions should be posted on the **RECON** slack channel see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.
 
