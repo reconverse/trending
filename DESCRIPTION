@@ -26,8 +26,8 @@ Authors@R:
 Description: Provides a coherent interface to multiple modelling tools for
   fitting trends along with a standardised approach for generating confidence
   and prediction intervals.
-URL: https://github.com/reconhub/trending
-BugReports: https://github.com/reconhub/trending/issues
+URL: https://github.com/reconverse/trending
+BugReports: https://github.com/reconverse/trending/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
