@@ -1,77 +1,79 @@
-#' Fitting for trending_model objects
+#' Fit a trending model
 #'
-#' [fit()] fits a model using the given data to obtain an object of type
-#'   `trending_model_fit` or  `trending_model_fit_list`.
+#' `fit` will return the output from fitting the model to the specified
+#'   data.
 #'
-#' @param x The output of functions `lm_model`, `glm_model`, `glm_nb_model`, or
-#'   brms_model or a list of these objects.
+#' @param object A [`trending_model`] object (i.e. the output from function
+#'   `lm_model`, `glm_model`, `glm.nb_model`, or `brm_model`).
+#' @param data A data frame containing the data to fit.
+#' @param ... Not currently used.
 #'
-#' @param data A `data.frame` to be used to train the model.
+#' @return A `trending_fit` object which is a subclass of
+#'   [tibble][tibble::tibble()] with columns:
 #'
-#' @param ... Additional arguments passed to underlying models.
-#' 
+#'   - fitted_model: the resulting fit from calling the underlying model
+#'     directly, i.e.
+#'
+#'       - `lm_model`: a fitted model object of class [`lm`][stats::lm()]
+#'
+#'       - `glm_model`: a fitted model object of class [`glm`][stats::glm()]
+#'
+#'       - `glm.nb_model`: a fitted model object of class [`negbin`][MASS::glm.nb()]
+#'
+#'       - `brm_model`: An object of class [`brmsfit`][brms::brm()]
+#'
+#'     `NULL` if fitting fails.
+#'
+#'   - fitting_warnings: any warnings generated during fitting
+#'
+#'   - fitting_errors: any errors generated during fitting
+#'
+#'
+#' @author Tim Taylor
+#'
 #' @examples
 #' x = rnorm(100, mean = 0)
 #' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 #' dat <- data.frame(x = x, y = y)
-#' 
+#'
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
-#' negbin_model <- glm_nb_model(y ~ x)
-#' 
+#' negbin_model <- glm.nb_model(y ~ x)
+#'
 #' fit(poisson_model, dat)
-#' fit(list(poisson_model, negbin_model), dat)
+#' fit(negbin_model, dat)
 #'
 #' @export
-fit <- function(x, data, ...) {
-  UseMethod("fit", x)
+fit.trending_model <- function(object, data, ...) {
+  object[["data"]] <- substitute(data)
+  env = parent.frame()
+  fit_internal(object, env)
 }
 
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# -------------------------------- INTERNALS ------------------------------ #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 
-#' @export
-#' @rdname fit
-#' @aliases fit.trending_model trending_model_fit
-fit.trending_model <- function(x, data, ...) {
-  x$fit(data)
-}
+fit_internal <- function(x, env, catch) {
+  if (inherits(x, "brm_trending_model")) {
+    env <- c(env, brm = brms::brm)
+  }
+  f <- make_catcher(eval)
+  res <- f(x, env)
+  res <- tibble(
+    fitted_model = list(res[[1]]),
+    fitting_warnings = list(res[[2]]),
+    fitting_errors = list(res[[3]])
+  )
 
-#' @export
-#' @rdname fit
-#' @aliases trending_model_fit trending_model_fit_list
-fit.list <- function(x, data, ...) {
-  if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
-    stop("list entrys should be `trending_model` objects", call. = FALSE)
-  }
-  res <- transpose(lapply(x, safely(fit), data, ...))
-  nms <- names(x)
-  if (is.null(nms)) {
-    out <- tibble::tibble(
-      data = list(data),
-      fitted_model = res[[1]],
-      fitting_warnings = res[[2]],
-      fitting_errors = res[[3]]
-    )
-    nm_var = NULL
-  } else {
-    out <- tibble::tibble(
-      model_name = nms,
-      data = list(data),
-      fitted_model = res[[1]],
-      fitting_warnings = res[[2]],
-      fitting_errors = res[[3]]
-    )
-    nm_var = "model_name"
-  }
-  
-  out <- tibble::new_tibble(
-    out,
-    model_name <- nm_var,
-    data = "data",
+  res <- new_tibble(
+    res,
     fitted_model = "fitted_model",
     fitting_warnings = "fitting_warnings",
     fitting_errors = "fitting_errors",
-    nrow = nrow(out),
-    class = "trending_model_fit_list"
+    nrow = nrow(res),
+    class = "trending_fit"
   )
-  tibble::validate_tibble(out)
+  validate_tibble(res)
 }
-
