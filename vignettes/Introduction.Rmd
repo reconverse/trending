@@ -81,19 +81,19 @@ fitted_model %>%
   predict(pred_data) %>%
   ok()
 
+# without uncertainty
+fitted_model %>% 
+  predict(pred_data, uncertain = FALSE) %>% 
+  ok()
+
 # without prediction intervals
 fitted_model %>% 
   predict(pred_data, add_pi = FALSE) %>% 
   ok()
 
-# without uncertainty
+# bootstraped prediction intervals
 fitted_model %>% 
-  predict(pred_data, uncertainty = FALSE) %>% 
-  ok()
-
-# non-bootstraped (parametric) prediction intervals
-fitted_model %>% 
-  predict(pred_data, simulate_pi = FALSE) %>% 
+  predict(pred_data, simulate_pi = TRUE) %>% 
   ok()
 ```
 
