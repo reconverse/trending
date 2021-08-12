@@ -167,7 +167,6 @@ trending_prediction_reconstruct <- function(x, to) {
 `names<-.trending_fit` <- function(x, value) {
   current_names <- names(x)
 
-
   fm_var <- attr(x, "fitted_model")
   fm_index <- which(current_names %in% fm_var)
   attr(x, "fitted_model") <- value[fm_index]

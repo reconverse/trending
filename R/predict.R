@@ -22,7 +22,7 @@
 #' @param sims The number of simulations to run when simulating prediction
 #'   intervals for a glm model.
 #' @param uncertain Only used for glm models and when `simulate_pi = FALSE`.
-#'   Default TRUE.  If FALSE uncertainty in the fitted paramaters is ignored
+#'   Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 #'   when generating the parametric prediction intervals.
 #' @param ... Not currently used.
 #'

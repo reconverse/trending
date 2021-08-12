@@ -49,7 +49,7 @@ function to generate the intervals.}
 intervals for a glm model.}
 
 \item{uncertain}{Only used for glm models and when \code{simulate_pi = FALSE}.
-Default TRUE.  If FALSE uncertainty in the fitted paramaters is ignored
+Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.}
 
 \item{...}{Not currently used.}
