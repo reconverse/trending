@@ -10,7 +10,10 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 5
 )
 ```
 
@@ -28,21 +31,24 @@ an intuitive interface on which other packages can be developed
   and generate confidence and prediction intervals for future data using `fit()`
   and `predict()`.
 
+- **Error and warning catching:** The provided methods for `fit` and `predict`
+  catch all warnings and errors, returning the output and these captured values
+  in a single-row tibble. These results can then be handled with additional
+  generics `is_ok` and `ok` to determine whether the fitting / prediction
+  functionality has succeeded and return successful results respectively.
+
 \* &nbsp; Requires [brms](https://CRAN.R-project.org/package=brms)
 
 # Example usage
 
-## An individual model 
-```{r}
+## Setup
+```{r message=FALSE}
 library(outbreaks)  # for data
 library(trending)   # for trend fitting
-library(dplyr, warn.conflicts = FALSE)  # for data manipulation
+library(dplyr)      # for data manipulation
 
 # load data
 data(covid19_england_nhscalls_2020)
-
-# define a model
-model  <- glm_nb_model(count ~ day + weekday)
 
 # select 6 weeks of data (from a period when the prevalence was decreasing)
 last_date <- as.Date("2020-05-28")
@@ -61,68 +67,40 @@ dat <-
 
 fitting_data <- dat[[2]]
 pred_data <- select(dat[[1]], date, day, weekday)
+```
 
-fitted_model <- fit(model, fitting_data)
+## A succesful model fit
+```{r}
+(model  <- glm.nb_model(count ~ day + weekday))
+(fitted_model <- fit(model, fitting_data))
+is_ok(fitted_model)
+ok(fitted_model)
 
 # default
 fitted_model %>% 
   predict(pred_data) %>%
-  glimpse()
+  ok()
+
+# without uncertainty
+fitted_model %>% 
+  predict(pred_data, uncertain = FALSE) %>% 
+  ok()
 
 # without prediction intervals
 fitted_model %>% 
   predict(pred_data, add_pi = FALSE) %>% 
-  glimpse()
+  ok()
 
-# without uncertainty
+# bootstraped prediction intervals
 fitted_model %>% 
-  predict(pred_data, uncertainty = FALSE) %>% 
-  glimpse()
-
-# non-bootstraped (parametric) prediction intervals
-fitted_model %>% 
-  predict(pred_data, simulate_pi = FALSE) %>% 
-  glimpse()
+  predict(pred_data, simulate_pi = TRUE) %>% 
+  ok()
 ```
 
-## Multiple models
-When working with a list of models Trending captures both errors and warnings
-so the user can choose how to proceed.  In this situation the fitted output will
-be of class `trending_model_fit_list` which is a list with named lists for
-each model containing components result, warnings and errors. If an error
-occurs, then the error object is captured and the result has a NULL value.
-If the model does not error then result is the corresponding model output and
-the error entry will be NULL.  Similarly, the warning component will be a
-vector of all warnings that occurred.
-
+## Example of failed model fitting
 ```{r}
-models  <- list(
-  simple = lm_model(count ~ day),
-  glm_poisson = glm_model(count ~ day, family = "poisson"),
-  glm_negbin = glm_nb_model(count ~ day + weekday),
-  will_error = glm_nb_model(count ~ day + nonexistant)
-)
-
-res <- models %>%
-  fit(fitting_data)
-
-res
-
-res %>% glimpse()
-
+(model2  <- glm.nb_model(count ~ day + nonexistent))
+(fitted_model2 <- fit(model2, fitting_data))
+is_ok(fitted_model2)
+ok(fitted_model2)
 ```
-
-`trending_model_fit_list` objects can then be used with `predict()` which
-similarly captures warnings and errors and returns the model predictions in a
-column called **output**.
-```{r}
-res <- models %>%
-  fit(fitting_data) %>% 
-  predict(pred_data)
-
-res
-
-res %>% glimpse()
-```
-
-

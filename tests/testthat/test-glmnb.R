@@ -1,0 +1,39 @@
+test_that("glm.nb_model", {
+
+  # setup
+  model <- glm.nb_model(hp ~ cyl)
+  fit <- fit(model, mtcars)
+  fitted_model <- get_fitted_model(fit)
+  expected_model <- glm.nb(hp ~ cyl, data = mtcars)
+
+  # test printing
+  expect_snapshot(glm.nb_model(count ~ day, na.action = na.exclude))
+
+  # test model fitting - note we need to ignore the call as we have a similar
+  # issue to the update function discussed in
+  # https://stat.ethz.ch/pipermail/r-help/2021-August/471811.html
+  no_call <- function(x) noCall <- function(x) x[setdiff(names(x), "call")]
+  expect_equal(no_call(fitted_model), no_call(expected_model), ignore_function_env = TRUE)
+
+  # test accessors
+  expect_true(inherits(fitted_model, "negbin"))
+  expect_identical(get_formula(model), hp ~ cyl)
+  expect_identical(get_formula(fit), hp ~ cyl)
+  expect_identical(get_response(model), "hp")
+  expect_identical(get_response(fit), "hp")
+
+  # test prediction with new data
+  pred <- predict(fit, mtcars, add_ci = FALSE, add_pi = FALSE)
+  ok_pred <- ok(pred, unnest = TRUE)
+  expect_identical(names(pred), c("output", "prediction_warnings", "prediction_errors"))
+  expect_identical(
+    names(ok_pred),
+    c(names(mtcars), "estimate")
+  )
+
+  # test prediction with no new data
+  pred2 <- predict(fit, add_ci = FALSE, add_pi = FALSE)
+  ok_pred2 <- ok(pred2, unnest = TRUE)
+  expect_identical(names(pred2), c("output", "prediction_warnings", "prediction_errors"))
+  expect_identical(names(ok_pred2), c("hp", "cyl", "estimate"))
+})

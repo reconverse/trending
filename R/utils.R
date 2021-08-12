@@ -1,6 +1,3 @@
-#' @import stats
-NULL
-
 check_suggests <- function(package) {
   if (!requireNamespace(package, quietly = TRUE)) {
     msg <- sprintf("Suggested package '%s' not present.", package)
@@ -8,26 +5,41 @@ check_suggests <- function(package) {
   }
 }
 
-transpose <- function(l) {
-  lapply(seq_along(l[[1]]), function(x) lapply(l, "[[", x))
+# -------------------------------------------------------------------------
+
+not_implemented <- function(x, call. = FALSE) {
+  stop(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", ")),
+    call. = call.
+  )
 }
 
-safely <- function(fun) {
-    function(...) {
-        warn <- err <- NULL
-        res <- withCallingHandlers(
-            tryCatch(
-                fun(...),
-                error = function(e) {
-                    err <<- conditionMessage(e)
-                    NULL
-                }
-            ),
-            warning = function(w) {
-                warn <<- append(warn, conditionMessage(w))
-                invokeRestart("muffleWarning")
-            }
-        )
-        list(res = res, warn = warn, err = err)
+# -------------------------------------------------------------------------
+
+make_catcher <- function(fun) {
+  function(...) {
+
+    # create variables in environment to store output
+    warn <- err <- NULL
+    env <- environment()
+
+    # define handlers
+    warning_handler <- function(w) {
+      assign("warn", c(warn, conditionMessage(w)), env, inherits = TRUE)
+      invokeRestart("muffleWarning")
     }
+
+    error_handler <- function(e) {
+      assign("err", conditionMessage(e), env, inherits = TRUE)
+      NULL
+    }
+
+    # capture output
+    res <- withCallingHandlers(
+      tryCatch(fun(...), error = error_handler),
+      warning = warning_handler
+    )
+
+    list(result = res, warnings = warn, errors = err)
+  }
 }
