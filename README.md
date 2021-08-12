@@ -7,8 +7,7 @@
 status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
 [![Codecov test
 coverage](https://codecov.io/gh/reconverse/trending/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/trending?branch=master)
-[![R build
-status](https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/trending/actions)
+[![R-CMD-check](https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/trending/actions)
 <!-- badges: end -->
 
 # Trending
