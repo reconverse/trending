@@ -39,6 +39,12 @@ an intuitive interface on which other packages can be developed
   and generate confidence and prediction intervals for future data using `fit()`
   and `predict()`.
   
+- **Error and warning catching:** The provided methods for `fit` and `predict`
+  catch all warnings and errors, returning the output and these captured values
+  in a single-row tibble. These results can then be handled with additional
+  generics `is_ok` and `ok` to determine whether the fitting / prediction
+  functionality has succeeded and return successful results respectively.
+  
 \* &nbsp; Requires [brms](https://CRAN.R-project.org/package=brms)
 
 ## Installing the package
