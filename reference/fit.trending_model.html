@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Modeling interface — trending_model • trending</title>
+<title>Fit a trending model — fit.trending_model • trending</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,9 @@
 
 
 
-<meta property="og:title" content="Modeling interface — trending_model" />
-<meta property="og:description" content="These functions wrap various modelling tools to ensure a consistent input
-for trending functions. They work by capturing the underlying model call
-and decoupling it from the data specification. This makes it easy to use
-the same underlying model specification and fitting procedure across
-different data sets. See details for available model interfaces." />
+<meta property="og:title" content="Fit a trending model — fit.trending_model" />
+<meta property="og:description" content="fit will return the output from fitting the model to the specified
+data." />
 
 
 
@@ -131,67 +128,54 @@ different data sets. See details for available model interfaces." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Modeling interface</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/models.R'><code>R/models.R</code></a></small>
-    <div class="hidden name"><code>trending_model.Rd</code></div>
+    <h1>Fit a trending model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit.r'><code>R/fit.r</code></a></small>
+    <div class="hidden name"><code>fit.trending_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions wrap various modelling tools to ensure a consistent input
-for <em>trending</em> functions. They work by capturing the underlying model call
-and decoupling it from the data specification. This makes it easy to use
-the same underlying model specification and fitting procedure across
-different data sets. See details for available model interfaces.</p>
+    <p><code>fit</code> will return the output from fitting the model to the specified
+data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lm_model</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>glm_model</span><span class='op'>(</span><span class='va'>formula</span>, family <span class='op'>=</span> <span class='va'>gaussian</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>glm.nb_model</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>brm_model</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='co'># S3 method for trending_model</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>The formula of the model, with the response variable on the
-left of a tilde symbol, and predictors on the right hand-side; variable
-names used in the formula will need to be matched by columns in the <code>data</code>
-input to other functions.</p></td>
+      <th>object</th>
+      <td><p>A <code><a href='trending_model.html'>trending_model</a></code> object (i.e. the output from function
+<code>lm_model</code>, <code>glm_model</code>, <code>glm.nb_model</code>, or <code>brm_model</code>).</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame containing the data to fit.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further arguments passed to the underlying models with the
-exception of <code>data</code>.</p></td>
-    </tr>
-    <tr>
-      <th>family</th>
-      <td><p>Link function to be used for the glm model.</p></td>
+      <td><p>Not currently used.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>trending_model</code> object.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The following interfaces are available:</p><ul>
-<li><p><code>lm_model</code>: interface for linear models implemented in
-<code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm()</a></code>.</p></li>
-<li><p><code>glm_model</code>: interface for generalised linear models (GLMs) implemented in
-<code><a href='https://rdrr.io/r/stats/glm.html'>stats::glm()</a></code>.</p></li>
-<li><p><code>glm.nb_model</code>: interface for negative binomial generalied linear models
-implemented in <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>MASS::glm.nb()</a></code>.</p></li>
-<li><p><code>brm_model</code>: interface for Bayesian regression models implemented in
-<code><a href='https://rdrr.io/pkg/brms/man/brm.html'>brms::brm()</a></code>.</p></li>
+    <p>A <code>trending_fit</code> object which is a subclass of
+<a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a> with columns:</p><ul>
+<li><p>fitted_model: the resulting fit from calling the underlying model
+directly, i.e.</p><ul>
+<li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
+<li><p><code>glm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></li>
+<li><p><code>glm.nb_model</code>: a fitted model object of class <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>negbin</a></code></p></li>
+<li><p><code>brm_model</code>: An object of class <code><a href='https://rdrr.io/pkg/brms/man/brm.html'>brmsfit</a></code></p></li>
 </ul>
 
-<p>These interfaces will accept the same inputs as the underlying model
-functions but do not require, nor will they accept, a <code>data</code> argument.
-Fitting is handled instead by the train generic and associated methods.</p>
+<p><code>NULL</code> if fitting fails.</p></li>
+<li><p>fitting_warnings: any warnings generated during fitting</p></li>
+<li><p>fitting_errors: any errors generated during fitting</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -199,10 +183,20 @@ Fitting is handled instead by the train generic and associated methods.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
 
-<span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'>glm_model</span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
-<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'>glm.nb_model</span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
+<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm.nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 
+<span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
+#&gt;   fitted_model fitting_warnings fitting_errors
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;glm&gt;</span>        <span style='color: #949494;'>&lt;NULL&gt;</span>           <span style='color: #949494;'>&lt;NULL&gt;</span>        </div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>negbin_model</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
+#&gt;   fitted_model fitting_warnings fitting_errors
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;negbin&gt;</span>     <span style='color: #949494;'>&lt;chr [2]&gt;</span>        <span style='color: #949494;'>&lt;NULL&gt;</span>        </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

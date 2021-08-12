@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">trending</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.9000</span>
       </span>
     </div>
 
@@ -93,15 +93,6 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#trending" class="anchor"></a>Trending</h1></div>
 <p><em>trending</em> aims to provides a coherent interface to several modelling tools. Whilst it is useful in an interactive context, it’s main focus is to provide an intuitive interface on which other packages can be developed (e.g. <a href="https://github.com/reconhub/trendbreaker"><em>trendbreaker</em></a>).</p>
-<div id="main-features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#main-features" class="anchor"></a>Main features</h2>
-<ul>
-<li><p><strong>Model specification:</strong> Interfaces to common models through intuitive functions; <code><a href="reference/trending_model.html">lm_model()</a></code>, <code><a href="reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code> and <code>brms_model</code>*.</p></li>
-<li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="reference/fit.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
-</ul>
-<p>*   Requires <a href="https://CRAN.R-project.org/package=brms">brms</a></p>
-</div>
 <div id="installing-the-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h2>
@@ -114,6 +105,16 @@
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconverse/trending"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="main-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#main-features" class="anchor"></a>Main features</h2>
+<ul>
+<li><p><strong>Model specification:</strong> Interfaces to common models through intuitive functions; <code><a href="reference/trending_model.html">lm_model()</a></code>, <code><a href="reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code> and <code>brms_model</code>*.</p></li>
+<li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="https://generics.r-lib.org/reference/fit.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
+<li><p><strong>Error and warning catching:</strong> The provided methods for <code>fit</code> and <code>predict</code> catch all warnings and errors, returning the output and these captured values in a single-row tibble. These results can then be handled with additional generics <code>is_ok</code> and <code>ok</code> to determine whether the fitting / prediction functionality has succeeded and return successful results respectively.</p></li>
+</ul>
+<p>*   Requires <a href="https://CRAN.R-project.org/package=brms">brms</a></p>
 </div>
 </div>
 <div id="resources" class="section level1">
@@ -163,9 +164,8 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Dirk Schumacher <br><small class="roles"> Author </small>  </li>
-<li>Thibaut Jombart <br><small class="roles"> Author </small>  </li>
-<li>Tim Taylor <br><small class="roles"> Contributor, maintainer </small> <a href="https://orcid.org/0000-0002-8587-7113" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Tim Taylor <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8587-7113" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
@@ -174,7 +174,7 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=trending"><img src="https://www.r-pkg.org/badges/version/trending" alt="CRAN status"></a></li>
 <li><a href="https://codecov.io/gh/reconverse/trending?branch=master"><img src="https://codecov.io/gh/reconverse/trending/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/reconverse/trending/actions"><img src="https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/reconverse/trending/actions"><img src="https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>
@@ -182,7 +182,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dirk Schumacher, Thibaut Jombart, Tim Taylor.</p>
+  <p>Developed by Tim Taylor.</p>
 </div>
 
 <div class="pkgdown">
