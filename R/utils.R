@@ -43,3 +43,7 @@ make_catcher <- function(fun) {
     list(result = res, warnings = warn, errors = err)
   }
 }
+
+
+
+

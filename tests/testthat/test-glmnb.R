@@ -24,16 +24,14 @@ test_that("glm.nb_model", {
 
   # test prediction with new data
   pred <- predict(fit, mtcars, add_ci = FALSE, add_pi = FALSE)
-  ok_pred <- ok(pred, unnest = TRUE)
-  expect_identical(names(pred), c("output", "prediction_warnings", "prediction_errors"))
+  expect_identical(names(pred), c("result", "warnings", "errors"))
   expect_identical(
-    names(ok_pred),
+    names(pred$result),
     c(names(mtcars), "estimate")
   )
 
   # test prediction with no new data
   pred2 <- predict(fit, add_ci = FALSE, add_pi = FALSE)
-  ok_pred2 <- ok(pred2, unnest = TRUE)
-  expect_identical(names(pred2), c("output", "prediction_warnings", "prediction_errors"))
-  expect_identical(names(ok_pred2), c("hp", "cyl", "estimate"))
+  expect_identical(names(pred2), c("result", "warnings", "errors"))
+  expect_identical(names(pred2$result), c("hp", "cyl", "estimate"))
 })

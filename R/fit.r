@@ -36,7 +36,7 @@
 #' y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 #' dat <- data.frame(x = x, y = y)
 #'
-#' poisson_model <- glm_model(y ~ x , family = "poisson")
+#' poisson_model <- glm_model(y ~ x , family = poisson)
 #' negbin_model <- glm.nb_model(y ~ x)
 #'
 #' fit(poisson_model, dat)
@@ -46,34 +46,8 @@
 fit.trending_model <- function(object, data, ...) {
   object[["data"]] <- substitute(data)
   env = parent.frame()
-  fit_internal(object, env)
-}
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# -------------------------------- INTERNALS ------------------------------ #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-fit_internal <- function(x, env, catch) {
-  if (inherits(x, "brm_trending_model")) {
-    env <- c(env, brm = brms::brm)
-  }
+  if (inherits(object, "brm_trending_model")) env <- c(env, brm = brms::brm)
   f <- make_catcher(eval)
-  res <- f(x, env)
-  res <- tibble(
-    fitted_model = list(res[[1]]),
-    fitting_warnings = list(res[[2]]),
-    fitting_errors = list(res[[3]])
-  )
-
-  res <- new_tibble(
-    res,
-    fitted_model = "fitted_model",
-    fitting_warnings = "fitting_warnings",
-    fitting_errors = "fitting_errors",
-    nrow = nrow(res),
-    class = "trending_fit"
-  )
-  validate_tibble(res)
+  res <- f(object, env)
+  structure(res, class = c("trending_fit", class(res)))
 }

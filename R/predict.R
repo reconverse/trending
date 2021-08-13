@@ -52,13 +52,27 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
                                  simulate_pi = FALSE, sims = 2000,
                                  uncertain = TRUE, ...) {
 
-  # ensure that we have a model to use for predictions
-  x <- ok(object, unnest = FALSE)
-  if (!nrow(x)) stop("No model to use for predictions", call. = FALSE)
+  # check the list names have not been changed
+  # This may be too simplistic but avoids us implementing a `names<-` function
+  expected_names <- c("result", "warnings", "errors")
+  if (!identical(names(object), expected_names)) {
+    msg <- paste0(
+      "predict.trending_fit expects names 'result', 'warnings' and 'errors':\n",
+      "          - did you change the names of the trending_fit list?"
+    )
+    stop(msg, call. = FALSE)
+  }
 
-  # desired model is nested within the trending_fit object
-  fmodel <- attr(x, "fitted_model")
-  fitted_model <- x[[fmodel]][[1]]
+  # ensure that we have a model to use for predictions
+  fitted_model <- object$result
+  if (is.null(fitted_model)) {
+    msg <- paste0(
+      "No model to use for prediction:\n",
+      "          - check for captured warnings and errors in the trending_fit list?"
+    )
+    stop(msg, call. = FALSE)
+  }
+
 
   # if no data supplied we use the model data
   if (missing(new_data)) new_data <- fitted_model$model
@@ -75,7 +89,8 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
 
   # wrap add_estimate to catch warnings and errors
   fun <- make_catcher(add_prediction)
-  res <- fun(
+
+  out <- fun(
     fitted_model,
     new_data = new_data,
     name = name,
@@ -89,22 +104,29 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
     uncertain = uncertain
   )
 
-  # make trending_predict tibble subclass
-  res <- new_tibble(
-    tibble(
-      output = list(res[[1]]),
-      prediction_warnings = list(res[[2]]),
-      prediction_errors = list(res[[3]])
-    ),
-    output = "output",
-    prediction_warnings = "prediction_warnings",
-    prediction_errors = "prediction_errors",
-    nrow = 1L,
-    class = "trending_prediction"
-  )
+  # only save attributes that are used
+  if (!add_ci) ci_names <- NULL
+  if (!add_pi) pi_names <- NULL
 
-  # return validated tibble
-  validate_tibble(res)
+  # make result a subclass of tibbleb
+  result <- out$result
+  if (!is.null(result)) {
+    result <- new_tibble(
+      result,
+      response = get_response.trending_fit(object),
+      predictors = get_predictors.trending_fit(object),
+      estimate = name,
+      ci_names = ci_names,
+      pi_names = pi_names,
+      nrow = nrow(result),
+      class = "trending_estimate"
+    )
+    out$result <- result
+  }
+
+  structure(out, class = c("trending_predict", class(out)))
+
+
 }
 
 # ------------------------------------------------------------------------- #
@@ -318,3 +340,22 @@ check_names <- function(new_data, name, add_ci, ci_names, add_pi, pi_names) {
     stop(msg, call. = FALSE)
   }
 }
+
+#' @export
+print.trending_estimate <- function(x, ...) {
+  writeLines(format(x, ...))
+  invisible(x)
+}
+
+#' @export
+format.trending_estimate <- function(x, ...) {
+  header <- sprintf(
+    "<trending_estimate> %s x %s",
+    formatC(nrow(x), big.mark = ","),
+    formatC(ncol(x), big.mark = ",")
+  )
+  header <- pillar::style_subtle(header)
+  body <- format(tibble::as_tibble(x, ...))[-1]
+  c(header, body)
+}
+

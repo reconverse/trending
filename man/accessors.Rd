@@ -2,19 +2,61 @@
 % Please edit documentation in R/accessors.R
 \name{accessors}
 \alias{accessors}
+\alias{get_result}
+\alias{get_result.default}
+\alias{get_result.trending_fit}
+\alias{get_result.trending_predict}
+\alias{get_warnings}
+\alias{get_warnings.default}
+\alias{get_warnings.trending_fit}
+\alias{get_warnings.trending_predict}
+\alias{get_errors}
+\alias{get_errors.default}
+\alias{get_errors.trending_fit}
+\alias{get_errors.trending_predict}
 \alias{get_fitted_model}
 \alias{get_fitted_model.default}
 \alias{get_fitted_model.trending_fit}
 \alias{get_formula}
 \alias{get_formula.default}
 \alias{get_formula.trending_model}
+\alias{get_formula.tranding_model}
 \alias{get_formula.trending_fit}
+\alias{get_formula.tranding_fit}
 \alias{get_response}
 \alias{get_response.default}
 \alias{get_response.trending_model}
 \alias{get_response.trending_fit}
+\alias{get_predictors}
+\alias{get_predictors.default}
+\alias{get_predictors.trending_model}
+\alias{get_predictors.trending_fit}
 \title{Accessors generics}
 \usage{
+get_result(x, ...)
+
+\method{get_result}{default}(x, ...)
+
+\method{get_result}{trending_fit}(x, ...)
+
+\method{get_result}{trending_predict}(x, ...)
+
+get_warnings(x, ...)
+
+\method{get_warnings}{default}(x, ...)
+
+\method{get_warnings}{trending_fit}(x, ...)
+
+\method{get_warnings}{trending_predict}(x, ...)
+
+get_errors(x, ...)
+
+\method{get_errors}{default}(x, ...)
+
+\method{get_errors}{trending_fit}(x, ...)
+
+\method{get_errors}{trending_predict}(x, ...)
+
 get_fitted_model(x, ...)
 
 \method{get_fitted_model}{default}(x, ...)
@@ -36,6 +78,14 @@ get_response(x, ...)
 \method{get_response}{trending_model}(x, ...)
 
 \method{get_response}{trending_fit}(x, ...)
+
+get_predictors(x, ...)
+
+\method{get_predictors}{default}(x, ...)
+
+\method{get_predictors}{trending_model}(x, ...)
+
+\method{get_predictors}{trending_fit}(x, ...)
 }
 \arguments{
 \item{x}{An \R object.}
@@ -44,25 +94,34 @@ get_response(x, ...)
 }
 \value{
 \itemize{
+\item \code{get_result()}: the captured output.
+\item \code{get_warnings()}: the captured warnings.
+\item \code{get_errors()}: the captured warnings.
+\item \code{get_fitted_model()}: The underlying fitted model.
+\item \code{get_prediction()}: The resulting prediction.
 \item \code{get_formula()}: the formula used to model temporal trends.
 \item \code{get_response()}: the response variable of the underlying model.
-\item \code{get_fitted_model()}: The underlying fitted model.
+\item \code{get_predictors()}: the predictor variable(s) of the underlying model.
 }
 }
 \description{
-These gen can be used to access information stored in
-\code{\link{trending_model}}, \code{\link[=fit.trending_model]{trending_fit}} and
+Generics for accessing model information.
+}
+\details{
+Methods are provided for  \code{\link{trending_model}},
+\code{\link[=fit.trending_model]{trending_fit}} and
 \code{\link[=predict.trending_fit]{trending_predict}} objects.
 }
 \examples{
 x = rnorm(100, mean = 0)
 y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 dat <- data.frame(x = x, y = y)
-
 poisson_model <- glm_model(y ~ x , family = "poisson")
 fitted_poisson <- fit(poisson_model, dat)
-get_response(fitted_poisson)
-get_formula(fitted_poisson)
+
 get_fitted_model(fitted_poisson)
+get_formula(fitted_poisson)
+get_response(fitted_poisson)
+get_predictors(fitted_poisson)
 
 }

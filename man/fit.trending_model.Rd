@@ -41,7 +41,7 @@ x = rnorm(100, mean = 0)
 y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 dat <- data.frame(x = x, y = y)
 
-poisson_model <- glm_model(y ~ x , family = "poisson")
+poisson_model <- glm_model(y ~ x , family = poisson)
 negbin_model <- glm.nb_model(y ~ x)
 
 fit(poisson_model, dat)
