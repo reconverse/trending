@@ -236,14 +236,54 @@ of one model.</p>
 <span class='va'>fitted_negbin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>negbin_model</span>, <span class='va'>dat</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
-#&gt;   output             prediction_warnings prediction_errors
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;tibble [100 × 7]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>              <span style='color: #949494;'>&lt;NULL&gt;</span>           </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_negbin</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
-#&gt;   output             prediction_warnings prediction_errors
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;tibble [100 × 7]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>              <span style='color: #949494;'>&lt;NULL&gt;</span>           </div><div class='input'>
+</div><div class='output co'>#&gt; $result
+#&gt; <span style='color: #949494;'>&lt;trending_estimate&gt; 100 x 7</span>
+#&gt;        y      x estimate lower_ci upper_ci lower_pi upper_pi
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>     9  0.429     5.50     5.01     6.04        1       11
+#&gt; <span style='color: #BCBCBC;'> 2</span>     7 -<span style='color: #BB0000;'>0.121</span>     4.18     3.79     4.62        1        9
+#&gt; <span style='color: #BCBCBC;'> 3</span>     3  0.458     5.59     5.08     6.14        1       11
+#&gt; <span style='color: #BCBCBC;'> 4</span>     8  0.617     6.05     5.47     6.68        1       12
+#&gt; <span style='color: #BCBCBC;'> 5</span>     4 -<span style='color: #BB0000;'>0.175</span>     4.07     3.68     4.51        0        9
+#&gt; <span style='color: #BCBCBC;'> 6</span>     5 -<span style='color: #BB0000;'>0.123</span>     4.18     3.78     4.62        1        9
+#&gt; <span style='color: #BCBCBC;'> 7</span>     3 -<span style='color: #BB0000;'>1.47</span>      2.13     1.74     2.60        0        6
+#&gt; <span style='color: #BCBCBC;'> 8</span>     1  0.124     4.73     4.31     5.19        1       10
+#&gt; <span style='color: #BCBCBC;'> 9</span>     2 -<span style='color: #BB0000;'>1.10</span>      2.57     2.18     3.04        0        7
+#&gt; <span style='color: #BCBCBC;'>10</span>     7  0.388     5.39     4.92     5.92        1       11
+#&gt; <span style='color: #949494;'># … with 90 more rows</span>
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; NULL
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_predict" "list"            </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_negbin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $result
+#&gt; <span style='color: #949494;'>&lt;trending_estimate&gt; 100 x 7</span>
+#&gt;        y      x estimate lower_ci upper_ci lower_pi upper_pi
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>     9  0.429     5.50     5.01     6.05        1       11
+#&gt; <span style='color: #BCBCBC;'> 2</span>     7 -<span style='color: #BB0000;'>0.121</span>     4.18     3.78     4.63        1        9
+#&gt; <span style='color: #BCBCBC;'> 3</span>     3  0.458     5.59     5.08     6.15        1       11
+#&gt; <span style='color: #BCBCBC;'> 4</span>     8  0.617     6.05     5.47     6.68        1       12
+#&gt; <span style='color: #BCBCBC;'> 5</span>     4 -<span style='color: #BB0000;'>0.175</span>     4.07     3.67     4.51        0        9
+#&gt; <span style='color: #BCBCBC;'> 6</span>     5 -<span style='color: #BB0000;'>0.123</span>     4.18     3.78     4.62        1        9
+#&gt; <span style='color: #BCBCBC;'> 7</span>     3 -<span style='color: #BB0000;'>1.47</span>      2.13     1.74     2.61        0        6
+#&gt; <span style='color: #BCBCBC;'> 8</span>     1  0.124     4.73     4.30     5.19        1       10
+#&gt; <span style='color: #BCBCBC;'> 9</span>     2 -<span style='color: #BB0000;'>1.10</span>      2.57     2.17     3.04        0        7
+#&gt; <span style='color: #BCBCBC;'>10</span>     7  0.388     5.39     4.91     5.93        1       11
+#&gt; <span style='color: #949494;'># … with 90 more rows</span>
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; NULL
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_predict" "list"            </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

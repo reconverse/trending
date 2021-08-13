@@ -40,9 +40,7 @@
 
 
 <meta property="og:title" content="Accessors generics — accessors" />
-<meta property="og:description" content="These gen can be used to access information stored in
-trending_model, trending_fit and
-trending_predict objects." />
+<meta property="og:description" content="Generics for accessing model information." />
 
 
 
@@ -135,12 +133,43 @@ trending_predict objects." />
     </div>
 
     <div class="ref-description">
-    <p>These gen can be used to access information stored in
-<code><a href='trending_model.html'>trending_model</a></code>, <code><a href='fit.trending_model.html'>trending_fit</a></code> and
-<code><a href='predict.trending_fit.html'>trending_predict</a></code> objects.</p>
+    <p>Generics for accessing model information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>get_result</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_result</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit</span>
+<span class='fu'>get_result</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_result</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_warnings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_warnings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit</span>
+<span class='fu'>get_warnings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_warnings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_errors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_errors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit</span>
+<span class='fu'>get_errors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_errors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -168,7 +197,18 @@ trending_predict objects." />
 <span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for trending_fit</span>
-<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_model</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,23 +227,30 @@ trending_predict objects." />
 
     
 <ul>
+<li><p><code>get_result()</code>: the captured output.</p></li>
+<li><p><code>get_warnings()</code>: the captured warnings.</p></li>
+<li><p><code>get_errors()</code>: the captured warnings.</p></li>
+<li><p><code>get_fitted_model()</code>: The underlying fitted model.</p></li>
+<li><p><code>get_prediction()</code>: The resulting prediction.</p></li>
 <li><p><code>get_formula()</code>: the formula used to model temporal trends.</p></li>
 <li><p><code>get_response()</code>: the response variable of the underlying model.</p></li>
-<li><p><code>get_fitted_model()</code>: The underlying fitted model.</p></li>
+<li><p><code>get_predictors()</code>: the predictor variable(s) of the underlying model.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Methods are provided for  <code><a href='trending_model.html'>trending_model</a></code>,
+<code><a href='fit.trending_model.html'>trending_fit</a></code> and
+<code><a href='predict.trending_fit.html'>trending_predict</a></code> objects.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
-
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
 <span class='va'>fitted_poisson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "y"</div><div class='input'><span class='fu'>get_formula</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; y ~ x
-#&gt; &lt;environment: 0x7f82cd7dc9a0&gt;</div><div class='input'><span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+
+<span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:  glm(formula = y ~ x, family = "poisson", data = dat)
 #&gt; 
@@ -213,7 +260,11 @@ trending_predict objects." />
 #&gt; 
 #&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
 #&gt; Null Deviance:	    233.5 
-#&gt; Residual Deviance: 114.8 	AIC: 446</div><div class='input'>
+#&gt; Residual Deviance: 114.8 	AIC: 446</div><div class='input'><span class='fu'>get_formula</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; y ~ x
+#&gt; &lt;environment: 0x7f8636c8f1e0&gt;</div><div class='input'><span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "y"</div><div class='input'><span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "x"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
