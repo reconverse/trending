@@ -223,6 +223,15 @@ when generating the parametric prediction intervals.</p></td>
 estimates and, optionally, confidence and or prediction intervals. For list
 based inputs a nested data frame with each row corresponding to the output
 of one model.</p>
+<p>A <code>trending_predict</code> object which is a subclass of
+<a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a> with columns:</p><ul>
+<li><p>result: the input data frame with additional estimates and, optionally,
+confidence and or prediction intervals. <code>NULL</code> if the associated
+<code>predict</code> method fails.</p></li>
+<li><p>warnings: any warnings generated during prediction.</p></li>
+<li><p>errors: any errors generated during prediction.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>

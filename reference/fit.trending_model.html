@@ -163,7 +163,7 @@ data.</p>
 
     <p>A <code>trending_fit</code> object which is a subclass of
 <a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a> with columns:</p><ul>
-<li><p>fitted_model: the resulting fit from calling the underlying model
+<li><p>result: the resulting fit from calling the underlying model
 directly, i.e.</p><ul>
 <li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
 <li><p><code>glm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></li>
@@ -172,8 +172,8 @@ directly, i.e.</p><ul>
 </ul>
 
 <p><code>NULL</code> if fitting fails.</p></li>
-<li><p>fitting_warnings: any warnings generated during fitting</p></li>
-<li><p>fitting_errors: any errors generated during fitting</p></li>
+<li><p>warnings: any warnings generated during fitting</p></li>
+<li><p>errors: any errors generated during fitting</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
