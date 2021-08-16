@@ -14,8 +14,11 @@
 \alias{get_errors.default}
 \alias{get_errors.trending_fit}
 \alias{get_errors.trending_predict}
-\alias{get_fitted_model}
+\alias{get_fitted_data}
+\alias{get_fitted_data.default}
+\alias{get_fitted_data.trending_fit}
 \alias{get_fitted_model.default}
+\alias{get_fitted_model}
 \alias{get_fitted_model.trending_fit}
 \alias{get_formula}
 \alias{get_formula.default}
@@ -57,6 +60,12 @@ get_errors(x, ...)
 
 \method{get_errors}{trending_predict}(x, ...)
 
+get_fitted_data(x, ...)
+
+\method{get_fitted_data}{default}(x, ...)
+
+\method{get_fitted_data}{trending_fit}(x, ...)
+
 get_fitted_model(x, ...)
 
 \method{get_fitted_model}{default}(x, ...)
@@ -97,6 +106,7 @@ get_predictors(x, ...)
 \item \code{get_result()}: the captured output.
 \item \code{get_warnings()}: the captured warnings.
 \item \code{get_errors()}: the captured warnings.
+\item \code{get_fitted_data}: The underlying data used to fit the model.
 \item \code{get_fitted_model()}: The underlying fitted model.
 \item \code{get_prediction()}: The resulting prediction.
 \item \code{get_formula()}: the formula used to model temporal trends.

@@ -4,6 +4,7 @@ test_that("glm_model", {
   model <- glm_model(hp ~ cyl, family = poisson)
   fit <- fit(model, mtcars)
   fitted_model <- get_fitted_model(fit)
+  fitted_data <- get_fitted_data(fit)
   expected_model <- glm(hp ~ cyl, data = mtcars, family = poisson)
 
   # test printing
@@ -17,6 +18,7 @@ test_that("glm_model", {
 
   # test accessors
   expect_true(inherits(fitted_model, "glm"))
+  expect_identical(fitted_data, mtcars[(c("hp", "cyl"))])
   expect_identical(get_formula(model), hp ~ cyl)
   expect_identical(get_formula(fit), hp ~ cyl)
   expect_identical(get_response(model), "hp")

@@ -4,6 +4,7 @@ test_that("lm_model", {
   model <- lm_model(hp ~ cyl)
   fit <- fit(model, mtcars)
   fitted_model <- get_fitted_model(fit)
+  fitted_data <- get_fitted_data(fit)
   expected_model <- lm(hp ~ cyl, data = mtcars)
 
   # test printing
@@ -17,6 +18,7 @@ test_that("lm_model", {
 
   # test accessors
   expect_true(inherits(fitted_model, "lm"))
+  expect_identical(fitted_data, mtcars[c("hp", "cyl")])
   expect_identical(get_formula(model), hp ~ cyl)
   expect_identical(get_formula(fit), hp ~ cyl)
   expect_identical(get_response(model), "hp")

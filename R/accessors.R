@@ -17,6 +17,8 @@
 #'
 #' * `get_errors()`: the captured warnings.
 #'
+#' * `get_fitted_data`: The underlying data used to fit the model.
+#'
 #' * `get_fitted_model()`: The underlying fitted model.
 #'
 #' * `get_prediction()`: The resulting prediction.
@@ -107,6 +109,28 @@ get_errors.trending_fit <- function(x, ...) x$errors
 #' @aliases get_errors.trending_predict
 #' @rdname accessors
 get_errors.trending_predict <- get_errors.trending_fit
+
+# -------------------------------------------------------------------------
+
+#' @export
+#' @aliases get_fitted_data
+#' @rdname accessors
+get_fitted_data <- function(x, ...) UseMethod("get_fitted_data")
+
+#' @rdname accessors
+#' @aliases get_fitted_data.default
+#' @export
+get_fitted_data.default <- function(x, ...) not_implemented(x)
+
+#' @rdname accessors
+#' @aliases get_fitted_model.default
+#' @export
+get_fitted_data.trending_fit <- function(x, ...) {
+  model <- get_fitted_model.trending_fit(x)
+  res <- model$model
+  attr(res, "terms") <- NULL
+  res
+}
 
 # -------------------------------------------------------------------------
 
