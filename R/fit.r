@@ -8,10 +8,9 @@
 #' @param data A data frame containing the data to fit.
 #' @param ... Not currently used.
 #'
-#' @return A `trending_fit` object which is a subclass of
-#'   [tibble][tibble::tibble()] with columns:
+#' @return A `trending_fit` object which is a list subclass with entries:
 #'
-#'   - fitted_model: the resulting fit from calling the underlying model
+#'   - result: the resulting fit from calling the underlying model
 #'     directly, i.e.
 #'
 #'       - `lm_model`: a fitted model object of class [`lm`][stats::lm()]
@@ -24,9 +23,9 @@
 #'
 #'     `NULL` if fitting fails.
 #'
-#'   - fitting_warnings: any warnings generated during fitting
+#'   - warnings: any warnings generated during fitting
 #'
-#'   - fitting_errors: any errors generated during fitting
+#'   - errors: any errors generated during fitting
 #'
 #'
 #' @author Tim Taylor

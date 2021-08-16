@@ -45,6 +45,16 @@
 #'   based inputs a nested data frame with each row corresponding to the output
 #'   of one model.
 #'
+#' @returns A `trending_predict` object which is a list subclass with entries:
+#'
+#'   - result: the input data frame with additional estimates and, optionally,
+#'     confidence and or prediction intervals. `NULL` if the associated
+#'     `predict` method fails.
+#'
+#'   - warnings: any warnings generated during prediction.
+#'
+#'   - errors: any errors generated during prediction.
+#'
 #' @export
 predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.05,
                                  add_ci = TRUE, ci_names = c("lower_ci", "upper_ci"),

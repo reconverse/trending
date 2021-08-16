@@ -15,10 +15,9 @@
 \item{...}{Not currently used.}
 }
 \value{
-A \code{trending_fit} object which is a subclass of
-\link[tibble:tibble]{tibble} with columns:
+A \code{trending_fit} object which is a list subclass with entries:
 \itemize{
-\item fitted_model: the resulting fit from calling the underlying model
+\item result: the resulting fit from calling the underlying model
 directly, i.e.
 \itemize{
 \item \code{lm_model}: a fitted model object of class \code{\link[stats:lm]{lm}}
@@ -28,8 +27,8 @@ directly, i.e.
 }
 
 \code{NULL} if fitting fails.
-\item fitting_warnings: any warnings generated during fitting
-\item fitting_errors: any errors generated during fitting
+\item warnings: any warnings generated during fitting
+\item errors: any errors generated during fitting
 }
 }
 \description{

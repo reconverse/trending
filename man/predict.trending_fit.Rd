@@ -59,6 +59,15 @@ For an individual model the input data frame with additional
 estimates and, optionally, confidence and or prediction intervals. For list
 based inputs a nested data frame with each row corresponding to the output
 of one model.
+
+A \code{trending_predict} object which is a list subclass with entries:
+\itemize{
+\item result: the input data frame with additional estimates and, optionally,
+confidence and or prediction intervals. \code{NULL} if the associated
+\code{predict} method fails.
+\item warnings: any warnings generated during prediction.
+\item errors: any errors generated during prediction.
+}
 }
 \description{
 \code{predict()} adds estimated values and associated confidence and/or
