@@ -141,13 +141,13 @@
 <span class="co">#&gt; Warning in add_pi.glm(dat, fit, names = c("lpb", "upb"), alpha = 0.1, nsims =</span>
 <span class="co">#&gt; 20000): The response is not continuous, so Prediction Intervals are approximate</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dat1</span><span class="op">)</span>
-<span class="co">#&gt;            x y     pred lpb upb</span>
-<span class="co">#&gt; 1 -0.7540580 0 3.206943   1   6</span>
-<span class="co">#&gt; 2  0.4307896 2 5.645688   2  10</span>
-<span class="co">#&gt; 3 -0.1657543 4 4.246684   1   8</span>
-<span class="co">#&gt; 4 -0.7523610 5 3.209542   1   7</span>
-<span class="co">#&gt; 5 -0.2802763 4 4.020767   1   8</span>
-<span class="co">#&gt; 6 -1.1181941 3 2.695279   0   6</span>
+<span class="co">#&gt;             x y     pred lpb upb</span>
+<span class="co">#&gt; 1 -0.86078878 2 3.198382   1   7</span>
+<span class="co">#&gt; 2 -0.35382024 2 3.992766   1   7</span>
+<span class="co">#&gt; 3 -1.21913196 2 2.734207   0   6</span>
+<span class="co">#&gt; 4 -0.38903121 6 3.931719   1   8</span>
+<span class="co">#&gt; 5 -1.53406935 3 2.382216   0   5</span>
+<span class="co">#&gt; 6 -0.06410081 2 4.532436   1   8</span>
 
 <span class="co"># add intervals with trending (no uncertainty in parameters)</span>
 <span class="va">poisson_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>
@@ -156,28 +156,28 @@
 <span class="va">dat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">)</span>
 <span class="co">#&gt; &lt;trending_estimate&gt; 6 x 7</span>
-<span class="co">#&gt;       y      x estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0 -0.754     3.21     2.86     3.60        1        6</span>
-<span class="co">#&gt; 2     2  0.431     5.65     5.25     6.07        2       10</span>
-<span class="co">#&gt; 3     4 -0.166     4.25     3.89     4.63        1        8</span>
-<span class="co">#&gt; 4     5 -0.752     3.21     2.86     3.60        1        6</span>
-<span class="co">#&gt; 5     4 -0.280     4.02     3.67     4.41        1        8</span>
-<span class="co">#&gt; 6     3 -1.12      2.70     2.35     3.09        0        6</span>
+<span class="co">#&gt;       y       x estimate lower_ci upper_ci lower_pi upper_pi</span>
+<span class="co">#&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     2 -0.861      3.20     2.85     3.59        1        6</span>
+<span class="co">#&gt; 2     2 -0.354      3.99     3.64     4.38        1        8</span>
+<span class="co">#&gt; 3     2 -1.22       2.73     2.40     3.12        0        6</span>
+<span class="co">#&gt; 4     6 -0.389      3.93     3.58     4.32        1        7</span>
+<span class="co">#&gt; 5     3 -1.53       2.38     2.05     2.76        0        5</span>
+<span class="co">#&gt; 6     2 -0.0641     4.53     4.17     4.92        1        8</span>
 
 <span class="co"># add intervals with trending (uncertainty in parameters)</span>
 <span class="va">dat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">dat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">dat3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dat3</span><span class="op">)</span>
 <span class="co">#&gt; &lt;trending_estimate&gt; 6 x 7</span>
-<span class="co">#&gt;       y      x estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0 -0.754     3.21     2.86     3.60        0        7</span>
-<span class="co">#&gt; 2     2  0.431     5.65     5.25     6.07        2       10</span>
-<span class="co">#&gt; 3     4 -0.166     4.25     3.89     4.63        1        8</span>
-<span class="co">#&gt; 4     5 -0.752     3.21     2.86     3.60        0        7</span>
-<span class="co">#&gt; 5     4 -0.280     4.02     3.67     4.41        1        8</span>
-<span class="co">#&gt; 6     3 -1.12      2.70     2.35     3.09        0        6</span>
+<span class="co">#&gt;       y       x estimate lower_ci upper_ci lower_pi upper_pi</span>
+<span class="co">#&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     2 -0.861      3.20     2.85     3.59        0        7</span>
+<span class="co">#&gt; 2     2 -0.354      3.99     3.64     4.38        1        8</span>
+<span class="co">#&gt; 3     2 -1.22       2.73     2.40     3.12        0        6</span>
+<span class="co">#&gt; 4     6 -0.389      3.93     3.58     4.32        1        8</span>
+<span class="co">#&gt; 5     3 -1.53       2.38     2.05     2.76        0        6</span>
+<span class="co">#&gt; 6     2 -0.0641     4.53     4.17     4.92        1        9</span>
 
 <span class="co"># plots</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -222,12 +222,12 @@
 <span class="co">#&gt; 20000): The response is not continuous, so Prediction Intervals are approximate</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dat1</span><span class="op">)</span>
 <span class="co">#&gt;           x  y      pred lpb upb</span>
-<span class="co">#&gt; 1 0.4245693  5  4.404431   0  13</span>
-<span class="co">#&gt; 2 1.6019657 15 12.006664   3  26</span>
-<span class="co">#&gt; 3 1.0705778  3  7.635822   1  18</span>
-<span class="co">#&gt; 4 1.1876223  5  8.436298   1  20</span>
-<span class="co">#&gt; 5 1.8335920 15 14.625260   4  30</span>
-<span class="co">#&gt; 6 0.1860172  4  3.594567   0  11</span>
+<span class="co">#&gt; 1 1.7812450 29 15.535410   4  33</span>
+<span class="co">#&gt; 2 0.4303774  6  4.315495   0  14</span>
+<span class="co">#&gt; 3 0.4993417  1  4.607129   0  15</span>
+<span class="co">#&gt; 4 1.0401793  4  7.693947   0  20</span>
+<span class="co">#&gt; 5 0.4257657 10  4.296665   0  14</span>
+<span class="co">#&gt; 6 0.2943912  5  3.793421   0  12</span>
 
 <span class="co"># add intervals with trending (no uncertainty in parameters)</span>
 <span class="va">quasipoisson_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">quasipoisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span><span class="op">)</span>
@@ -238,12 +238,12 @@
 <span class="co">#&gt; &lt;trending_estimate&gt; 6 x 7</span>
 <span class="co">#&gt;       y     x estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     5 0.425     4.40     3.49     5.55        0       13</span>
-<span class="co">#&gt; 2    15 1.60     12.0     10.5     13.7         3       25</span>
-<span class="co">#&gt; 3     3 1.07      7.64     6.72     8.67        1       18</span>
-<span class="co">#&gt; 4     5 1.19      8.44     7.49     9.50        1       20</span>
-<span class="co">#&gt; 5    15 1.83     14.6     12.4     17.3         4       29</span>
-<span class="co">#&gt; 6     4 0.186     3.59     2.72     4.76        0       11</span>
+<span class="co">#&gt; 1    29 1.78     15.5     13.0     18.6         4       33</span>
+<span class="co">#&gt; 2     6 0.430     4.32     3.38     5.51        0       14</span>
+<span class="co">#&gt; 3     1 0.499     4.61     3.66     5.80        0       14</span>
+<span class="co">#&gt; 4     4 1.04      7.69     6.65     8.90        0       20</span>
+<span class="co">#&gt; 5    10 0.426     4.30     3.36     5.49        0       14</span>
+<span class="co">#&gt; 6     5 0.294     3.79     2.89     4.98        0       13</span>
 
 <span class="co"># add intervals with trending (uncertainty in parameters)</span>
 <span class="va">dat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
@@ -252,12 +252,12 @@
 <span class="co">#&gt; &lt;trending_estimate&gt; 6 x 7</span>
 <span class="co">#&gt;       y     x estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     5 0.425     4.40     3.49     5.55        0       15</span>
-<span class="co">#&gt; 2    15 1.60     12.0     10.5     13.7         2       28</span>
-<span class="co">#&gt; 3     3 1.07      7.64     6.72     8.67        1       20</span>
-<span class="co">#&gt; 4     5 1.19      8.44     7.49     9.50        1       21</span>
-<span class="co">#&gt; 5    15 1.83     14.6     12.4     17.3         3       33</span>
-<span class="co">#&gt; 6     4 0.186     3.59     2.72     4.76        0       13</span>
+<span class="co">#&gt; 1    29 1.78     15.5     13.0     18.6         3       37</span>
+<span class="co">#&gt; 2     6 0.430     4.32     3.38     5.51        0       16</span>
+<span class="co">#&gt; 3     1 0.499     4.61     3.66     5.80        0       17</span>
+<span class="co">#&gt; 4     4 1.04      7.69     6.65     8.90        0       22</span>
+<span class="co">#&gt; 5    10 0.426     4.30     3.36     5.49        0       16</span>
+<span class="co">#&gt; 6     5 0.294     3.79     2.89     4.98        0       15</span>
 
 <span class="co"># plots</span>
 <span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">dat1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
