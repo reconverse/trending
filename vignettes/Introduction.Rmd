@@ -69,7 +69,7 @@ pred_data <- select(dat[[1]], date, day, weekday)
 
 ## A succesful model fit
 ```{r}
-(model  <- glm.nb_model(count ~ day + weekday))
+(model  <- glm_nb_model(count ~ day + weekday))
 (fitted_model <- fit(model, fitting_data))
 fitted_model$result
 
@@ -96,7 +96,7 @@ fitted_model %>%
 
 ## Example of failed model fitting
 ```{r}
-(model2  <- glm.nb_model(count ~ day + nonexistent))
+(model2  <- glm_nb_model(count ~ day + nonexistent))
 (fitted_model2 <- fit(model2, fitting_data))
 get_result(fitted_model2)
 get_errors(fitted_model2)

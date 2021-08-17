@@ -1,10 +1,10 @@
-# The following functions are needed to make `trending_fit` and
-# `trending_prediciton` objects work nicely with dplyr.  It is based on the
+# The following functions are needed to make tibble subclasses work nicely with
+# dplyr.  It is based on the
 # (guide)[(https://github.com/DavisVaughan/2020-06-01_dplyr-vctrs-compat)]
 # by Davis Vaughan. The idea is to think to an object in terms of its invariants
-# (structural information that must be true for an object to be of class
-# `trending_estimate`). Where an operation breaks these # invariants a tibble
-# is returned instead of a `trending_estimate` object.
+# (structural information that must be true for an object to be of the specified
+# subclass). Where an operation breaks these invariants, a tibble is returned
+# instead.
 
 # -------------------------------------------------------------------------
 
@@ -54,6 +54,68 @@ trending_estimate_can_reconstruct <- function(x, to) {
   if (!all(col_names %in% x_names)) FALSE else TRUE
 }
 
+#' Check whether trending_fit_tbl object invariants hold
+#'
+#' @param x data.frame to have it's invariants checked
+#' @param to `trending_fit_tbl` object we want
+#'
+#' @return TRUE or FALSE
+#'
+#' @noRd
+trending_fit_tbl_can_reconstruct <- function(x, to) {
+
+  x_names <- names(x)
+
+  model_name <- attr(to, "model_name")
+  if (!is.null(model_name)) {
+    if (!(model_name %in% x_names)) {
+      return(FALSE)
+    }
+  }
+
+  result <- attr(to, "result")
+  if (!(result %in% x_names)) return(FALSE)
+
+  warnings <- attr(to, "warnings")
+  if (!(warnings %in% x_names)) return(FALSE)
+
+  errors <- attr(to, "errors")
+  if (!(errors %in% x_names)) return(FALSE)
+
+  TRUE
+}
+
+#' Check whether trending_predict_tbl object invariants hold
+#'
+#' @param x data.frame to have it's invariants checked
+#' @param to `trending_predict_tbl` object we want
+#'
+#' @return TRUE or FALSE
+#'
+#' @noRd
+trending_predict_tbl_can_reconstruct <- function(x, to) {
+
+  x_names <- names(x)
+
+  model_name <- attr(to, "model_name")
+  if (!is.null(model_name)) {
+    if (!(model_name %in% x_names)) {
+      return(FALSE)
+    }
+  }
+
+  result <- attr(to, "result")
+  if (!(result %in% x_names)) return(FALSE)
+
+  warnings <- attr(to, "warnings")
+  if (!(warnings %in% x_names)) return(FALSE)
+
+  errors <- attr(to, "errors")
+  if (!(errors %in% x_names)) return(FALSE)
+
+  TRUE
+}
+
 # -------------------------------------------------------------------------
 
 #' Function to reconstruct object of trending_estimate class
@@ -75,9 +137,47 @@ trending_estimate_reconstruct <- function(x, to) {
   }
 }
 
+#' Function to reconstruct object of trending_fit_tbl class
+#'
+#' Once you have encoded the invariant logic into
+#' trending_fit_can_reconstruct, we need a second function that applies
+#' that check and either performs the actual reconstruction, or falls back to a
+#' bare tibble.
+#'
+#' @param x x data.frame to have it's invariants checked
+#' @param to object we want
+#'
+#' @noRd
+trending_fit_tbl_reconstruct <- function(x, to) {
+  if (trending_fit_tbl_can_reconstruct(x, to)) {
+    df_reconstruct(x, to)
+  } else {
+    new_bare_tibble(x)
+  }
+}
+
+#' Function to reconstruct object of trending_predict_tbl class
+#'
+#' Once you have encoded the invariant logic into
+#' trending_predict_tbl_can_reconstruct, we need a second function that applies
+#' that check and either performs the actual reconstruction, or falls back to a
+#' bare tibble.
+#'
+#' @param x x data.frame to have it's invariants checked
+#' @param to object we want
+#'
+#' @noRd
+trending_predict_tbl_reconstruct <- function(x, to) {
+  if (trending_predict_tbl_can_reconstruct(x, to)) {
+    df_reconstruct(x, to)
+  } else {
+    new_bare_tibble(x)
+  }
+}
+
 # -------------------------------------------------------------------------
 
-# Need to define a few base R methods to ensure things work as expected
+# Need to also define a few base R methods to ensure things work as expected
 
 # -------------------------------------------------------------------------
 
@@ -87,12 +187,36 @@ trending_estimate_reconstruct <- function(x, to) {
   trending_estimate_reconstruct(out, x)
 }
 
+#' @export
+`[.trending_fit_tbl` <- function(x, i, j, ...) {
+  out <- NextMethod()
+  trending_fit_tbl_reconstruct(out, x)
+}
+
+#' @export
+`[.trending_predict_tbl` <- function(x, i, j, ...) {
+  out <- NextMethod()
+  trending_predict_tbl_reconstruct(out, x)
+}
+
 # -------------------------------------------------------------------------
 
 #' @export
 `[<-.trending_estimate` <- function(x, i, j, ..., value) {
   out <- NextMethod()
   trending_estimate_reconstruct(out, x)
+}
+
+#' @export
+`[<-.trending_fit_tbl` <- function(x, i, j, ..., value) {
+  out <- NextMethod()
+  trending_fit_tbl_reconstruct(out, x)
+}
+
+#' @export
+`[<-.trending_predict_tbl` <- function(x, i, j, ..., value) {
+  out <- NextMethod()
+  trending_predict_tbl_reconstruct(out, x)
 }
 
 # -------------------------------------------------------------------------
@@ -126,6 +250,59 @@ trending_estimate_reconstruct <- function(x, to) {
   trending_estimate_reconstruct(out, x)
 }
 
+#' @export
+`names<-.trending_fit_tbl` <- function(x, value) {
+  current_names <- names(x)
+
+  nm_var <- attr(x, "model_name")
+  if (!is.null(nm_var)) {
+    nm_index <- which(current_names %in% nm_var)
+    attr(x, "model_name") <- value[nm_index]
+  }
+
+  res_var <- attr(x, "result")
+  res_index <- which(current_names %in% res_var)
+  attr(x, "result") <- value[res_index]
+
+  fw_var <- attr(x, "warnings")
+  fw_index <- which(current_names %in% fw_var)
+  attr(x, "warnings") <- value[fw_index]
+
+  fe_var <- attr(x, "errors")
+  fe_index <- which(current_names %in% fe_var)
+  attr(x, "errors") <- value[fe_index]
+
+  out <- NextMethod()
+  trending_fit_tbl_reconstruct(out, x)
+}
+
+#' @export
+`names<-.trending_predict_tbl` <- function(x, value) {
+  current_names <- names(x)
+
+  nm_var <- attr(x, "model_name")
+  if (!is.null(nm_var)) {
+    nm_index <- which(current_names %in% nm_var)
+    attr(x, "model_name") <- value[nm_index]
+  }
+
+  res_var <- attr(x, "result")
+  res_index <- which(current_names %in% res_var)
+  attr(x, "result") <- value[res_index]
+
+  fw_var <- attr(x, "warnings")
+  fw_index <- which(current_names %in% fw_var)
+  attr(x, "warnings") <- value[fw_index]
+
+  fe_var <- attr(x, "errors")
+  fe_index <- which(current_names %in% fe_var)
+  attr(x, "errors") <- value[fe_index]
+
+  out <- NextMethod()
+  trending_predict_tbl_reconstruct(out, x)
+}
+
+
 # -------------------------------------------------------------------------
 
 # Registered in `.onLoad()` in zzz.R
@@ -133,3 +310,12 @@ dplyr_reconstruct_trending_estimate <- function(data, template) {
   trending_estimate_reconstruct(data, template)
 }
 
+# Registered in `.onLoad()` in zzz.R
+dplyr_reconstruct_trending_predict_tbl <- function(data, template) {
+  trending_predict_tbl_reconstruct(data, template)
+}
+
+# Registered in `.onLoad()` in zzz.R
+dplyr_reconstruct_trending_fit_tbl <- function(data, template) {
+  trending_fit_tbl_reconstruct(data, template)
+}

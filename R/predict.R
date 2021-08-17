@@ -1,9 +1,10 @@
-#' Predict method for trending_fit object
+#' Predict method for trending_fit objects
 #'
 #' `predict()` adds estimated values and associated confidence and/or
 #'   prediction intervals for various fitted models.
 #'
-#' @param object A [`trending_fit`][fit.trending_model()] object.
+#' @param object A [`trending_fit`][fit.trending_model()],
+#'    [`trending_fit_list`][fit_list()] or `trending_fit_tbl` object.
 #' @param new_data A `data.frame` containing data for which estimates are to be
 #'   derived. If missing, the model frame from the fit data will be used.
 #' @param name Character vector of length one giving the name to use for the
@@ -24,6 +25,7 @@
 #' @param uncertain Only used for glm models and when `simulate_pi = FALSE`.
 #'   Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 #'   when generating the parametric prediction intervals.
+#' @param as_tibble Should the output be converted to a tibble subclass.
 #' @param ... Not currently used.
 #'
 #' @examples
@@ -32,20 +34,22 @@
 #' dat <- data.frame(x = x, y = y)
 #'
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
-#' negbin_model <- glm.nb_model(y ~ x)
+#' negbin_model <- glm_nb_model(y ~ x)
 #'
 #' fitted_poisson <- fit(poisson_model, dat)
 #' fitted_negbin <- fit(negbin_model, dat)
+#' fitted_list <- fit_list(list(poisson_model, negbin_model), dat)
+#' fitted_list_named <- fit_list(list(p = poisson_model, n = negbin_model), dat)
 #'
 #' predict(fitted_poisson)
-#' predict(fitted_negbin)
+#' predict(fitted_list)
+#' predict(fitted_list, as_tibble = TRUE)
+#' predict(fitted_list_named)
+#' predict(fitted_list_named, as_tibble = TRUE)
 #'
-#' @returns For an individual model the input data frame with additional
-#'   estimates and, optionally, confidence and or prediction intervals. For list
-#'   based inputs a nested data frame with each row corresponding to the output
-#'   of one model.
-#'
-#' @returns A `trending_predict` object which is a list subclass with entries:
+#' @returns For [`trending_fit`][fit.trending_model()] inputs, if
+#'   `as_tibble = FALSE`, a `trending_predict` object, which is a list subclass,
+#'   with entries:
 #'
 #'   - result: the input data frame with additional estimates and, optionally,
 #'     confidence and or prediction intervals. `NULL` if the associated
@@ -55,30 +59,28 @@
 #'
 #'   - errors: any errors generated during prediction.
 #'
+#'   If `as_tibble = TRUE`, a `trending_predict_tbl` object which is a
+#'   [`tibble`][tibble::tibble()] subclass with one row and columns 'result',
+#'   'warnings' and 'errors' with contents as above.
+#'
+#'   For [`trending_fit_list`][fit_list()] or [`trending_fit_tbl`][fit_list()]
+#'   inputs, if `as_tibble = FALSE`, a `trending_fit_list` where each entry is a
+#'   `trending_fit` object. If `as_tibble = TRUE` a `trending_predict_tbl`
+#'   object with each row corresponding to the output of one model as above.
+#'
 #' @export
 predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.05,
                                  add_ci = TRUE, ci_names = c("lower_ci", "upper_ci"),
                                  add_pi = TRUE, pi_names = c("lower_pi", "upper_pi"),
                                  simulate_pi = FALSE, sims = 2000,
-                                 uncertain = TRUE, ...) {
-
-  # check the list names have not been changed
-  # This may be too simplistic but avoids us implementing a `names<-` function
-  expected_names <- c("result", "warnings", "errors")
-  if (!identical(names(object), expected_names)) {
-    msg <- paste0(
-      "predict.trending_fit expects names 'result', 'warnings' and 'errors':\n",
-      "          - did you change the names of the trending_fit list?"
-    )
-    stop(msg, call. = FALSE)
-  }
+                                 uncertain = TRUE, as_tibble = FALSE, ...) {
 
   # ensure that we have a model to use for predictions
-  fitted_model <- object$result
+  fitted_model <- get_fitted_model.trending_fit(object)
   if (is.null(fitted_model)) {
     msg <- paste0(
       "No model to use for prediction:\n",
-      "          - check for captured warnings and errors in the trending_fit list?"
+      "          - check for captured warnings and errors in the input?"
     )
     stop(msg, call. = FALSE)
   }
@@ -134,10 +136,63 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
     out$result <- result
   }
 
-  structure(out, class = c("trending_predict", class(out)))
-
-
+  res <- structure(out, class = c("trending_predict", class(out)))
+  if (as_tibble) {
+    res <- list(res)
+    res <- trending_fit_list_to_tibble(res)
+  }
+  res
 }
+
+#' @rdname predict.trending_fit
+#' @aliases predict.trending_fit_list
+#' @export
+predict.trending_fit_list <- function(object, new_data, name = "estimate", alpha = 0.05,
+                                      add_ci = TRUE, ci_names = c("lower_ci", "upper_ci"),
+                                      add_pi = TRUE, pi_names = c("lower_pi", "upper_pi"),
+                                      simulate_pi = FALSE, sims = 2000, uncertain = TRUE,
+                                      as_tibble = FALSE, ...) {
+
+  # if no data supplied we use the model data
+  fitted_models <- get_fitted_model(object)
+  if (missing(new_data)) {
+    ok <- vapply(fitted_models, function(x) !is.null(x), logical(1))
+    ok_models <- fitted_models[ok]
+    if (!length(ok_models)) {
+      new_data <- NULL
+    } else {
+      new_data <- ok_models[[1]]$model # OK as data will be same for all
+    }
+  }
+
+  qfun <- substitute(
+    lapply(
+      object,
+      predict,
+      new_data = new_data,
+      name = name,
+      alpha = alpha,
+      add_ci = add_ci,
+      ci_names = ci_names,
+      add_pi = add_pi,
+      pi_names = pi_names,
+      simulate_pi = simulate_pi,
+      sims = sims,
+      uncertain = uncertain
+    )
+  )
+  res <- eval(qfun)
+  nms <- attr(object, "model_name")
+  if (!is.null(nms)) names(res) <- object[[nms]]
+  class(res) <- c("trending_predict_list", class(res))
+  if (as_tibble) res <- trending_predict_list_to_tibble(res)
+  res
+}
+
+#' @rdname predict.trending_fit
+#' @aliases predict.trending_fit_tbl
+#' @export
+predict.trending_fit_tbl <- predict.trending_fit_list
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
@@ -367,5 +422,26 @@ format.trending_estimate <- function(x, ...) {
   header <- pillar::style_subtle(header)
   body <- format(tibble::as_tibble(x, ...))[-1]
   c(header, body)
+}
+
+trending_predict_list_to_tibble <- function(x, ...) {
+  res <- lapply(seq_along(x[[1]]), function(i) lapply(x, "[[", i))
+  res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
+  nms <- names(x)
+  model_name <- NULL
+  if (!is.null(nms)) {
+    res <- cbind(tibble(model_name = nms), res)
+    model_name <- "model_name"
+  }
+  res <- new_tibble(
+    res,
+    model_name = model_name,
+    result = "result",
+    warnings = "warnings",
+    errors = "errors",
+    nrow = nrow(res),
+    class = "trending_predict_tbl"
+  )
+  validate_tibble(res)
 }
 

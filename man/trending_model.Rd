@@ -5,7 +5,7 @@
 \alias{trending_models}
 \alias{lm_model}
 \alias{glm_model}
-\alias{glm.nb_model}
+\alias{glm_nb_model}
 \alias{brm_model}
 \title{Modeling interface}
 \usage{
@@ -13,7 +13,7 @@ lm_model(formula, ...)
 
 glm_model(formula, family = gaussian, ...)
 
-glm.nb_model(formula, ...)
+glm_nb_model(formula, ...)
 
 brm_model(formula, ...)
 }
@@ -45,7 +45,7 @@ The following interfaces are available:
 \code{\link[stats:lm]{stats::lm()}}.
 \item \code{glm_model}: interface for generalised linear models (GLMs) implemented in
 \code{\link[stats:glm]{stats::glm()}}.
-\item \code{glm.nb_model}: interface for negative binomial generalied linear models
+\item \code{glm_nb_model}: interface for negative binomial generalied linear models
 implemented in \code{\link[MASS:glm.nb]{MASS::glm.nb()}}.
 \item \code{brm_model}: interface for Bayesian regression models implemented in
 \code{\link[brms:brm]{brms::brm()}}.
@@ -60,7 +60,7 @@ x = rnorm(100, mean = 0)
 y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 
 poisson_model <- glm_model(y ~ x , family = "poisson")
-negbin_model <- glm.nb_model(y ~ x)
+negbin_model <- glm_nb_model(y ~ x)
 
 }
 \author{

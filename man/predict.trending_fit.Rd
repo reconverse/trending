@@ -2,7 +2,9 @@
 % Please edit documentation in R/predict.R
 \name{predict.trending_fit}
 \alias{predict.trending_fit}
-\title{Predict method for trending_fit object}
+\alias{predict.trending_fit_list}
+\alias{predict.trending_fit_tbl}
+\title{Predict method for trending_fit objects}
 \usage{
 \method{predict}{trending_fit}(
   object,
@@ -16,11 +18,45 @@
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
+  as_tibble = FALSE,
+  ...
+)
+
+\method{predict}{trending_fit_list}(
+  object,
+  new_data,
+  name = "estimate",
+  alpha = 0.05,
+  add_ci = TRUE,
+  ci_names = c("lower_ci", "upper_ci"),
+  add_pi = TRUE,
+  pi_names = c("lower_pi", "upper_pi"),
+  simulate_pi = FALSE,
+  sims = 2000,
+  uncertain = TRUE,
+  as_tibble = FALSE,
+  ...
+)
+
+\method{predict}{trending_fit_tbl}(
+  object,
+  new_data,
+  name = "estimate",
+  alpha = 0.05,
+  add_ci = TRUE,
+  ci_names = c("lower_ci", "upper_ci"),
+  add_pi = TRUE,
+  pi_names = c("lower_pi", "upper_pi"),
+  simulate_pi = FALSE,
+  sims = 2000,
+  uncertain = TRUE,
+  as_tibble = FALSE,
   ...
 )
 }
 \arguments{
-\item{object}{A \code{\link[=fit.trending_model]{trending_fit}} object.}
+\item{object}{A \code{\link[=fit.trending_model]{trending_fit}},
+\code{\link[=fit_list]{trending_fit_list}} or \code{trending_fit_tbl} object.}
 
 \item{new_data}{A \code{data.frame} containing data for which estimates are to be
 derived. If missing, the model frame from the fit data will be used.}
@@ -52,15 +88,14 @@ intervals for a glm model.}
 Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.}
 
+\item{as_tibble}{Should the output be converted to a tibble subclass.}
+
 \item{...}{Not currently used.}
 }
 \value{
-For an individual model the input data frame with additional
-estimates and, optionally, confidence and or prediction intervals. For list
-based inputs a nested data frame with each row corresponding to the output
-of one model.
-
-A \code{trending_predict} object which is a list subclass with entries:
+For \code{\link[=fit.trending_model]{trending_fit}} inputs, if
+\code{as_tibble = FALSE}, a \code{trending_predict} object, which is a list subclass,
+with entries:
 \itemize{
 \item result: the input data frame with additional estimates and, optionally,
 confidence and or prediction intervals. \code{NULL} if the associated
@@ -68,6 +103,15 @@ confidence and or prediction intervals. \code{NULL} if the associated
 \item warnings: any warnings generated during prediction.
 \item errors: any errors generated during prediction.
 }
+
+If \code{as_tibble = TRUE}, a \code{trending_predict_tbl} object which is a
+\code{\link[tibble:tibble]{tibble}} subclass with one row and columns 'result',
+'warnings' and 'errors' with contents as above.
+
+For \code{\link[=fit_list]{trending_fit_list}} or \code{\link[=fit_list]{trending_fit_tbl}}
+inputs, if \code{as_tibble = FALSE}, a \code{trending_fit_list} where each entry is a
+\code{trending_fit} object. If \code{as_tibble = TRUE} a \code{trending_predict_tbl}
+object with each row corresponding to the output of one model as above.
 }
 \description{
 \code{predict()} adds estimated values and associated confidence and/or
@@ -79,12 +123,17 @@ y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 dat <- data.frame(x = x, y = y)
 
 poisson_model <- glm_model(y ~ x , family = "poisson")
-negbin_model <- glm.nb_model(y ~ x)
+negbin_model <- glm_nb_model(y ~ x)
 
 fitted_poisson <- fit(poisson_model, dat)
 fitted_negbin <- fit(negbin_model, dat)
+fitted_list <- fit_list(list(poisson_model, negbin_model), dat)
+fitted_list_named <- fit_list(list(p = poisson_model, n = negbin_model), dat)
 
 predict(fitted_poisson)
-predict(fitted_negbin)
+predict(fitted_list)
+predict(fitted_list, as_tibble = TRUE)
+predict(fitted_list_named)
+predict(fitted_list_named, as_tibble = TRUE)
 
 }

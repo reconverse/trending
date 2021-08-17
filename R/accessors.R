@@ -2,9 +2,9 @@
 #'
 #' Generics for accessing model information.
 #'
-#' Methods are provided for  [`trending_model`],
-#'   [`trending_fit`][fit.trending_model()] and
-#'   [`trending_predict`][predict.trending_fit()] objects.
+#' Methods are provided for  `trending_model`, `trending_fit`,
+#'   `trending_fit_list`, `trending_fit_tbl`, `trending_predict`,
+#'   `trending_predict_list` and `trending_predict_tbl` objects.
 #'
 #' @param x An \R object.
 #' @param ... Not currently used by any methods.
@@ -66,6 +66,26 @@ get_result.trending_fit <- function(x, ...) x$result
 #' @rdname accessors
 get_result.trending_predict <- get_result.trending_fit
 
+#' @export
+#' @aliases get_result.trending_fit_list
+#' @rdname accessors
+get_result.trending_fit_list <- get_result.trending_fit
+
+#' @export
+#' @aliases get_result.trending_predict_list
+#' @rdname accessors
+get_result.trending_predict_list <- get_result.trending_fit
+
+#' @export
+#' @aliases get_result.trending_fit_tbl
+#' @rdname accessors
+get_result.trending_fit_tbl <- function(x, ...) x[[attr(x, "result")]]
+
+#' @export
+#' @aliases get_result.trending_predict_tbl
+#' @rdname accessors
+get_result.trending_predict_tbl <- get_result.trending_fit_tbl
+
 # -------------------------------------------------------------------------
 
 #' @export
@@ -87,6 +107,26 @@ get_warnings.trending_fit <- function(x, ...) x$warnings
 #' @aliases get_warnings.trending_predict
 #' @rdname accessors
 get_warnings.trending_predict <- get_warnings.trending_fit
+
+#' @export
+#' @aliases get_warnings.trending_fit_list
+#' @rdname accessors
+get_warnings.trending_fit_list <- get_warnings.trending_fit
+
+#' @export
+#' @aliases get_warnings.trending_predict_list
+#' @rdname accessors
+get_warnings.trending_predict_list <- get_warnings.trending_fit
+
+#' @export
+#' @aliases get_warnings.trending_fit_tbl
+#' @rdname accessors
+get_warnings.trending_fit_tbl <- function(x, ...) x[[attr(x, "warnings")]]
+
+#' @export
+#' @aliases get_warnings.trending_predict_tbl
+#' @rdname accessors
+get_warnings.trending_predict_tbl <- get_warnings.trending_fit_tbl
 
 # -------------------------------------------------------------------------
 
@@ -110,27 +150,26 @@ get_errors.trending_fit <- function(x, ...) x$errors
 #' @rdname accessors
 get_errors.trending_predict <- get_errors.trending_fit
 
-# -------------------------------------------------------------------------
+#' @export
+#' @aliases get_errors.trending_fit_list
+#' @rdname accessors
+get_errors.trending_fit_list <- get_errors.trending_fit
 
 #' @export
-#' @aliases get_fitted_data
+#' @aliases get_errors.trending_predict_list
 #' @rdname accessors
-get_fitted_data <- function(x, ...) UseMethod("get_fitted_data")
+get_errors.trending_predict_list <- get_errors.trending_fit
 
-#' @rdname accessors
-#' @aliases get_fitted_data.default
 #' @export
-get_fitted_data.default <- function(x, ...) not_implemented(x)
+#' @aliases get_errors.trending_fit_tbl
+#' @rdname accessors
+get_errors.trending_fit_tbl <- function(x, ...) x[[attr(x, "errors")]]
 
-#' @rdname accessors
-#' @aliases get_fitted_model.default
 #' @export
-get_fitted_data.trending_fit <- function(x, ...) {
-  model <- get_fitted_model.trending_fit(x)
-  res <- model$model
-  attr(res, "terms") <- NULL
-  res
-}
+#' @aliases get_errors.trending_predict_tbl
+#' @rdname accessors
+get_errors.trending_predict_tbl <- get_errors.trending_fit_tbl
+
 
 # -------------------------------------------------------------------------
 
@@ -145,9 +184,61 @@ get_fitted_model <- function(x, ...) UseMethod("get_fitted_model")
 get_fitted_model.default <- function(x, ...) not_implemented(x)
 
 #' @rdname accessors
-#' @aliases get_fitted_model.default
+#' @aliases get_fitted_model.trending_fit
 #' @export
-get_fitted_model.trending_fit <- function(x, ...) x$result
+get_fitted_model.trending_fit <- get_result.trending_fit
+
+#' @rdname accessors
+#' @aliases get_fitted_model.trending_fit_list
+#' @export
+get_fitted_model.trending_fit_list <- get_result.trending_fit_list
+
+#' @rdname accessors
+#' @aliases get_fitted_model.trending_fit_tbl
+#' @export
+get_fitted_model.trending_fit_tbl <- get_result.trending_fit_tbl
+
+# -------------------------------------------------------------------------
+
+#' @export
+#' @aliases get_fitted_data
+#' @rdname accessors
+get_fitted_data <- function(x, ...) UseMethod("get_fitted_data")
+
+#' @rdname accessors
+#' @aliases get_fitted_data.default
+#' @export
+get_fitted_data.default <- function(x, ...) not_implemented(x)
+
+#' @rdname accessors
+#' @aliases get_fitted_model.trending_fit
+#' @export
+get_fitted_data.trending_fit <- function(x, ...) {
+  model <- get_fitted_model.trending_fit(x)
+  res <- model$model
+  attr(res, "terms") <- NULL
+  res
+}
+
+#' @rdname accessors
+#' @aliases get_fitted_model.trending_fit_list
+#' @export
+get_fitted_data.trending_fit_list <- function(x, ...) {
+  models <- get_fitted_model(x)
+  lapply(
+    models,
+    function(x) {
+      res <- x$model
+      attr(res, "terms") <- NULL
+      res
+    }
+  )
+}
+
+#' @rdname accessors
+#' @aliases get_fitted_model.trending_fit_tbl
+#' @export
+get_fitted_data.trending_fit_tbl <- get_fitted_data.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -169,7 +260,23 @@ get_formula.trending_model <- function(x, ...) x$formula
 #' @rdname accessors
 #' @aliases get_formula.tranding_fit
 #' @export
-get_formula.trending_fit <- function(x, ...) x$result$call$formula
+get_formula.trending_fit <- function(x, ...) {
+  res <- get_fitted_model.trending_fit(x)
+  res$call$formula
+}
+
+#' @rdname accessors
+#' @aliases get_formula.trending_fit_list
+#' @export
+get_formula.trending_fit_list <- function(x, ...) {
+  models <- get_fitted_model(x)
+  lapply(models, function(x) x$call$formula)
+}
+
+#' @rdname accessors
+#' @aliases get_formula.trending_fit_tbl
+#' @export
+get_formula.trending_fit_tbl <- get_formula.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -187,17 +294,27 @@ get_response.default <- function(x, ...) not_implemented(x)
 #' @aliases get_response.trending_model
 #' @rdname accessors
 get_response.trending_model <- function(x, ...) {
-  formula <- get_formula.trending_model(x)
+  formula <- get_formula(x)
   as.character(formula)[2]
 }
 
 #' @export
 #' @aliases get_response.trending_fit
 #' @rdname accessors
-get_response.trending_fit <- function(x, ...) {
-  formula <- get_formula.trending_fit(x)
-  as.character(formula)[2]
+get_response.trending_fit <- get_response.trending_model
+
+#' @export
+#' @aliases get_response.trending_fit_list
+#' @rdname accessors
+get_response.trending_fit_list <- function(x, ...) {
+  formula <- get_formula(x)
+  lapply(formula, function(x) as.character(x)[2])
 }
+
+#' @export
+#' @aliases get_response.trending_fit_tbl
+#' @rdname accessors
+get_response.trending_fit_tbl <- get_response.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -215,7 +332,7 @@ get_predictors.default <- function(x, ...) not_implemented(x)
 #' @aliases get_predictors.trending_model
 #' @rdname accessors
 get_predictors.trending_model <- function(x, ...) {
-  formula <- get_formula.trending_model(x)
+  formula <- get_formula(x)
   vars <- all.vars(formula)
   response <- get_response.trending_model(x)
   vars[!vars %in% response]
@@ -224,10 +341,20 @@ get_predictors.trending_model <- function(x, ...) {
 #' @export
 #' @aliases get_predictors.trending_fit
 #' @rdname accessors
-get_predictors.trending_fit <- function(x, ...) {
-  formula <- get_formula.trending_fit(x)
-  vars <- all.vars(formula)
-  response <- get_response.trending_fit(x)
-  vars[!vars %in% response]
+get_predictors.trending_fit <- get_predictors.trending_model
+
+#' @export
+#' @aliases get_predictors.trending_fit_list
+#' @rdname accessors
+get_predictors.trending_fit_list <- function(x, ...) {
+  formulas <- get_formula(x)
+  vars <- lapply(formulas, all.vars)
+  response <- get_response(x)
+  .mapply(function(x, y) x[!x %in% y], dots = list(x = vars, y = response), MoreArgs = NULL)
 }
+
+#' @export
+#' @aliases get_predictors.trending_fit_tbl
+#' @rdname accessors
+get_predictors.trending_fit_tbl <- get_predictors.trending_fit_list
 

@@ -1,14 +1,14 @@
-test_that("glm.nb_model", {
+test_that("glm_nb_model", {
 
   # setup
-  model <- glm.nb_model(hp ~ cyl)
+  model <- glm_nb_model(hp ~ cyl)
   fit <- fit(model, mtcars)
   fitted_model <- get_fitted_model(fit)
   fitted_data <- get_fitted_data(fit)
   expected_model <- glm.nb(hp ~ cyl, data = mtcars)
 
   # test printing
-  expect_snapshot(glm.nb_model(count ~ day, na.action = na.exclude))
+  expect_snapshot(glm_nb_model(count ~ day, na.action = na.exclude))
 
   # test model fitting - note we need to ignore the call as we have a similar
   # issue to the update function discussed in
