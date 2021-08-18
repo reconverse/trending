@@ -139,7 +139,7 @@ data.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for trending_model</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,11 +147,15 @@ data.</p>
     <tr>
       <th>object</th>
       <td><p>A <code><a href='trending_model.html'>trending_model</a></code> object (i.e. the output from function
-<code>lm_model</code>, <code>glm_model</code>, <code>glm.nb_model</code>, or <code>brm_model</code>).</p></td>
+<code>lm_model</code>, <code>glm_model</code>, <code>glm_nb_model</code>, or <code>brm_model</code>).</p></td>
     </tr>
     <tr>
       <th>data</th>
       <td><p>A data frame containing the data to fit.</p></td>
+    </tr>
+    <tr>
+      <th>as_tibble</th>
+      <td><p>Should the output be converted to a tibble subclass.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -161,12 +165,13 @@ data.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>trending_fit</code> object which is a list subclass with entries:</p><ul>
+    <p>If <code>as_tibble = FALSE</code>, a <code>trending_fit</code> object which is a list
+subclass with entries:</p><ul>
 <li><p>result: the resulting fit from calling the underlying model
 directly, i.e.</p><ul>
 <li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
 <li><p><code>glm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></li>
-<li><p><code>glm.nb_model</code>: a fitted model object of class <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>negbin</a></code></p></li>
+<li><p><code>glm_nb_model</code>: a fitted model object of class <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>negbin</a></code></p></li>
 <li><p><code>brm_model</code>: An object of class <code><a href='https://rdrr.io/pkg/brms/man/brm.html'>brmsfit</a></code></p></li>
 </ul>
 
@@ -175,6 +180,9 @@ directly, i.e.</p><ul>
 <li><p>errors: any errors generated during fitting</p></li>
 </ul>
 
+<p>If <code>as_tibble = TRUE</code>, a <code>trending_fit_tbl</code> object which is a
+<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row and columns 'result',
+'warnings' and 'errors' with contents as above.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -185,7 +193,7 @@ directly, i.e.</p><ul>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
 
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='va'>poisson</span><span class='op'>)</span>
-<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm.nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $result

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict method for trending_fit object — predict.trending_fit • trending</title>
+<title>Predict method for trending_fit objects — predict.trending_fit • trending</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Predict method for trending_fit object — predict.trending_fit" />
+<meta property="og:title" content="Predict method for trending_fit objects — predict.trending_fit" />
 <meta property="og:description" content="predict() adds estimated values and associated confidence and/or
 prediction intervals for various fitted models." />
 
@@ -128,7 +128,7 @@ prediction intervals for various fitted models." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict method for trending_fit object</h1>
+    <h1>Predict method for trending_fit objects</h1>
     <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/predict.R'><code>R/predict.R</code></a></small>
     <div class="hidden name"><code>predict.trending_fit.Rd</code></div>
     </div>
@@ -151,6 +151,41 @@ prediction intervals for various fitted models.</p>
   simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sims <span class='op'>=</span> <span class='fl'>2000</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit_list</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>new_data</span>,
+  name <span class='op'>=</span> <span class='st'>"estimate"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  add_ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ci_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lower_ci"</span>, <span class='st'>"upper_ci"</span><span class='op'>)</span>,
+  add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pi_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lower_pi"</span>, <span class='st'>"upper_pi"</span><span class='op'>)</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sims <span class='op'>=</span> <span class='fl'>2000</span>,
+  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for trending_fit_tbl</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>new_data</span>,
+  name <span class='op'>=</span> <span class='st'>"estimate"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  add_ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ci_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lower_ci"</span>, <span class='st'>"upper_ci"</span><span class='op'>)</span>,
+  add_pi <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pi_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lower_pi"</span>, <span class='st'>"upper_pi"</span><span class='op'>)</span>,
+  simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sims <span class='op'>=</span> <span class='fl'>2000</span>,
+  uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -159,7 +194,8 @@ prediction intervals for various fitted models.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A <code><a href='fit.trending_model.html'>trending_fit</a></code> object.</p></td>
+      <td><p>A <code><a href='fit.trending_model.html'>trending_fit</a></code>,
+<code><a href='fit_list.html'>trending_fit_list</a></code> or <code>trending_fit_tbl</code> object.</p></td>
     </tr>
     <tr>
       <th>new_data</th>
@@ -212,6 +248,10 @@ Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.</p></td>
     </tr>
     <tr>
+      <th>as_tibble</th>
+      <td><p>Should the output be converted to a tibble subclass.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
     </tr>
@@ -219,11 +259,9 @@ when generating the parametric prediction intervals.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For an individual model the input data frame with additional
-estimates and, optionally, confidence and or prediction intervals. For list
-based inputs a nested data frame with each row corresponding to the output
-of one model.</p>
-<p>A <code>trending_predict</code> object which is a list subclass with entries:</p><ul>
+    <p>For <code><a href='fit.trending_model.html'>trending_fit</a></code> inputs, if
+<code>as_tibble = FALSE</code>, a <code>trending_predict</code> object, which is a list subclass,
+with entries:</p><ul>
 <li><p>result: the input data frame with additional estimates and, optionally,
 confidence and or prediction intervals. <code>NULL</code> if the associated
 <code>predict</code> method fails.</p></li>
@@ -231,6 +269,13 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <li><p>errors: any errors generated during prediction.</p></li>
 </ul>
 
+<p>If <code>as_tibble = TRUE</code>, a <code>trending_predict_tbl</code> object which is a
+<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row and columns 'result',
+'warnings' and 'errors' with contents as above.</p>
+<p>For <code><a href='fit_list.html'>trending_fit_list</a></code> or <code><a href='fit_list.html'>trending_fit_tbl</a></code>
+inputs, if <code>as_tibble = FALSE</code>, a <code>trending_fit_list</code> where each entry is a
+<code>trending_fit</code> object. If <code>as_tibble = TRUE</code> a <code>trending_predict_tbl</code>
+object with each row corresponding to the output of one model as above.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
@@ -238,11 +283,13 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
 
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
-<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm.nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 
 <span class='va'>fitted_poisson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
 <span class='va'>fitted_negbin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/fit.html'>fit</a></span><span class='op'>(</span><span class='va'>negbin_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-
+<span class='va'>fitted_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit_list.html'>fit_list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in lapply(list(poisson_model, negbin_model), fit, data = dat): object 'poisson_model' not found</span></div><div class='input'><span class='va'>fitted_list_named</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit_list.html'>fit_list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>p <span class='op'>=</span> <span class='va'>poisson_model</span>, n <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in lapply(list(p = poisson_model, n = negbin_model), fit, data = dat): object 'poisson_model' not found</span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $result
 #&gt; <span style='color: #949494;'>&lt;trending_estimate&gt; 100 x 7</span>
@@ -267,31 +314,11 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 #&gt; NULL
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "trending_predict" "list"            </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_negbin</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $result
-#&gt; <span style='color: #949494;'>&lt;trending_estimate&gt; 100 x 7</span>
-#&gt;        y       x estimate lower_ci upper_ci lower_pi upper_pi
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>     3 -<span style='color: #BB0000;'>1.08</span>       2.14     1.80     2.54        0        6
-#&gt; <span style='color: #BCBCBC;'> 2</span>     1 -<span style='color: #BB0000;'>1.22</span>       1.96     1.63     2.35        0        6
-#&gt; <span style='color: #BCBCBC;'> 3</span>     2  0.084<span style='text-decoration: underline;'>9</span>     4.42     4.00     4.89        1       10
-#&gt; <span style='color: #BCBCBC;'> 4</span>     7  0.581      6.02     5.52     6.56        1       12
-#&gt; <span style='color: #BCBCBC;'> 5</span>     4  0.451      5.55     5.08     6.06        1       11
-#&gt; <span style='color: #BCBCBC;'> 6</span>     5  0.497      5.71     5.23     6.23        1       12
-#&gt; <span style='color: #BCBCBC;'> 7</span>     9  0.779      6.81     6.25     7.42        2       13
-#&gt; <span style='color: #BCBCBC;'> 8</span>     7  1.51      10.7      9.60    11.9         4       19
-#&gt; <span style='color: #BCBCBC;'> 9</span>     1 -<span style='color: #BB0000;'>1.82</span>       1.35     1.07     1.70        0        5
-#&gt; <span style='color: #BCBCBC;'>10</span>     3  0.788      6.84     6.28     7.46        2       13
-#&gt; <span style='color: #949494;'># … with 90 more rows</span>
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_predict" "list"            </div><div class='input'>
+#&gt; [1] "trending_predict" "list"            </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_list</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in predict(fitted_list): object 'fitted_list' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_list</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in predict(fitted_list, as_tibble = TRUE): object 'fitted_list' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_list_named</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in predict(fitted_list_named): object 'fitted_list_named' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_list_named</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in predict(fitted_list_named, as_tibble = TRUE): object 'fitted_list_named' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
