@@ -25,19 +25,27 @@ reference:
   - lm_model
   - glm_model
   - glm_nb_model
-  - brms_model
+  - brm_model
 
 - title: Fitting and prediction
   desc: >
     Functions for fitting models and generating estimates
 - contents:
-  - fit
-  - predict.trending_model_fit
+  - fit.trending_model
+  - fit_list
+  - predict.trending_fit
+  - predict.trending_fit_list
+  - predict.trending_fit_tbl
 
 - title: Accessors
   desc: >
     Access object properties
 - contents:
+  - get_result
+  - get_warnings
+  - get_errors
+  - get_fitted_data
+  - get_fitted_model
   - get_formula
   - get_response
-  - get_model
+  - get_predictors
