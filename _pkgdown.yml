@@ -31,21 +31,11 @@ reference:
   desc: >
     Functions for fitting models and generating estimates
 - contents:
-  - fit.trending_model
-  - fit_list
-  - predict.trending_fit
-  - predict.trending_fit_list
-  - predict.trending_fit_tbl
+  - starts_with("fit")
+  - starts_with("predict")
 
 - title: Accessors
   desc: >
     Access object properties
 - contents:
-  - get_result
-  - get_warnings
-  - get_errors
-  - get_fitted_data
-  - get_fitted_model
-  - get_formula
-  - get_response
-  - get_predictors
+  - starts_with("get")
