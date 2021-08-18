@@ -174,7 +174,6 @@ get_predictors(x, ...)
 \item \code{get_errors()}: the captured warnings.
 \item \code{get_fitted_data}: The underlying data used to fit the model.
 \item \code{get_fitted_model()}: The underlying fitted model.
-\item \code{get_prediction()}: The resulting prediction.
 \item \code{get_formula()}: the formula used to model temporal trends.
 \item \code{get_response()}: the response variable of the underlying model.
 \item \code{get_predictors()}: the predictor variable(s) of the underlying model.

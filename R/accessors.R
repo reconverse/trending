@@ -21,8 +21,6 @@
 #'
 #' * `get_fitted_model()`: The underlying fitted model.
 #'
-#' * `get_prediction()`: The resulting prediction.
-#'
 #' * `get_formula()`: the formula used to model temporal trends.
 #'
 #' * `get_response()`: the response variable of the underlying model.
