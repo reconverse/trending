@@ -254,20 +254,20 @@
 <span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8849    17217</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7359    14816</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7128    14242</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9674    19007</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7634    14947</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7433    14371</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7012    14135</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6873    13550</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5629    11505</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5557    11093</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7324    15258</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5958    11883</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5837    11524</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5619    11018</span></code></pre></div>
+<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8925    17409</span>
+<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7325    14522</span>
+<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7187    14091</span>
+<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9464    18790</span>
+<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7809    15120</span>
+<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7426    14583</span>
+<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7150    14236</span>
+<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6923    13629</span>
+<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5696    11558</span>
+<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5527    11191</span>
+<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7515    15307</span>
+<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5993    11766</span>
+<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5635    11514</span>
+<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5646    11089</span></code></pre></div>
 </div>
 <div id="example-of-failed-model-fitting" class="section level2">
 <h2 class="hasAnchor">
@@ -292,6 +292,97 @@
 <span class="co">#&gt; NULL</span>
 <span class="fu"><a href="../reference/accessors.html">get_errors</a></span><span class="op">(</span><span class="va">fitted_model2</span><span class="op">)</span>
 <span class="co">#&gt; [1] "object 'nonexistent' not found"</span></code></pre></div>
+</div>
+<div id="multiple-models" class="section level2">
+<h2 class="hasAnchor">
+<a href="#multiple-models" class="anchor"></a>Multiple models</h2>
+<p>Sometimes we want to fit multiple models at once and for this we provide the <code><a href="../reference/fit_list.html">fit_list()</a></code> function. This function also provides a parameter <code>as_tibble</code> which allows the user to specify whether they want a <code>trending_fit_list</code> or <code>trending_fit_tibble</code> object to be returned.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  simple <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">lm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span><span class="op">)</span>,
+  glm_poisson <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>,
+  glm_negbin <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span>,
+  will_error <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistant</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">f_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_list.html">fit_list</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">fitting_data</span><span class="op">)</span>
+<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">f_list</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:  glm(formula = count ~ day, family = "poisson", data = fitting_data)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)          day  </span>
+<span class="co">#&gt;    11.57014     -0.03822  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  41 Residual</span>
+<span class="co">#&gt; Null Deviance:       321600 </span>
+<span class="co">#&gt; Residual Deviance: 50970     AIC: 51490</span>
+<span class="op">(</span><span class="va">f_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_list.html">fit_list</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">fitting_data</span>, as_tibble <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 × 4</span>
+<span class="co">#&gt;   model_name  result       warnings     errors      </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;named list&gt; &lt;named list&gt; &lt;named list&gt;</span>
+<span class="co">#&gt; 1 simple      &lt;lm&gt;         &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 2 glm_poisson &lt;glm&gt;        &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 3 glm_negbin  &lt;negbin&gt;     &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 4 will_error  &lt;NULL&gt;       &lt;NULL&gt;       &lt;chr [1]&gt;</span>
+<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">f_tibble</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:  glm(formula = count ~ day, family = "poisson", data = fitting_data)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt; (Intercept)          day  </span>
+<span class="co">#&gt;    11.57014     -0.03822  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  41 Residual</span>
+<span class="co">#&gt; Null Deviance:       321600 </span>
+<span class="co">#&gt; Residual Deviance: 50970     AIC: 51490</span></code></pre></div>
+<p>Both of these objects can then be used with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> which has a similar <code>as_tibble</code> parameter.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">f_list</span>, <span class="va">pred_data</span><span class="op">)</span>
+<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">p_list</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   11535.   11484.   11587.    11275    11798</span>
+<span class="co">#&gt;  2 2020-05-16    59 weekend        11103.   11052.   11154.    10846    11361</span>
+<span class="co">#&gt;  3 2020-05-17    60 weekend        10686.   10636.   10737.    10434    10941</span>
+<span class="co">#&gt;  4 2020-05-18    61 monday         10286.   10236.   10336.    10038    10536</span>
+<span class="co">#&gt;  5 2020-05-19    62 rest_of_week    9900.    9850.    9950.     9656    10146</span>
+<span class="co">#&gt;  6 2020-05-20    63 rest_of_week    9529.    9480.    9578.     9289     9770</span>
+<span class="co">#&gt;  7 2020-05-21    64 rest_of_week    9171.    9123.    9220.     8936     9409</span>
+<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    8827.    8780.    8876.     8596     9061</span>
+<span class="co">#&gt;  9 2020-05-23    66 weekend         8496.    8449.    8544.     8269     8726</span>
+<span class="co">#&gt; 10 2020-05-24    67 weekend         8178.    8131.    8225.     7955     8403</span>
+<span class="co">#&gt; 11 2020-05-25    68 monday          7871.    7825.    7917.     7652     8092</span>
+<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    7576.    7531.    7621.     7361     7793</span>
+<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    7292.    7247.    7337.     7081     7505</span>
+<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    7018.    6974.    7063.     6811     7228</span>
+
+<span class="op">(</span><span class="va">p_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">f_list</span>, <span class="va">pred_data</span>, as_tibble <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 × 4</span>
+<span class="co">#&gt;   model_name  result                       warnings     errors      </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;named list&gt;                 &lt;named list&gt; &lt;named list&gt;</span>
+<span class="co">#&gt; 1 simple      &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 2 glm_poisson &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 3 glm_negbin  &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 4 will_error  &lt;NULL&gt;                       &lt;NULL&gt;       &lt;chr [1]&gt;</span>
+<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">p_tibble</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   11535.   11484.   11587.    11275    11798</span>
+<span class="co">#&gt;  2 2020-05-16    59 weekend        11103.   11052.   11154.    10846    11361</span>
+<span class="co">#&gt;  3 2020-05-17    60 weekend        10686.   10636.   10737.    10434    10941</span>
+<span class="co">#&gt;  4 2020-05-18    61 monday         10286.   10236.   10336.    10038    10536</span>
+<span class="co">#&gt;  5 2020-05-19    62 rest_of_week    9900.    9850.    9950.     9656    10146</span>
+<span class="co">#&gt;  6 2020-05-20    63 rest_of_week    9529.    9480.    9578.     9289     9770</span>
+<span class="co">#&gt;  7 2020-05-21    64 rest_of_week    9171.    9123.    9220.     8936     9409</span>
+<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    8827.    8780.    8876.     8596     9061</span>
+<span class="co">#&gt;  9 2020-05-23    66 weekend         8496.    8449.    8544.     8269     8726</span>
+<span class="co">#&gt; 10 2020-05-24    67 weekend         8178.    8131.    8225.     7955     8403</span>
+<span class="co">#&gt; 11 2020-05-25    68 monday          7871.    7825.    7917.     7652     8092</span>
+<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    7576.    7531.    7621.     7361     7793</span>
+<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    7292.    7247.    7337.     7081     7505</span>
+<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    7018.    6974.    7063.     6811     7228</span></code></pre></div>
 </div>
 </div>
   </div>
