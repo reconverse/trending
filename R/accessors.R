@@ -67,12 +67,12 @@ get_result.trending_predict <- get_result.trending_fit
 #' @export
 #' @aliases get_result.trending_fit_list
 #' @rdname accessors
-get_result.trending_fit_list <- get_result.trending_fit
+get_result.trending_fit_list <- function(x, ...) lapply(x, `[[`, "result")
 
 #' @export
 #' @aliases get_result.trending_predict_list
 #' @rdname accessors
-get_result.trending_predict_list <- get_result.trending_fit
+get_result.trending_predict_list <- get_result.trending_fit_list
 
 #' @export
 #' @aliases get_result.trending_fit_tbl
@@ -109,12 +109,12 @@ get_warnings.trending_predict <- get_warnings.trending_fit
 #' @export
 #' @aliases get_warnings.trending_fit_list
 #' @rdname accessors
-get_warnings.trending_fit_list <- get_warnings.trending_fit
+get_warnings.trending_fit_list <- function(x, ...) lapply(x, `[[`, "warnings")
 
 #' @export
 #' @aliases get_warnings.trending_predict_list
 #' @rdname accessors
-get_warnings.trending_predict_list <- get_warnings.trending_fit
+get_warnings.trending_predict_list <- get_warnings.trending_fit_list
 
 #' @export
 #' @aliases get_warnings.trending_fit_tbl
@@ -151,12 +151,12 @@ get_errors.trending_predict <- get_errors.trending_fit
 #' @export
 #' @aliases get_errors.trending_fit_list
 #' @rdname accessors
-get_errors.trending_fit_list <- get_errors.trending_fit
+get_errors.trending_fit_list <- function(x, ...) lapply(x, `[[`, "errors")
 
 #' @export
 #' @aliases get_errors.trending_predict_list
 #' @rdname accessors
-get_errors.trending_predict_list <- get_errors.trending_fit
+get_errors.trending_predict_list <- get_errors.trending_fit_list
 
 #' @export
 #' @aliases get_errors.trending_fit_tbl

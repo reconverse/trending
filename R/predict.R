@@ -77,14 +77,6 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
 
   # ensure that we have a model to use for predictions
   fitted_model <- get_fitted_model.trending_fit(object)
-  if (is.null(fitted_model)) {
-    msg <- paste0(
-      "No model to use for prediction:\n",
-      "          - check for captured warnings and errors in the input?"
-    )
-    stop(msg, call. = FALSE)
-  }
-
 
   # if no data supplied we use the model data
   if (missing(new_data)) new_data <- fitted_model$model
