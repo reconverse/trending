@@ -1,26 +1,24 @@
-test_that("glm_nb_model", {
+test_that("brm_model", {
+
+  skip_if_not_installed("brms")
 
   # setup
-  model <- glm_nb_model(hp ~ cyl)
+  model <- brm_model(hp ~ cyl, family = poisson)
   fit <- fit(model, mtcars)
   fit_tbl <- fit(model, mtcars, as_tibble = TRUE)
-  expected_model <- glm.nb(hp ~ cyl, data = mtcars)
   pred <- predict(fit, mtcars)                        # prediction with new data
   pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
   pred2_tbl <- predict(fit_tbl, add_pi = FALSE, as_tibble = TRUE)  # prediction as tibble from tibble
 
   # test printing
-  expect_snapshot(glm_nb_model(count ~ day, na.action = na.exclude))
+  expect_snapshot(brm_model(count ~ day, na.action = na.exclude))
 
-  # test model fitting - note we need to ignore the call as we have a similar
-  # issue to the update function discussed in
-  # https://stat.ethz.ch/pipermail/r-help/2021-August/471811.html
+  # test model fitting
   fitted_model <- get_fitted_model(fit)
   fitted_model_tbl <- get_fitted_model(fit_tbl)
-  expect_equal(fitted_model, fitted_model_tbl[[1]], ignore_function_env = TRUE)
-  no_call <- function(x) x[setdiff(names(x), "call")]
-  expect_equal(no_call(fitted_model), no_call(expected_model), ignore_function_env = TRUE)
+  expect_true(inherits(fitted_model, "brmsfit"))
+  expect_true(inherits(fitted_model_tbl[[1]], "brmsfit"))
   expect_identical(names(fit), c("result", "warnings", "errors"))
   expect_identical(names(fit_tbl), c("result", "warnings", "errors"))
   expect_s3_class(fit_tbl, "tbl_df")
@@ -31,7 +29,9 @@ test_that("glm_nb_model", {
   expect_null(get_errors(fit))
   expect_identical(get_fitted_data(fit), mtcars[c("hp", "cyl")])
   expect_identical(get_formula(model), hp ~ cyl)
-  expect_identical(get_formula(fit), hp ~ cyl)
+  fml <- get_formula(fit)$formula
+  attributes(fml) <- NULL
+  expect_identical(as.formula(fml), hp ~ cyl)
   expect_identical(get_response(model), "hp")
   expect_identical(get_response(fit), "hp")
   expect_identical(get_predictors(model), "cyl")
@@ -69,6 +69,6 @@ test_that("glm_nb_model", {
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
 
-  # test errors
-  expect_error(glm_nb_model(hp ~ cyl, data = mtcars))
+  # expect error
+  expect_error(brm_model(hp ~ cyl, data = mtcars))
 })

@@ -51,7 +51,7 @@
 fit.trending_model <- function(object, data, as_tibble = FALSE, ...) {
   object[["data"]] <- substitute(data)
   env = parent.frame()
-  if (inherits(object, "brm_trending_model")) env <- c(env, brm = brms::brm)
+  if (inherits(object, "brm_trending_model")) env <- list(env, brm = brms::brm)
   f <- make_catcher(eval)
   res <- f(object, env)
   res <- structure(res, class = c("trending_fit", class(res)))

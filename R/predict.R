@@ -79,7 +79,7 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
   fitted_model <- get_fitted_model.trending_fit(object)
 
   # if no data supplied we use the model data
-  if (missing(new_data)) new_data <- fitted_model$model
+  if (missing(new_data)) new_data <- get_fitted_data(object)
 
   # check for name clashes with the existing input
   check_names(
@@ -91,12 +91,11 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
     pi_names = pi_names
   )
 
-  # wrap add_estimate to catch warnings and errors
-  fun <- make_catcher(add_prediction)
-
-  out <- fun(
+  res <- predict_individual(
     fitted_model,
     new_data = new_data,
+    response = get_response.trending_fit(object),
+    predictors = get_predictors.trending_fit(object),
     name = name,
     alpha = alpha,
     add_ci = add_ci,
@@ -108,27 +107,6 @@ predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.
     uncertain = uncertain
   )
 
-  # only save attributes that are used
-  if (!add_ci) ci_names <- NULL
-  if (!add_pi) pi_names <- NULL
-
-  # make result a subclass of tibbleb
-  result <- out$result
-  if (!is.null(result)) {
-    result <- new_tibble(
-      result,
-      response = get_response.trending_fit(object),
-      predictors = get_predictors.trending_fit(object),
-      estimate = name,
-      ci_names = ci_names,
-      pi_names = pi_names,
-      nrow = nrow(result),
-      class = "trending_estimate"
-    )
-    out$result <- result
-  }
-
-  res <- structure(out, class = c("trending_predict", class(out)))
   if (as_tibble) {
     res <- list(res)
     res <- trending_fit_list_to_tibble(res)
@@ -149,18 +127,17 @@ predict.trending_fit_list <- function(object, new_data, name = "estimate", alpha
   fitted_models <- get_fitted_model(object)
   if (missing(new_data)) {
     ok <- vapply(fitted_models, function(x) !is.null(x), logical(1))
-    ok_models <- fitted_models[ok]
-    if (!length(ok_models)) {
-      new_data <- NULL
-    } else {
-      new_data <- ok_models[[1]]$model # OK as data will be same for all
-    }
+    new_data <- if (!any(ok)) NULL else get_fitted_data(object)[ok][[1]] # OK as data will be same for all
   }
 
-  qfun <- substitute(
-    lapply(
-      object,
-      predict,
+  res <- .mapply(
+    FUN = predict_individual,
+    dots = list(
+      model = fitted_models,
+      response = get_response(object),
+      predictors = get_predictors(object)
+      ),
+    MoreArgs = list(
       new_data = new_data,
       name = name,
       alpha = alpha,
@@ -173,7 +150,7 @@ predict.trending_fit_list <- function(object, new_data, name = "estimate", alpha
       uncertain = uncertain
     )
   )
-  res <- eval(qfun)
+
   nms <- attr(object, "model_name")
   if (!is.null(nms)) names(res) <- object[[nms]]
   class(res) <- c("trending_predict_list", class(res))
@@ -192,6 +169,52 @@ predict.trending_fit_tbl <- predict.trending_fit_list
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
+predict_individual <- function(model, new_data, response, predictors,
+                               name = "estimate", alpha = 0.05,
+                               add_ci = TRUE, ci_names = c("lower_ci", "upper_ci"),
+                               add_pi = TRUE, pi_names = c("lower_pi", "upper_pi"),
+                               simulate_pi = FALSE, sims = 2000, uncertain = TRUE) {
+
+  # wrap add_estimate to catch warnings and errors
+  fun <- make_catcher(add_prediction)
+
+  out <- fun(
+    model,
+    new_data = new_data,
+    name = name,
+    alpha = alpha,
+    add_ci = add_ci,
+    ci_names = ci_names,
+    add_pi = add_pi,
+    pi_names = pi_names,
+    simulate_pi = simulate_pi,
+    sims = sims,
+    uncertain = uncertain
+  )
+
+  # only save attributes that are used
+  if (!add_ci) ci_names <- NULL
+  if (!add_pi) pi_names <- NULL
+
+  # make result a subclass of tibble
+  result <- out$result
+  if (!is.null(result)) {
+    result <- new_tibble(
+      result,
+      response = response,
+      predictors = predictors,
+      estimate = name,
+      ci_names = ci_names,
+      pi_names = pi_names,
+      nrow = nrow(result),
+      class = "trending_estimate"
+    )
+    out$result <- result
+  }
+
+  res <- structure(out, class = c("trending_predict", class(out)))
+}
+
 # this is written like a generic but avoids unnecessary method exports
 add_prediction <- function(object, new_data, ...) {
   switch(
@@ -202,6 +225,27 @@ add_prediction <- function(object, new_data, ...) {
     brmsfit = add_prediction_brmsfit(object = object, new_data = new_data, ...),
     not_implemented(object, call. = TRUE)
   )
+}
+
+trending_predict_list_to_tibble <- function(x, ...) {
+  res <- lapply(seq_along(x[[1]]), function(i) lapply(x, "[[", i))
+  res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
+  nms <- names(x)
+  model_name <- NULL
+  if (!is.null(nms)) {
+    res <- cbind(tibble(model_name = nms), res)
+    model_name <- "model_name"
+  }
+  res <- new_tibble(
+    res,
+    model_name = model_name,
+    result = "result",
+    warnings = "warnings",
+    errors = "errors",
+    nrow = nrow(res),
+    class = "trending_predict_tbl"
+  )
+  validate_tibble(res)
 }
 
 # -------------------------------------------------------------------------
@@ -347,7 +391,8 @@ add_prediction_brmsfit <- function(object, new_data, name, alpha, add_ci,
                                    ci_names, add_pi, pi_names, ...) {
 
   # add confidence intervals
-  ci <- fitted(object, new_data, probs = c(alpha / 2, 1 - alpha / 2))[-2]
+  ci <- fitted(object, new_data, probs = c(alpha / 2, 1 - alpha / 2))[,-2]
+  ci <- as.data.frame(ci)
   ci <- setNames(ci, c(name, ci_names))
   out <- cbind(new_data, ci)
 
@@ -414,26 +459,5 @@ format.trending_estimate <- function(x, ...) {
   header <- pillar::style_subtle(header)
   body <- format(tibble::as_tibble(x, ...))[-1]
   c(header, body)
-}
-
-trending_predict_list_to_tibble <- function(x, ...) {
-  res <- lapply(seq_along(x[[1]]), function(i) lapply(x, "[[", i))
-  res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
-  nms <- names(x)
-  model_name <- NULL
-  if (!is.null(nms)) {
-    res <- cbind(tibble(model_name = nms), res)
-    model_name <- "model_name"
-  }
-  res <- new_tibble(
-    res,
-    model_name = model_name,
-    result = "result",
-    warnings = "warnings",
-    errors = "errors",
-    nrow = nrow(res),
-    class = "trending_predict_tbl"
-  )
-  validate_tibble(res)
 }
 

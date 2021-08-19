@@ -213,7 +213,8 @@ get_fitted_data.default <- function(x, ...) not_implemented(x)
 #' @export
 get_fitted_data.trending_fit <- function(x, ...) {
   model <- get_fitted_model.trending_fit(x)
-  res <- model$model
+  res <- if (inherits(model, "brmsfit")) model$data else model$model
+  attr(res, "data_name") <- NULL
   attr(res, "terms") <- NULL
   res
 }
@@ -226,7 +227,8 @@ get_fitted_data.trending_fit_list <- function(x, ...) {
   lapply(
     models,
     function(x) {
-      res <- x$model
+      res <- if (inherits(x, "brmsfit")) x$data else x$model
+      attr(res, "data_name") <- NULL
       attr(res, "terms") <- NULL
       res
     }
@@ -260,7 +262,7 @@ get_formula.trending_model <- function(x, ...) x$formula
 #' @export
 get_formula.trending_fit <- function(x, ...) {
   res <- get_fitted_model.trending_fit(x)
-  res$call$formula
+  if (inherits(res, "brmsfit")) res$formula else res$call$formula
 }
 
 #' @rdname accessors
@@ -268,7 +270,10 @@ get_formula.trending_fit <- function(x, ...) {
 #' @export
 get_formula.trending_fit_list <- function(x, ...) {
   models <- get_fitted_model(x)
-  lapply(models, function(x) x$call$formula)
+  lapply(
+    models,
+    function(m) if (inherits(m, "brmsfit")) m$formula else m$call$formula
+  )
 }
 
 #' @rdname accessors
@@ -299,14 +304,24 @@ get_response.trending_model <- function(x, ...) {
 #' @export
 #' @aliases get_response.trending_fit
 #' @rdname accessors
-get_response.trending_fit <- get_response.trending_model
+get_response.trending_fit <- function(x, ...) {
+  formula <- get_formula(x)
+  if (inherits(formula, "brmsformula")) formula <- formula$formula
+  as.character(formula)[2]
+}
 
 #' @export
 #' @aliases get_response.trending_fit_list
 #' @rdname accessors
 get_response.trending_fit_list <- function(x, ...) {
   formula <- get_formula(x)
-  lapply(formula, function(x) as.character(x)[2])
+  lapply(
+    formula,
+    function(x) {
+      if (inherits(x, "brmsformula")) x <- x$formula
+      as.character(x)[2]
+    }
+  )
 }
 
 #' @export
@@ -331,8 +346,9 @@ get_predictors.default <- function(x, ...) not_implemented(x)
 #' @rdname accessors
 get_predictors.trending_model <- function(x, ...) {
   formula <- get_formula(x)
+  if (inherits(formula, "brmsformula")) formula <- formula$formula
   vars <- all.vars(formula)
-  response <- get_response.trending_model(x)
+  response <- get_response(x)
   vars[!vars %in% response]
 }
 
@@ -346,7 +362,13 @@ get_predictors.trending_fit <- get_predictors.trending_model
 #' @rdname accessors
 get_predictors.trending_fit_list <- function(x, ...) {
   formulas <- get_formula(x)
-  vars <- lapply(formulas, all.vars)
+  vars <- lapply(
+    formulas,
+    function(x) {
+      if (inherits(x, "brmsformula")) x <- x$formula
+      all.vars(x)
+    }
+  )
   response <- get_response(x)
   .mapply(function(x, y) x[!x %in% y], dots = list(x = vars, y = response), MoreArgs = NULL)
 }
