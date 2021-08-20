@@ -16,6 +16,11 @@ test_that("lm_model", {
   list_fit_tbl <- fit_list(list(l=l, nb=nb), mtcars, as_tibble = TRUE)
   list_pred_tbl <- predict(list_fit_tbl, mtcars, as_tibble = TRUE)
 
+  expect_equal(get_warnings(list_fit), list(NULL, NULL))
+  expect_equal(get_warnings(list_fit_tbl), list(l=NULL, nb=NULL))
+  expect_equal(get_errors(list_fit), list(NULL, NULL))
+  expect_equal(get_errors(list_fit_tbl), list(l=NULL, nb=NULL))
+
   expect_equal(
     list(lfit$result, nbfit$result),
     get_fitted_model(list_fit),
@@ -52,5 +57,4 @@ test_that("lm_model", {
 
   expect_equal(list_pred_tbl$model_name, c("l", "nb"))
 
-  expect_error(fit_list(list(a=1)))
 })

@@ -69,6 +69,4 @@ test_that("glm_nb_model", {
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
 
-  # test errors
-  expect_error(glm_nb_model(hp ~ cyl, data = mtcars))
 })

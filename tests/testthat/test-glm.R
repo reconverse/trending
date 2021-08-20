@@ -3,12 +3,15 @@ test_that("glm_model", {
   # setup
   model <- glm_model(hp ~ cyl, family = poisson)
   fit <- fit(model, mtcars)
+  model_with_nonexistant <- glm_model(hp ~ bob, family = poisson)
+  fit_with_error <- fit(model_with_nonexistant, mtcars)
+  pred_with_error <- predict(fit_with_error)
   fit_tbl <- fit(model, mtcars, as_tibble = TRUE)
   expected_model <- glm(hp ~ cyl, data = mtcars, family = poisson)
-  pred <- predict(fit, mtcars)                        # prediction with new data
-  pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
-  pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE, as_tibble = TRUE)  # prediction as tibble from tibble
+  pred <- predict(fit, add_ci = FALSE, simulate_pi = TRUE)
+  pred_tbl <- predict(fit, mtcars, add_ci = FALSE, simulate_pi = TRUE, as_tibble = TRUE)  # prediction with new data and as tibble from list
+  pred2 <- predict(fit, add_pi = FALSE)                                                   # prediction with no new data or pi
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE, as_tibble = TRUE)                         # prediction as tibble from tibble
 
   # test printing
   expect_snapshot(glm_model(count ~ day, na.action = na.exclude))
@@ -26,6 +29,8 @@ test_that("glm_model", {
   expect_s3_class(fit_tbl, "tbl_df")
 
   # test fit accessors
+  expect_type(get_errors(fit_with_error), "character")
+  expect_null(get_result(fit_with_error))
   expect_identical(get_result(fit), fitted_model)
   expect_null(get_warnings(fit))
   expect_null(get_errors(fit))
@@ -44,13 +49,15 @@ test_that("glm_model", {
   expect_identical(names(pred2_tbl), c("result", "warnings", "errors"))
 
   # test prediction accessors
+  expect_type(get_errors(pred_with_error), "character")
+  expect_null(get_result(pred_with_error))
   expect_identical(
     names(get_result(pred)),
-    c(names(mtcars), "estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi")
+    c("hp", "cyl", "estimate", "lower_pi", "upper_pi")
   )
   expect_identical(
     names(get_result(pred_tbl)[[1]]),
-    c(names(mtcars), "estimate", "lower_ci", "upper_ci", "lower_pi", "upper_pi")
+    c(names(mtcars), "estimate", "lower_pi", "upper_pi")
   )
   expect_identical(
     names(get_result(pred2)),
@@ -60,8 +67,8 @@ test_that("glm_model", {
     names(get_result(pred2_tbl)[[1]]),
     c("hp", "cyl", "estimate", "lower_ci", "upper_ci")
   )
-  expect_null(get_warnings(pred))
-  expect_null(get_warnings(pred_tbl)[[1]])
+  expect_type(get_warnings(pred), "character")
+  expect_type(get_warnings(pred_tbl)[[1]], "character")
   expect_null(get_warnings(pred2))
   expect_null(get_warnings(pred2_tbl)[[1]])
   expect_null(get_errors(pred))
@@ -69,7 +76,4 @@ test_that("glm_model", {
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
 
-
-  # test errors
-  expect_error(glm_model(hp ~ cyl, data = mtcars))
 })

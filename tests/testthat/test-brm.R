@@ -69,6 +69,4 @@ test_that("brm_model", {
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
 
-  # expect error
-  expect_error(brm_model(hp ~ cyl, data = mtcars))
 })

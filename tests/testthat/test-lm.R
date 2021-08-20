@@ -25,7 +25,7 @@ test_that("lm_model", {
   expect_identical(names(fit_tbl), c("result", "warnings", "errors"))
   expect_s3_class(fit_tbl, "tbl_df")
 
-  # test fit accessors
+  # test accessors
   expect_identical(get_result(fit), fitted_model)
   expect_null(get_warnings(fit))
   expect_null(get_errors(fit))
@@ -69,6 +69,4 @@ test_that("lm_model", {
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
 
-  # test errors
-  expect_error(lm_model(hp ~ cyl, data = mtcars))
 })
