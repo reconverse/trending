@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fitting for trending_model objects — fit • trending</title>
+<title>Fit generics — fit • trending</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Fitting for trending_model objects — fit" />
-<meta property="og:description" content="fit() fits a model using the given data to obtain an object of type
-trending_model_fit or  trending_model_fit_list." />
+<meta property="og:title" content="Fit generics — fit" />
+<meta property="og:description" content="fit() is a generic to fit a model with methods included for both
+trending_model objects as well as a list of these objects.
+data." />
 
 
 
@@ -73,7 +74,7 @@ trending_model_fit or  trending_model_fit_list." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trending</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.9000</span>
       </span>
     </div>
 
@@ -128,94 +129,172 @@ trending_model_fit or  trending_model_fit_list." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fitting for trending_model objects</h1>
+    <h1>Fit generics</h1>
     <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit.r'><code>R/fit.r</code></a></small>
     <div class="hidden name"><code>fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>fit()</code> fits a model using the given data to obtain an object of type
-<code>trending_model_fit</code> or  <code>trending_model_fit_list</code>.</p>
+    <p><code>fit()</code> is a generic to fit a model with methods included for both
+<code>trending_model</code> objects as well as a <code>list</code> of these objects.
+data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for trending_model</span>
-<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>The output of functions <code>lm_model</code>, <code>glm_model</code>, <code>glm_nb_model</code>, or
-brms_model or a list of these objects.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A <code>data.frame</code> to be used to train the model.</p></td>
+      <td><p>An <span style="R">R</span> object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to underlying models.</p></td>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame containing the data to fit.</p></td>
+    </tr>
+    <tr>
+      <th>as_tibble</th>
+      <td><p>Should the output be converted to a tibble subclass.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>For individual <code>trending_model</code> inputs and with <code>as_tibble = FALSE</code>,
+then a <code>trending_fit</code> object is returned. This is a list subclass with
+entries:</p><ul>
+<li><p>result: the resulting fit from calling the underlying model
+directly, i.e.</p><ul>
+<li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
+<li><p><code>glm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></li>
+<li><p><code>glm_nb_model</code>: a fitted model object of class <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>negbin</a></code></p></li>
+<li><p><code>brm_model</code>: An object of class <code><a href='https://rdrr.io/pkg/brms/man/brm.html'>brmsfit</a></code></p></li>
+</ul>
+
+<p><code>NULL</code> if fitting fails.</p></li>
+<li><p>warnings: any warnings generated during fitting</p></li>
+<li><p>errors: any errors generated during fitting</p></li>
+</ul>
+
+<p>For a list of trending_models, <code>trending_fit_list</code> where each entry is a
+<code>trending_fit</code> object.</p>
+<p>If <code>as_tibble = TRUE</code>, a <code>trending_fit_tbl</code> object which is a
+<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row for each model and
+columns 'result', 'warnings' and 'errors' with contents as above.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Tim Taylor</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
 
-<span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
+<span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='va'>poisson</span><span class='op'>)</span>
 <span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 
 <span class='fu'>fit</span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $fitted_model
+</div><div class='output co'>#&gt; $result
 #&gt; 
-#&gt; Call:  glm(formula = y ~ x, family = "poisson", data = data)
+#&gt; Call:  glm(formula = y ~ x, family = poisson, data = dat)
 #&gt; 
 #&gt; Coefficients:
 #&gt; (Intercept)            x  
-#&gt;      1.5230       0.4625  
+#&gt;      1.5024       0.5486  
 #&gt; 
 #&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-#&gt; Null Deviance:	    233.5 
-#&gt; Residual Deviance: 114.8 	AIC: 446
+#&gt; Null Deviance:	    265.4 
+#&gt; Residual Deviance: 98.39 	AIC: 421.9
 #&gt; 
-#&gt; $predict
-#&gt; function (newdata, alpha = 0.05, add_pi = TRUE, simulate_pi = TRUE, 
-#&gt;     uncertain = TRUE) 
-#&gt; {
-#&gt;     if (missing(newdata)) {
-#&gt;         newdata &lt;- data[all.vars(formula(model))]
-#&gt;     }
-#&gt;     result &lt;- add_confidence_interval(model, newdata, alpha)
-#&gt;     if (add_pi) {
-#&gt;         if (simulate_pi) {
-#&gt;             result &lt;- add_prediction_interval(model, result, 
-#&gt;                 alpha, simulate_pi, uncertain)
-#&gt;         }
-#&gt;         else {
-#&gt;             result &lt;- add_prediction_interval(model, result, 
-#&gt;                 alpha, simulate_pi, uncertain)
-#&gt;         }
-#&gt;     }
-#&gt;     result
-#&gt; }
-#&gt; &lt;bytecode: 0x7fb939257df0&gt;
-#&gt; &lt;environment: 0x7fb93925a800&gt;
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; NULL
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "trending_model_fit" "list"              </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 4</span>
-#&gt;   data           fitted_model   fitting_warnings fitting_errors
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;df [100 × 2]&gt;</span> <span style='color: #949494;'>&lt;trndng__ [2]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>           <span style='color: #949494;'>&lt;NULL&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;df [100 × 2]&gt;</span> <span style='color: #949494;'>&lt;trndng__ [2]&gt;</span> <span style='color: #949494;'>&lt;chr [2]&gt;</span>        <span style='color: #949494;'>&lt;NULL&gt;</span>        </div><div class='input'>
+#&gt; [1] "trending_fit" "list"        </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='va'>negbin_model</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $result
+#&gt; NULL
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; [1] "object 'dat' not found"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit" "list"        </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; $result
+#&gt; NULL
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; [1] "object 'dat' not found"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit" "list"        
+#&gt; 
+#&gt; [[2]]
+#&gt; $result
+#&gt; NULL
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; [1] "object 'dat' not found"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit" "list"        
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit_list" "list"             </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pm <span class='op'>=</span> <span class='va'>poisson_model</span>, nm <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $pm
+#&gt; $result
+#&gt; NULL
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; [1] "object 'dat' not found"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit" "list"        
+#&gt; 
+#&gt; $nm
+#&gt; $result
+#&gt; NULL
+#&gt; 
+#&gt; $warnings
+#&gt; NULL
+#&gt; 
+#&gt; $errors
+#&gt; [1] "object 'dat' not found"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit" "list"        
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "trending_fit_list" "list"             </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -228,7 +307,7 @@ brms_model or a list of these objects.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Dirk Schumacher, Thibaut Jombart, Tim Taylor.</p>
+  <p>Developed by Tim Taylor.</p>
 </div>
 
 <div class="pkgdown">
