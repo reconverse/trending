@@ -4,7 +4,8 @@
 #'   prediction intervals for various fitted models.
 #'
 #' @param object A [`trending_fit`][fit.trending_model()],
-#'    [`trending_fit_list`][fit_list()] or `trending_fit_tbl` object.
+#'    [`trending_fit_list`][fit.list()] or [`trending_fit_tbl`][fit.list()]
+#'    object.
 #' @param new_data A `data.frame` containing data for which estimates are to be
 #'   derived. If missing, the model frame from the fit data will be used.
 #' @param name Character vector of length one giving the name to use for the
@@ -38,8 +39,8 @@
 #'
 #' fitted_poisson <- fit(poisson_model, dat)
 #' fitted_negbin <- fit(negbin_model, dat)
-#' fitted_list <- fit_list(list(poisson_model, negbin_model), dat)
-#' fitted_list_named <- fit_list(list(p = poisson_model, n = negbin_model), dat)
+#' fitted_list <- fit(list(poisson_model, negbin_model), dat)
+#' fitted_list_named <- fit(list(p = poisson_model, n = negbin_model), dat)
 #'
 #' predict(fitted_poisson)
 #' predict(fitted_list)
@@ -63,10 +64,11 @@
 #'   [`tibble`][tibble::tibble()] subclass with one row and columns 'result',
 #'   'warnings' and 'errors' with contents as above.
 #'
-#'   For [`trending_fit_list`][fit_list()] or [`trending_fit_tbl`][fit_list()]
-#'   inputs, if `as_tibble = FALSE`, a `trending_fit_list` where each entry is a
-#'   `trending_fit` object. If `as_tibble = TRUE` a `trending_predict_tbl`
-#'   object with each row corresponding to the output of one model as above.
+#'   For [`trending_fit_list`][fit.list()] or [`trending_fit_tbl`][fit.list()]
+#'   inputs, if `as_tibble = FALSE`, a `trending_predict_list` where each entry
+#'   is a `trending_predict` object. If `as_tibble = TRUE` a
+#'   `trending_predict_tbl` object with each row corresponding to the output of
+#'   one model as above.
 #'
 #' @export
 predict.trending_fit <- function(object, new_data, name = "estimate", alpha = 0.05,

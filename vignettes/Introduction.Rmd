@@ -103,10 +103,7 @@ get_errors(fitted_model2)
 ```
 
 ## Multiple models
-Sometimes we want to fit multiple models at once and for this we provide the
-`fit_list()` function. This function also provides a parameter `as_tibble`
-which allows the user to specify whether they want a `trending_fit_list` or
-`trending_fit_tibble` object to be returned.
+The fit function also works with a list input of multiple models.
 
 ```{r}
 models  <- list(
@@ -115,9 +112,9 @@ models  <- list(
   glm_negbin = glm_nb_model(count ~ day + weekday),
   will_error = glm_nb_model(count ~ day + nonexistant)
 )
-f_list <- fit_list(models, fitting_data)
+f_list <- fit(models, fitting_data)
 get_result(f_list)[[2]]
-(f_tibble <- fit_list(models, fitting_data, as_tibble = TRUE))
+(f_tibble <- fit(models, fitting_data, as_tibble = TRUE))
 get_result(f_tibble)[[2]]
 ```
 

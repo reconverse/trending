@@ -6,10 +6,6 @@
 #' @importFrom vctrs new_data_frame
 NULL
 
-#' @importFrom generics fit
-#' @export
-generics::fit
-
 #' @importFrom MASS glm.nb
 #' @export
 MASS::glm.nb

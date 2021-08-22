@@ -56,7 +56,8 @@
 }
 \arguments{
 \item{object}{A \code{\link[=fit.trending_model]{trending_fit}},
-\code{\link[=fit_list]{trending_fit_list}} or \code{trending_fit_tbl} object.}
+\code{\link[=fit.list]{trending_fit_list}} or \code{\link[=fit.list]{trending_fit_tbl}}
+object.}
 
 \item{new_data}{A \code{data.frame} containing data for which estimates are to be
 derived. If missing, the model frame from the fit data will be used.}
@@ -108,10 +109,11 @@ If \code{as_tibble = TRUE}, a \code{trending_predict_tbl} object which is a
 \code{\link[tibble:tibble]{tibble}} subclass with one row and columns 'result',
 'warnings' and 'errors' with contents as above.
 
-For \code{\link[=fit_list]{trending_fit_list}} or \code{\link[=fit_list]{trending_fit_tbl}}
-inputs, if \code{as_tibble = FALSE}, a \code{trending_fit_list} where each entry is a
-\code{trending_fit} object. If \code{as_tibble = TRUE} a \code{trending_predict_tbl}
-object with each row corresponding to the output of one model as above.
+For \code{\link[=fit.list]{trending_fit_list}} or \code{\link[=fit.list]{trending_fit_tbl}}
+inputs, if \code{as_tibble = FALSE}, a \code{trending_predict_list} where each entry
+is a \code{trending_predict} object. If \code{as_tibble = TRUE} a
+\code{trending_predict_tbl} object with each row corresponding to the output of
+one model as above.
 }
 \description{
 \code{predict()} adds estimated values and associated confidence and/or
@@ -127,8 +129,8 @@ negbin_model <- glm_nb_model(y ~ x)
 
 fitted_poisson <- fit(poisson_model, dat)
 fitted_negbin <- fit(negbin_model, dat)
-fitted_list <- fit_list(list(poisson_model, negbin_model), dat)
-fitted_list_named <- fit_list(list(p = poisson_model, n = negbin_model), dat)
+fitted_list <- fit(list(poisson_model, negbin_model), dat)
+fitted_list_named <- fit(list(p = poisson_model, n = negbin_model), dat)
 
 predict(fitted_poisson)
 predict(fitted_list)

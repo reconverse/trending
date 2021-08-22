@@ -8,7 +8,7 @@ test_that("functions error as expected", {
 
   # incorrect argument types
   expect_error(lm_model("bob"))
-  expect_error(fit_list(list("bob")))
+  expect_error(fit(list("bob")))
   expect_error(get_result("bob"))
   expect_error(get_warnings("bob"))
   expect_error(get_errors("bob"))

@@ -38,7 +38,6 @@ Imports:
     stats,
     tibble,
     vctrs,
-    generics,
     pillar
 Suggests: 
     knitr,

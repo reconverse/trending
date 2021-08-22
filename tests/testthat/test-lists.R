@@ -11,9 +11,9 @@ test_that("lm_model", {
   nbpred <- predict(nbfit)
   nbfit_tbl <- fit(nb, mtcars, as_tibble = TRUE)
   nbpred_tbl <- predict(nbfit_tbl, mtcars, as_tibble = TRUE)
-  list_fit <- fit_list(list(l, nb), mtcars)
+  list_fit <- fit(list(l, nb), mtcars)
   list_pred <- predict(list_fit)
-  list_fit_tbl <- fit_list(list(l=l, nb=nb), mtcars, as_tibble = TRUE)
+  list_fit_tbl <- fit(list(l=l, nb=nb), mtcars, as_tibble = TRUE)
   list_pred_tbl <- predict(list_fit_tbl, mtcars, as_tibble = TRUE)
 
   expect_equal(get_warnings(list_fit), list(NULL, NULL))

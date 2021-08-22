@@ -22,7 +22,7 @@
 #'
 #' These interfaces will accept the same inputs as the underlying model
 #' functions but do not require, nor will they accept, a `data` argument.
-#' Fitting is handled instead by the [train] generic and associated methods.
+#' Fitting is handled instead by the [fit()] generic and associated methods.
 #'
 #' @param formula The formula of the model, with the response variable on the
 #'   left of a tilde symbol, and predictors on the right hand-side; variable

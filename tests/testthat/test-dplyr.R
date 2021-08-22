@@ -5,7 +5,7 @@ test_that("invariants hold with dplyr operations", {
   # setup
   model1 <- lm_model(hp ~ cyl)
   model2 <- glm_model(hp ~ cyl, family = poisson)
-  fit_tbl <- fit_list(list(model1, model2), mtcars, as_tibble = TRUE)
+  fit_tbl <- fit(list(model1, model2), mtcars, as_tibble = TRUE)
   pred_tbl <- predict(fit_tbl, as_tibble = TRUE)
   estimate <- get_result(pred_tbl)[[1]]
   restimate <- estimate

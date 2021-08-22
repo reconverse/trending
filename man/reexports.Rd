@@ -3,7 +3,6 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{fit}
 \alias{glm.nb}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -13,7 +12,5 @@ below to see their documentation.
 
 \describe{
   \item{MASS}{\code{\link[MASS]{glm.nb}}}
-
-  \item{generics}{\code{\link[generics]{fit}}}
 }}
 
