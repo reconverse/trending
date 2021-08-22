@@ -24,13 +24,13 @@ test_that("invariants hold with dplyr operations", {
   expect_s3_class(all_fit_tbl, "trending_fit_tbl")
   expect_s3_class(row_fit_tbl, "trending_fit_tbl")
   expect_s3_class(all_pred_tbl, "trending_predict_tbl")
-  expect_s3_class(row_estimate, "trending_estimate")
-  expect_s3_class(all_estimate, "trending_estimate")
+  expect_s3_class(row_estimate, "trending_prediction")
+  expect_s3_class(all_estimate, "trending_prediction")
   expect_s3_class(row_pred_tbl, "trending_predict_tbl")
-  expect_s3_class(restimate, "trending_estimate")
+  expect_s3_class(restimate, "trending_prediction")
   expect_false(inherits(col_fit_tbl, "trending_fit_tbl"))
   expect_false(inherits(col_pred_tbl, "trending_pred_tbl"))
-  expect_false(inherits(col_estimate, "trending_estimate"))
+  expect_false(inherits(col_estimate, "trending_prediction"))
 
 
 })

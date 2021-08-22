@@ -209,7 +209,7 @@ predict_individual <- function(model, new_data, response, predictors,
       ci_names = ci_names,
       pi_names = pi_names,
       nrow = nrow(result),
-      class = "trending_estimate"
+      class = "trending_prediction"
     )
     out$result <- result
   }
@@ -446,15 +446,15 @@ check_names <- function(new_data, name, add_ci, ci_names, add_pi, pi_names) {
 }
 
 #' @export
-print.trending_estimate <- function(x, ...) {
+print.trending_prediction <- function(x, ...) {
   writeLines(format(x, ...))
   invisible(x)
 }
 
 #' @export
-format.trending_estimate <- function(x, ...) {
+format.trending_prediction <- function(x, ...) {
   header <- sprintf(
-    "<trending_estimate> %s x %s",
+    "<trending_prediction> %s x %s",
     formatC(nrow(x), big.mark = ","),
     formatC(ncol(x), big.mark = ",")
   )

@@ -2,8 +2,8 @@
 .onLoad <- function(...) {
   vctrs::s3_register(
     "dplyr::dplyr_reconstruct",
-    "trending_estimate",
-    method = dplyr_reconstruct_trending_estimate
+    "trending_prediction",
+    method = dplyr_reconstruct_trending_prediction
   )
   vctrs::s3_register(
     "dplyr::dplyr_reconstruct",

@@ -34,7 +34,7 @@ new_bare_tibble <- function(x) {
 
 # -------------------------------------------------------------------------
 
-#' Check whether trending_estimate object invariants hold
+#' Check whether trending_prediction object invariants hold
 #'
 #' @param x data.frame to have it's invariants checked
 #' @param to `trending_fit` object we want
@@ -42,7 +42,7 @@ new_bare_tibble <- function(x) {
 #' @return TRUE or FALSE
 #'
 #' @noRd
-trending_estimate_can_reconstruct <- function(x, to) {
+trending_prediction_can_reconstruct <- function(x, to) {
   x_names <- names(x)
   col_names <- c(
     attr(to, "response"),
@@ -118,10 +118,10 @@ trending_predict_tbl_can_reconstruct <- function(x, to) {
 
 # -------------------------------------------------------------------------
 
-#' Function to reconstruct object of trending_estimate class
+#' Function to reconstruct object of trending_prediction class
 #'
 #' Once you have encoded the invariant logic into
-#' trending_estimate_can_reconstruct, we need a second function that applies
+#' trending_prediction_can_reconstruct, we need a second function that applies
 #' that check and either performs the actual reconstruction, or falls back to a
 #' bare tibble.
 #'
@@ -129,8 +129,8 @@ trending_predict_tbl_can_reconstruct <- function(x, to) {
 #' @param to object we want
 #'
 #' @noRd
-trending_estimate_reconstruct <- function(x, to) {
-  if (trending_estimate_can_reconstruct(x, to)) {
+trending_prediction_reconstruct <- function(x, to) {
+  if (trending_prediction_can_reconstruct(x, to)) {
     df_reconstruct(x, to)
   } else {
     new_bare_tibble(x)
@@ -182,9 +182,9 @@ trending_predict_tbl_reconstruct <- function(x, to) {
 # -------------------------------------------------------------------------
 
 #' @export
-`[.trending_estimate` <- function(x, i, j, ...) {
+`[.trending_prediction` <- function(x, i, j, ...) {
   out <- NextMethod()
-  trending_estimate_reconstruct(out, x)
+  trending_prediction_reconstruct(out, x)
 }
 
 #' @export
@@ -202,9 +202,9 @@ trending_predict_tbl_reconstruct <- function(x, to) {
 # -------------------------------------------------------------------------
 
 #' @export
-`[<-.trending_estimate` <- function(x, i, j, ..., value) {
+`[<-.trending_prediction` <- function(x, i, j, ..., value) {
   out <- NextMethod()
-  trending_estimate_reconstruct(out, x)
+  trending_prediction_reconstruct(out, x)
 }
 
 #' @export
@@ -222,7 +222,7 @@ trending_predict_tbl_reconstruct <- function(x, to) {
 # -------------------------------------------------------------------------
 
 #' @export
-`names<-.trending_estimate` <- function(x, value) {
+`names<-.trending_prediction` <- function(x, value) {
 
   current_names <- names(x)
 
@@ -247,7 +247,7 @@ trending_predict_tbl_reconstruct <- function(x, to) {
   attr(x, "pi_names") <- value[pi_name_index]
 
   out <- NextMethod()
-  trending_estimate_reconstruct(out, x)
+  trending_prediction_reconstruct(out, x)
 }
 
 #' @export
@@ -306,8 +306,8 @@ trending_predict_tbl_reconstruct <- function(x, to) {
 # -------------------------------------------------------------------------
 
 # Registered in `.onLoad()` in zzz.R
-dplyr_reconstruct_trending_estimate <- function(data, template) {
-  trending_estimate_reconstruct(data, template)
+dplyr_reconstruct_trending_prediction <- function(data, template) {
+  trending_prediction_reconstruct(data, template)
 }
 
 # Registered in `.onLoad()` in zzz.R
