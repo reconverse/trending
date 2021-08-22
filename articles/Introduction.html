@@ -185,7 +185,7 @@
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8107    18870</span>
@@ -207,7 +207,7 @@
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, uncertain <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     9027    16948</span>
@@ -229,7 +229,7 @@
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, add_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 6</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 6</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.</span>
@@ -251,23 +251,23 @@
 <span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, simulate_pi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8759    17107</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7330    14555</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7205    13911</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9439    19568</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7864    15281</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7381    14405</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7099    13888</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6960    13668</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5737    11619</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5450    11113</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7372    15459</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5994    11998</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5771    11670</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5529    10992</span></code></pre></div>
+<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     9032    17367</span>
+<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7266    14615</span>
+<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7170    13997</span>
+<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9539    19341</span>
+<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7746    15043</span>
+<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7404    14596</span>
+<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7124    14243</span>
+<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     7033    13539</span>
+<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5689    11575</span>
+<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5654    11228</span>
+<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7475    15185</span>
+<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     6013    11869</span>
+<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5670    11550</span>
+<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5423    11084</span></code></pre></div>
 </div>
 <div id="example-of-failed-model-fitting" class="section level2">
 <h2 class="hasAnchor">
@@ -339,7 +339,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">f_list</span>, <span class="va">pred_data</span><span class="op">)</span>
 <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">p_list</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2020-05-15    58 rest_of_week   11535.   11484.   11587.    11275    11798</span>
@@ -359,14 +359,14 @@
 
 <span class="op">(</span><span class="va">p_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">f_list</span>, <span class="va">pred_data</span>, as_tibble <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 × 3</span>
-<span class="co">#&gt;   result                       warnings errors   </span>
-<span class="co">#&gt;   &lt;list&gt;                       &lt;list&gt;   &lt;list&gt;   </span>
-<span class="co">#&gt; 1 &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
-<span class="co">#&gt; 2 &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
-<span class="co">#&gt; 3 &lt;trending_estimate [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
-<span class="co">#&gt; 4 &lt;NULL&gt;                       &lt;NULL&gt;   &lt;chr [1]&gt;</span>
+<span class="co">#&gt;   result                         warnings errors   </span>
+<span class="co">#&gt;   &lt;list&gt;                         &lt;list&gt;   &lt;list&gt;   </span>
+<span class="co">#&gt; 1 &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
+<span class="co">#&gt; 2 &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
+<span class="co">#&gt; 3 &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;   &lt;NULL&gt;   </span>
+<span class="co">#&gt; 4 &lt;NULL&gt;                         &lt;NULL&gt;   &lt;chr [1]&gt;</span>
 <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">p_tibble</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; &lt;trending_estimate&gt; 14 x 8</span>
+<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2020-05-15    58 rest_of_week   11535.   11484.   11587.    11275    11798</span>
