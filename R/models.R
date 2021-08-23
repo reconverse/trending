@@ -53,6 +53,7 @@ NULL
 #' @rdname trending_model
 #' @aliases lm_model
 lm_model <- function(formula, ...) {
+  stopifnot(inherits(formula, "formula"))
   args <- as.list(substitute(list(...))[-1L])
   args$formula = as.call(formula)
   trending_model("lm", args)
@@ -64,6 +65,7 @@ lm_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases glm_model
 glm_model <- function(formula, family = gaussian, ...) {
+  stopifnot(inherits(formula, "formula"))
   args <- as.list(substitute(list(...))[-1L])
   args$formula = formula
   args$family = substitute(family)
@@ -76,6 +78,7 @@ glm_model <- function(formula, family = gaussian, ...) {
 #' @rdname trending_model
 #' @aliases glm_nb_model
 glm_nb_model <- function(formula, ...) {
+  stopifnot(inherits(formula, "formula"))
   args <- as.list(substitute(list(...))[-1L])
   args$formula = formula
   trending_model("glm.nb", args)
@@ -87,6 +90,7 @@ glm_nb_model <- function(formula, ...) {
 #' @rdname trending_model
 #' @aliases brm_model
 brm_model <- function(formula, ...) {
+  stopifnot(inherits(formula, "formula"))
   check_suggests("brms")
   args <- as.list(substitute(list(...))[-1L])
   args$formula = formula
