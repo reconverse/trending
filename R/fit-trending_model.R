@@ -13,21 +13,14 @@
 #'     directly, i.e.
 #'
 #'       - `lm_model`: a fitted model object of class [`lm`][stats::lm()]
-#'
 #'       - `glm_model`: a fitted model object of class [`glm`][stats::glm()]
-#'
 #'       - `glm_nb_model`: a fitted model object of class [`negbin`][MASS::glm.nb()]
-#'
 #'       - `brm_model`: An object of class [`brmsfit`][brms::brm()]
 #'
 #'     `NULL` if fitting fails.
 #'
 #'   - warnings: any warnings generated during fitting
-#'
 #'   - errors: any errors generated during fitting
-#'
-#'   For a list of trending_models, `trending_fit_list` where each entry is a
-#'   `trending_fit` object.
 #'
 #'   If `as_tibble = TRUE`, a `trending_fit_tbl` object which is a
 #'   [`tibble`][tibble::tibble()] subclass with one row for each model and
@@ -47,13 +40,13 @@
 #' fit(list(pm = poisson_model, nm = negbin_model), dat)
 #'
 #' @author Tim Taylor
-#' @seealso [fit()] and [fit.list()]
+#' @seealso [fit.list()]
 #' @export
 fit.trending_model <- function(x, data, as_tibble = FALSE, ...) {
   x[["data"]] <- substitute(data)
   env = parent.frame()
-  if (inherits(x, "brm_trending_model")) env <- list(env, brm = brms::brm)
-  if (inherits(x, "glm.nb_trending_model")) env <- list(env, glm.nb = MASS::glm.nb)
+  if (inherits(x, "brm_trending_model")) env$brm <- brms::brm
+  if (inherits(x, "glm.nb_trending_model")) env$glm.nb <-  MASS::glm.nb
   f <- make_catcher(eval)
   res <- f(x, env)
   if (as_tibble) {
