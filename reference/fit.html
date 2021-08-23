@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fit generics — fit • trending</title>
+<title>Fit generic — fit • trending</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Fit generics — fit" />
-<meta property="og:description" content="fit() is a generic to fit a model with methods included for both
-trending_model objects as well as a list of these objects.
-data." />
+<meta property="og:title" content="Fit generic — fit" />
+<meta property="og:description" content="fit() is a generic to fit a specified model." />
 
 
 
@@ -129,27 +127,19 @@ data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fit generics</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit.r'><code>R/fit.r</code></a></small>
+    <h1>Fit generic</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit.R'><code>R/fit.R</code></a></small>
     <div class="hidden name"><code>fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>fit()</code> is a generic to fit a model with methods included for both
-<code>trending_model</code> objects as well as a <code>list</code> of these objects.
-data.</p>
+    <p><code>fit()</code> is a generic to fit a specified model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for trending_model</span>
-<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for list</span>
-<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>fit</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,42 +149,21 @@ data.</p>
       <td><p>An <span style="R">R</span> object</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Not currently used.</p></td>
-    </tr>
-    <tr>
       <th>data</th>
       <td><p>A data frame containing the data to fit.</p></td>
     </tr>
     <tr>
-      <th>as_tibble</th>
-      <td><p>Should the output be converted to a tibble subclass.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed to underlying methods.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For individual <code>trending_model</code> inputs and with <code>as_tibble = FALSE</code>,
-then a <code>trending_fit</code> object is returned. This is a list subclass with
-entries:</p><ul>
-<li><p>result: the resulting fit from calling the underlying model
-directly, i.e.</p><ul>
-<li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
-<li><p><code>glm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code></p></li>
-<li><p><code>glm_nb_model</code>: a fitted model object of class <code><a href='https://rdrr.io/pkg/MASS/man/glm.nb.html'>negbin</a></code></p></li>
-<li><p><code>brm_model</code>: An object of class <code><a href='https://rdrr.io/pkg/brms/man/brm.html'>brmsfit</a></code></p></li>
-</ul>
+    <p>The value returned depends on the class of the input argument.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-<p><code>NULL</code> if fitting fails.</p></li>
-<li><p>warnings: any warnings generated during fitting</p></li>
-<li><p>errors: any errors generated during fitting</p></li>
-</ul>
-
-<p>For a list of trending_models, <code>trending_fit_list</code> where each entry is a
-<code>trending_fit</code> object.</p>
-<p>If <code>as_tibble = TRUE</code>, a <code>trending_fit_tbl</code> object which is a
-<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row for each model and
-columns 'result', 'warnings' and 'errors' with contents as above.</p>
+    <div class='dont-index'><p><code><a href='fit.trending_model.html'>fit.trending_model()</a></code> and <code><a href='fit.list.html'>fit.list()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -239,62 +208,16 @@ columns 'result', 'warnings' and 'errors' with contents as above.</p>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "trending_fit" "list"        </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; $result
-#&gt; NULL
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; [1] "object 'dat' not found"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        
-#&gt; 
-#&gt; [[2]]
-#&gt; $result
-#&gt; NULL
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; [1] "object 'dat' not found"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit_list" "list"             </div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pm <span class='op'>=</span> <span class='va'>poisson_model</span>, nm <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $pm
-#&gt; $result
-#&gt; NULL
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; [1] "object 'dat' not found"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        
-#&gt; 
-#&gt; $nm
-#&gt; $result
-#&gt; NULL
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; [1] "object 'dat' not found"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit_list" "list"             </div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_fit&gt; 2 x 3</span>
+#&gt;   result warnings errors   
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span></div><div class='input'><span class='fu'>fit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pm <span class='op'>=</span> <span class='va'>poisson_model</span>, nm <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_fit&gt; 2 x 4</span>
+#&gt;   model_name result       warnings     errors      
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> pm         <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>2</span> nm         <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

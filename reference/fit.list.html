@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fit method for trending_model objects — fit.trending_model • trending</title>
+<title>Fit method list object — fit.list • trending</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Fit method for trending_model objects — fit.trending_model" />
-<meta property="og:description" content="Fits the specified model to the input data" />
+<meta property="og:title" content="Fit method list object — fit.list" />
+<meta property="og:description" content="Fits a list of trending_model objects to the given input data." />
 
 
 
@@ -127,24 +127,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fit method for trending_model objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit-trending_model.R'><code>R/fit-trending_model.R</code></a></small>
-    <div class="hidden name"><code>fit.trending_model.Rd</code></div>
+    <h1>Fit method list object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/fit-list.R'><code>R/fit-list.R</code></a></small>
+    <div class="hidden name"><code>fit.list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Fits the specified model to the input data</p>
+    <p>Fits a list of trending_model objects to the given input data.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for trending_model</span>
-<span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='co'># S3 method for list</span>
+<span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An <span style="R">R</span> object</p></td>
+      <td><p>A list of trending_model objects#'</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -162,8 +162,8 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>as_tibble = FALSE</code>, then a <code>trending_fit</code> object is returned.
-This is a list subclass with entries:</p><ul>
+    <p>If <code>as_tibble = FALSE</code>, then a <code>trending_fit_list</code> object is
+returned. This is a list subclass with entries:</p><ul>
 <li><p>result: the resulting fit from calling the underlying model
 directly, i.e.</p><ul>
 <li><p><code>lm_model</code>: a fitted model object of class <code><a href='https://rdrr.io/r/stats/lm.html'>lm</a></code></p></li>
@@ -177,14 +177,12 @@ directly, i.e.</p><ul>
 <li><p>errors: any errors generated during fitting</p></li>
 </ul>
 
-<p>For a list of trending_models, <code>trending_fit_list</code> where each entry is a
-<code>trending_fit</code> object.</p>
 <p>If <code>as_tibble = TRUE</code>, a <code>trending_fit_tbl</code> object which is a
 <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row for each model and
 columns 'result', 'warnings' and 'errors' with contents as above.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fit.html'>fit()</a></code> and <code><a href='fit.list.html'>fit.list()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='fit.html'>fit()</a></code> and <code><a href='fit.trending_model.html'>fit.trending_model()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -193,42 +191,10 @@ columns 'result', 'warnings' and 'errors' with contents as above.</p>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, mean <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
-
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='va'>poisson</span><span class='op'>)</span>
 <span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $result
-#&gt; 
-#&gt; Call:  glm(formula = y ~ x, family = poisson, data = dat)
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)            x  
-#&gt;      1.4332       0.6219  
-#&gt; 
-#&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
-#&gt; Null Deviance:	    308.3 
-#&gt; Residual Deviance: 99.64 	AIC: 421
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        </div><div class='input'><span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>negbin_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $result
-#&gt; NULL
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; [1] "object 'dat' not found"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_fit" "list"        </div><div class='input'><span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+<span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_fit&gt; 2 x 3</span>
 #&gt;   result warnings errors   
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
