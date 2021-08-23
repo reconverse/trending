@@ -11,7 +11,7 @@ test_that("glm_model", {
   pred <- predict(fit, add_ci = FALSE, simulate_pi = TRUE)
   pred_tbl <- predict(fit, mtcars, add_ci = FALSE, simulate_pi = TRUE, as_tibble = TRUE)  # prediction with new data and as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)                                                   # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE, as_tibble = TRUE)                         # prediction as tibble from tibble
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)                                           # prediction from tibble
 
   # test printing
   expect_snapshot(glm_model(count ~ day, na.action = na.exclude))

@@ -8,7 +8,7 @@ test_that("lm_model", {
   pred <- predict(fit, mtcars)                        # prediction with new data
   pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE, as_tibble = TRUE)  # prediction as tibble from tibble
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)       # prediction tibble
 
   # test printing
   expect_snapshot(lm_model(count ~ day, na.action = na.exclude))
@@ -68,5 +68,4 @@ test_that("lm_model", {
   expect_null(get_errors(pred_tbl)[[1]])
   expect_null(get_errors(pred2))
   expect_null(get_errors(pred2_tbl)[[1]])
-
 })
