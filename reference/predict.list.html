@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict method for trending_fit object — predict.trending_fit • trending</title>
+<title>Predict method for trending_model objects — predict.list • trending</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Predict method for trending_fit object — predict.trending_fit" />
+<meta property="og:title" content="Predict method for trending_model objects — predict.list" />
 <meta property="og:description" content="Adds estimated values and associated confidence and/or prediction intervals
-to trending_fit objects." />
+to data based on trending_model fit." />
 
 
 
@@ -128,20 +128,20 @@ to trending_fit objects." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict method for trending_fit object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/predict-trending_fit.R'><code>R/predict-trending_fit.R</code></a></small>
-    <div class="hidden name"><code>predict.trending_fit.Rd</code></div>
+    <h1>Predict method for trending_model objects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/trending/blob/master/R/predict-list.R'><code>R/predict-list.R</code></a></small>
+    <div class="hidden name"><code>predict.list.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Adds estimated values and associated confidence and/or prediction intervals
-to trending_fit objects.</p>
+to data based on trending_model fit.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for trending_fit</span>
+    <pre class="usage"><span class='co'># S3 method for list</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
-  <span class='va'>new_data</span>,
+  <span class='va'>data</span>,
   name <span class='op'>=</span> <span class='st'>"estimate"</span>,
   alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
   add_ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -151,7 +151,7 @@ to trending_fit objects.</p>
   simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sims <span class='op'>=</span> <span class='fl'>2000</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -160,12 +160,12 @@ to trending_fit objects.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A <code><a href='fit.trending_model.html'>trending_fit</a></code> object.</p></td>
+      <td><p>A list of <code><a href='trending_model.html'>trending_model</a></code> objects.</p></td>
     </tr>
     <tr>
-      <th>new_data</th>
-      <td><p>A <code>data.frame</code> containing data for which estimates are to be
-derived. If missing, the model frame from the fit data will be used.</p></td>
+      <th>data</th>
+      <td><p>A <code>data.frame</code> containing data to which the model is to be fit
+and estimates derived.</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -238,8 +238,8 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 'result', 'warnings' and 'errors' with contents as above.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='predict.trending_fit_list.html'>predict.trending_fit_list()</a></code>, <code><a href='predict.trending_fit_tbl.html'>predict.trending_fit_tbl()</a></code> and
-<code><a href='predict.trending_model.html'>predict.trending_model()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='predict.trending_fit.html'>predict.trending_fit()</a></code>, <code><a href='predict.trending_fit_list.html'>predict.trending_fit_list()</a></code>,
+<code><a href='predict.trending_fit_tbl.html'>predict.trending_fit_tbl()</a></code>, <code><a href='predict.trending_model.html'>predict.trending_model()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -249,36 +249,18 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
-<span class='va'>fitted_poisson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $result
-#&gt; <span style='color: #949494;'>&lt;trending_prediction&gt; 100 x 7</span>
-#&gt;        y       x estimate lower_ci upper_ci lower_pi upper_pi
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>    16  1.87      11.4      9.71    13.3         4       21
-#&gt; <span style='color: #BCBCBC;'> 2</span>     3 -<span style='color: #BB0000;'>0.730</span>      3.03     2.63     3.50        0        8
-#&gt; <span style='color: #BCBCBC;'> 3</span>     2 -<span style='color: #BB0000;'>1.28</span>       2.30     1.91     2.76        0        6
-#&gt; <span style='color: #BCBCBC;'> 4</span>     1 -<span style='color: #BB0000;'>0.868</span>      2.83     2.43     3.29        0        7
-#&gt; <span style='color: #BCBCBC;'> 5</span>     9  1.19       8.05     7.20     8.99        2       15
-#&gt; <span style='color: #BCBCBC;'> 6</span>     0 -<span style='color: #BB0000;'>1.44</span>       2.11     1.73     2.57        0        6
-#&gt; <span style='color: #BCBCBC;'> 7</span>     7  0.255      5.00     4.57     5.47        1       10
-#&gt; <span style='color: #BCBCBC;'> 8</span>     4 -<span style='color: #BB0000;'>0.079</span><span style='color: #BB0000; text-decoration: underline;'>9</span>     4.22     3.81     4.67        1        9
-#&gt; <span style='color: #BCBCBC;'> 9</span>     3  0.783      6.54     5.96     7.17        2       13
-#&gt; <span style='color: #BCBCBC;'>10</span>     9  1.11       7.71     6.93     8.57        2       15
-#&gt; <span style='color: #949494;'># … with 90 more rows</span>
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_predict" "list"            </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 1 x 3</span>
-#&gt;   result                          warnings errors
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;trending_prediction [100 × 7]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;NULL&gt;</span></div><div class='input'>
+<span class='va'>negbin_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_nb_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 2 x 3</span>
+#&gt;   result warnings errors   
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pm <span class='op'>=</span> <span class='va'>poisson_model</span>, nm <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 2 x 3</span>
+#&gt;   result       warnings     errors      
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

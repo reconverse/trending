@@ -231,7 +231,8 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='predict.trending_fit.html'>predict.trending_fit()</a></code> and <code>predict.trending_fit_tbl()</code></p></div>
+    <div class='dont-index'><p><code><a href='predict.trending_fit.html'>predict.trending_fit()</a></code>, <code>predict.trending_fit_tbl()</code> and
+<code><a href='predict.trending_model.html'>predict.trending_model()</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -245,7 +246,7 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <span class='va'>fitted_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_tbl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict&gt; 2 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 2 x 3</span>
 #&gt;   result warnings errors   
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span>
