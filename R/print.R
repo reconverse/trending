@@ -1,7 +1,7 @@
 #' @export
 format.trending_fit_tbl <- function(x, ...) {
   header <- sprintf(
-    "<trending_fit> %s x %s",
+    "<trending_fit_tbl> %s x %s",
     formatC(nrow(x), big.mark = ","),
     formatC(ncol(x), big.mark = ",")
   )
@@ -23,7 +23,7 @@ print.trending_fit_tbl <- function(x, ...) {
 #' @export
 format.trending_predict_tbl <- function(x, ...) {
   header <- sprintf(
-    "<trending_predict> %s x %s",
+    "<trending_predict_tbl> %s x %s",
     formatC(nrow(x), big.mark = ","),
     formatC(ncol(x), big.mark = ",")
   )
