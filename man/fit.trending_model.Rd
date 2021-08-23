@@ -33,9 +33,6 @@ directly, i.e.
 \item errors: any errors generated during fitting
 }
 
-For a list of trending_models, \code{trending_fit_list} where each entry is a
-\code{trending_fit} object.
-
 If \code{as_tibble = TRUE}, a \code{trending_fit_tbl} object which is a
 \code{\link[tibble:tibble]{tibble}} subclass with one row for each model and
 columns 'result', 'warnings' and 'errors' with contents as above.
@@ -58,7 +55,7 @@ fit(list(pm = poisson_model, nm = negbin_model), dat)
 
 }
 \seealso{
-\code{\link[=fit]{fit()}} and \code{\link[=fit.list]{fit.list()}}
+\code{\link[=fit.list]{fit.list()}}
 }
 \author{
 Tim Taylor

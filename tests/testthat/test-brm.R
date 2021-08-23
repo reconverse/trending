@@ -9,7 +9,7 @@ test_that("brm_model", {
   pred <- predict(fit, mtcars)                        # prediction with new data
   pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)  # prediction from tibble
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)       # prediction from tibble
 
   # test printing
   expect_snapshot(brm_model(count ~ day, na.action = na.exclude))

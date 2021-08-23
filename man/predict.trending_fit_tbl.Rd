@@ -82,7 +82,8 @@ predict(fitted_tbl)
 
 }
 \seealso{
-\code{\link[=predict.trending_fit]{predict.trending_fit()}} and \code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}}
+\code{\link[=predict.trending_fit]{predict.trending_fit()}}, \code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}} and
+\code{\link[=predict.trending_model]{predict.trending_model()}}
 }
 \author{
 Tim Taylor

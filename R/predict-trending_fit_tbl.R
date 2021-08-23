@@ -29,7 +29,8 @@
 #' predict(fitted_tbl)
 #'
 #' @author Tim Taylor
-#' @seealso [predict.trending_fit()] and [predict.trending_fit_tbl()]
+#' @seealso [predict.trending_fit()], [predict.trending_fit_tbl()] and
+#'   [predict.trending_model()]
 #' @export
 predict.trending_fit_tbl <- function(
   object,

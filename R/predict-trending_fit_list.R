@@ -15,9 +15,7 @@
 #'   - result: the input data frame with additional estimates and, optionally,
 #'     confidence and or prediction intervals. `NULL` if the associated
 #'     `predict` method fails.
-#'
 #'   - warnings: any warnings generated during prediction.
-#'
 #'   - errors: any errors generated during prediction.
 #'
 #'   If `as_tibble = TRUE`, a `trending_predict_tbl` object which is a
@@ -37,7 +35,8 @@
 #' predict(fitted_list, as_tibble = TRUE)
 #'
 #' @author Tim Taylor
-#' @seealso [predict.trending_fit()] and [predict.trending_fit_tbl()]
+#' @seealso [predict.trending_fit()], [predict.trending_fit_tbl()] and
+#'   [predict.trending_model()]
 #' @export
 predict.trending_fit_list <- function(
   object,

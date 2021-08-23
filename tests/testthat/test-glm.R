@@ -12,6 +12,8 @@ test_that("glm_model", {
   pred_tbl <- predict(fit, mtcars, add_ci = FALSE, simulate_pi = TRUE, as_tibble = TRUE)  # prediction with new data and as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)                                                   # prediction with no new data or pi
   pred2_tbl <- predict(fit_tbl, add_pi = FALSE)                                           # prediction from tibble
+  pred_from_model <- predict(model, mtcars)
+  pred_from_model_tbl <- predict(model, mtcars, as_tibble = TRUE)
 
   # test printing
   expect_snapshot(glm_model(count ~ day, na.action = na.exclude))
@@ -47,6 +49,8 @@ test_that("glm_model", {
   expect_identical(names(pred_tbl), c("result", "warnings", "errors"))
   expect_identical(names(pred2), c("result", "warnings", "errors"))
   expect_identical(names(pred2_tbl), c("result", "warnings", "errors"))
+  expect_identical(predict(fit, mtcars), pred_from_model)
+  expect_identical(predict(fit_tbl, mtcars), pred_from_model_tbl)
 
   # test prediction accessors
   expect_type(get_errors(pred_with_error), "character")

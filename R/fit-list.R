@@ -12,17 +12,13 @@
 #'     directly, i.e.
 #'
 #'       - `lm_model`: a fitted model object of class [`lm`][stats::lm()]
-#'
 #'       - `glm_model`: a fitted model object of class [`glm`][stats::glm()]
-#'
 #'       - `glm_nb_model`: a fitted model object of class [`negbin`][MASS::glm.nb()]
-#'
 #'       - `brm_model`: An object of class [`brmsfit`][brms::brm()]
 #'
 #'     `NULL` if fitting fails.
 #'
 #'   - warnings: any warnings generated during fitting
-#'
 #'   - errors: any errors generated during fitting
 #'
 #'   If `as_tibble = TRUE`, a `trending_fit_tbl` object which is a
@@ -40,7 +36,7 @@
 #' fit(list(pm = poisson_model, nm = negbin_model), dat)
 #'
 #' @author Tim Taylor
-#' @seealso [fit()] and [fit.trending_model()]
+#' @seealso [fit.trending_model()]
 #' @export
 fit.list <- function(x, data, as_tibble = TRUE, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {

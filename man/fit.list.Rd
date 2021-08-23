@@ -52,7 +52,7 @@ fit(list(pm = poisson_model, nm = negbin_model), dat)
 
 }
 \seealso{
-\code{\link[=fit]{fit()}} and \code{\link[=fit.trending_model]{fit.trending_model()}}
+\code{\link[=fit.trending_model]{fit.trending_model()}}
 }
 \author{
 Tim Taylor

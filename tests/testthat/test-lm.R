@@ -9,6 +9,8 @@ test_that("lm_model", {
   pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
   pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
   pred2_tbl <- predict(fit_tbl, add_pi = FALSE)       # prediction tibble
+  pred_from_model <- predict(model, mtcars)
+  pred_from_model_tbl <- predict(model, mtcars, as_tibble = TRUE)
 
   # test printing
   expect_snapshot(lm_model(count ~ day, na.action = na.exclude))
@@ -42,6 +44,8 @@ test_that("lm_model", {
   expect_identical(names(pred_tbl), c("result", "warnings", "errors"))
   expect_identical(names(pred2), c("result", "warnings", "errors"))
   expect_identical(names(pred2_tbl), c("result", "warnings", "errors"))
+  expect_identical(pred, pred_from_model)
+  expect_identical(pred_tbl, pred_from_model_tbl)
 
   # test prediction accessors
   expect_identical(
