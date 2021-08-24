@@ -6,35 +6,27 @@
 \alias{get_result.default}
 \alias{get_result.trending_fit}
 \alias{get_result.trending_predict}
-\alias{get_result.trending_fit_list}
-\alias{get_result.trending_predict_list}
 \alias{get_result.trending_fit_tbl}
 \alias{get_result.trending_predict_tbl}
 \alias{get_warnings}
 \alias{get_warnings.default}
 \alias{get_warnings.trending_fit}
 \alias{get_warnings.trending_predict}
-\alias{get_warnings.trending_fit_list}
-\alias{get_warnings.trending_predict_list}
 \alias{get_warnings.trending_fit_tbl}
 \alias{get_warnings.trending_predict_tbl}
 \alias{get_errors}
 \alias{get_errors.default}
 \alias{get_errors.trending_fit}
 \alias{get_errors.trending_predict}
-\alias{get_errors.trending_fit_list}
-\alias{get_errors.trending_predict_list}
 \alias{get_errors.trending_fit_tbl}
 \alias{get_errors.trending_predict_tbl}
 \alias{get_fitted_model}
 \alias{get_fitted_model.default}
 \alias{get_fitted_model.trending_fit}
-\alias{get_fitted_model.trending_fit_list}
 \alias{get_fitted_model.trending_fit_tbl}
 \alias{get_fitted_data}
 \alias{get_fitted_data.default}
 \alias{get_fitted_data.trending_fit}
-\alias{get_fitted_data.trending_fit_list}
 \alias{get_fitted_data.trending_fit_tbl}
 \alias{get_formula}
 \alias{get_formula.default}
@@ -42,19 +34,16 @@
 \alias{get_formula.tranding_model}
 \alias{get_formula.trending_fit}
 \alias{get_formula.tranding_fit}
-\alias{get_formula.trending_fit_list}
 \alias{get_formula.trending_fit_tbl}
 \alias{get_response}
 \alias{get_response.default}
 \alias{get_response.trending_model}
 \alias{get_response.trending_fit}
-\alias{get_response.trending_fit_list}
 \alias{get_response.trending_fit_tbl}
 \alias{get_predictors}
 \alias{get_predictors.default}
 \alias{get_predictors.trending_model}
 \alias{get_predictors.trending_fit}
-\alias{get_predictors.trending_fit_list}
 \alias{get_predictors.trending_fit_tbl}
 \title{Accessors generics}
 \usage{
@@ -65,10 +54,6 @@ get_result(x, ...)
 \method{get_result}{trending_fit}(x, ...)
 
 \method{get_result}{trending_predict}(x, ...)
-
-\method{get_result}{trending_fit_list}(x, ...)
-
-\method{get_result}{trending_predict_list}(x, ...)
 
 \method{get_result}{trending_fit_tbl}(x, ...)
 
@@ -82,10 +67,6 @@ get_warnings(x, ...)
 
 \method{get_warnings}{trending_predict}(x, ...)
 
-\method{get_warnings}{trending_fit_list}(x, ...)
-
-\method{get_warnings}{trending_predict_list}(x, ...)
-
 \method{get_warnings}{trending_fit_tbl}(x, ...)
 
 \method{get_warnings}{trending_predict_tbl}(x, ...)
@@ -98,10 +79,6 @@ get_errors(x, ...)
 
 \method{get_errors}{trending_predict}(x, ...)
 
-\method{get_errors}{trending_fit_list}(x, ...)
-
-\method{get_errors}{trending_predict_list}(x, ...)
-
 \method{get_errors}{trending_fit_tbl}(x, ...)
 
 \method{get_errors}{trending_predict_tbl}(x, ...)
@@ -112,8 +89,6 @@ get_fitted_model(x, ...)
 
 \method{get_fitted_model}{trending_fit}(x, ...)
 
-\method{get_fitted_model}{trending_fit_list}(x, ...)
-
 \method{get_fitted_model}{trending_fit_tbl}(x, ...)
 
 get_fitted_data(x, ...)
@@ -121,8 +96,6 @@ get_fitted_data(x, ...)
 \method{get_fitted_data}{default}(x, ...)
 
 \method{get_fitted_data}{trending_fit}(x, ...)
-
-\method{get_fitted_data}{trending_fit_list}(x, ...)
 
 \method{get_fitted_data}{trending_fit_tbl}(x, ...)
 
@@ -134,8 +107,6 @@ get_formula(x, ...)
 
 \method{get_formula}{trending_fit}(x, ...)
 
-\method{get_formula}{trending_fit_list}(x, ...)
-
 \method{get_formula}{trending_fit_tbl}(x, ...)
 
 get_response(x, ...)
@@ -146,8 +117,6 @@ get_response(x, ...)
 
 \method{get_response}{trending_fit}(x, ...)
 
-\method{get_response}{trending_fit_list}(x, ...)
-
 \method{get_response}{trending_fit_tbl}(x, ...)
 
 get_predictors(x, ...)
@@ -157,8 +126,6 @@ get_predictors(x, ...)
 \method{get_predictors}{trending_model}(x, ...)
 
 \method{get_predictors}{trending_fit}(x, ...)
-
-\method{get_predictors}{trending_fit_list}(x, ...)
 
 \method{get_predictors}{trending_fit_tbl}(x, ...)
 }
@@ -184,8 +151,7 @@ Generics for accessing model information.
 }
 \details{
 Methods are provided for  \code{trending_model}, \code{trending_fit},
-\code{trending_fit_list}, \code{trending_fit_tbl}, \code{trending_predict},
-\code{trending_predict_list} and \code{trending_predict_tbl} objects.
+\code{trending_fit_tbl}, \code{trending_predict}, and \code{trending_predict_tbl} objects.
 }
 \examples{
 x = rnorm(100, mean = 0)

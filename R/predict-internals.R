@@ -55,27 +55,6 @@ add_prediction <- function(object, new_data, ...) {
   )
 }
 
-trending_predict_list_to_tibble <- function(x, ...) {
-  res <- lapply(seq_along(x[[1]]), function(i) lapply(x, "[[", i))
-  res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
-  nms <- names(x)
-  model_name <- NULL
-  if (!is.null(nms)) {
-    res <- cbind(tibble(model_name = nms), res)
-    model_name <- "model_name"
-  }
-  res <- new_tibble(
-    res,
-    model_name = model_name,
-    result = "result",
-    warnings = "warnings",
-    errors = "errors",
-    nrow = nrow(res),
-    class = "trending_predict_tbl"
-  )
-  validate_tibble(res)
-}
-
 # -------------------------------------------------------------------------
 
 add_prediction_lm <- function(object, new_data, name, alpha, add_ci, ci_names,

@@ -16,7 +16,6 @@
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
-  as_tibble = TRUE,
   ...
 )
 }
@@ -53,13 +52,11 @@ intervals for a glm model.}
 Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.}
 
-\item{as_tibble}{Should the output be converted to a tibble subclass.}
-
 \item{...}{Not currently used.}
 }
 \value{
-If \code{as_tibble = FALSE}, a \code{trending_predict} object, which is a list
-subclass, with entries:
+A \code{trending_predict_tbl} object which is a
+\code{\link[tibble:tibble]{tibble}} subclass with one row per model and columns:
 \itemize{
 \item result: the input data frame with additional estimates and, optionally,
 confidence and or prediction intervals. \code{NULL} if the associated
@@ -67,10 +64,6 @@ confidence and or prediction intervals. \code{NULL} if the associated
 \item warnings: any warnings generated during prediction.
 \item errors: any errors generated during prediction.
 }
-
-If \code{as_tibble = TRUE}, a \code{trending_predict_tbl} object which is a
-\code{\link[tibble:tibble]{tibble}} subclass with one row per model and columns
-'result', 'warnings' and 'errors' with contents as above.
 }
 \description{
 Adds estimated values and associated confidence and/or prediction intervals
@@ -87,8 +80,8 @@ predict(list(pm = poisson_model, nm = negbin_model), dat)
 
 }
 \seealso{
-\code{\link[=predict.trending_fit]{predict.trending_fit()}}, \code{\link[=predict.trending_fit_list]{predict.trending_fit_list()}},
-\code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}}, \code{\link[=predict.trending_model]{predict.trending_model()}}
+\code{\link[=predict.trending_model]{predict.trending_model()}}, \code{\link[=predict.trending_fit]{predict.trending_fit()}},
+\code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}},
 }
 \author{
 Tim Taylor

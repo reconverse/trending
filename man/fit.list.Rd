@@ -4,21 +4,21 @@
 \alias{fit.list}
 \title{Fit method list object}
 \usage{
-\method{fit}{list}(x, data, as_tibble = TRUE, ...)
+\method{fit}{list}(x, data, ...)
 }
 \arguments{
-\item{x}{A list of trending_model objects#'}
+\item{x}{A list of trending_model objects}
 
 \item{data}{A data frame containing the data to fit.}
-
-\item{as_tibble}{Should the output be converted to a tibble subclass.}
 
 \item{...}{Not currently used.}
 }
 \value{
-If \code{as_tibble = FALSE}, then a \code{trending_fit_list} object is
-returned. This is a list subclass with entries:
+A \code{trending_fit_tbl} object which is a \code{\link[tibble:tibble]{tibble}}
+subclass with one row for each model and entries:
 \itemize{
+\item model_name (optional): If the input is a named list then the name is
+extracted.
 \item result: the resulting fit from calling the underlying model
 directly, i.e.
 \itemize{
@@ -32,10 +32,6 @@ directly, i.e.
 \item warnings: any warnings generated during fitting
 \item errors: any errors generated during fitting
 }
-
-If \code{as_tibble = TRUE}, a \code{trending_fit_tbl} object which is a
-\code{\link[tibble:tibble]{tibble}} subclass with one row for each model and
-columns 'result', 'warnings' and 'errors' with contents as above.
 }
 \description{
 Fits a list of trending_model objects to the given input data.

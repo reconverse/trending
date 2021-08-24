@@ -76,7 +76,7 @@ y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 dat <- data.frame(x = x, y = y)
 poisson_model <- glm_model(y ~ x , family = "poisson")
 negbin_model <- glm_nb_model(y ~ x)
-fitted_tbl <- fit(list(poisson_model, negbin_model), dat, as_tibble = TRUE)
+fitted_tbl <- fit(list(poisson_model, negbin_model), dat)
 
 predict(fitted_tbl)
 

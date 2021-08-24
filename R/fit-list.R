@@ -2,12 +2,14 @@
 #'
 #' Fits a list of trending_model objects to the given input data.
 #'
-#' @param x A list of trending_model objects#'
+#' @param x A list of trending_model objects
 #' @inheritParams fit.trending_model
 #'
-#' @return If `as_tibble = FALSE`, then a `trending_fit_list` object is
-#'   returned. This is a list subclass with entries:
+#' @return  A `trending_fit_tbl` object which is a [`tibble`][tibble::tibble()]
+#'   subclass with one row for each model and entries:
 #'
+#'   - model_name (optional): If the input is a named list then the name is
+#'     extracted.
 #'   - result: the resulting fit from calling the underlying model
 #'     directly, i.e.
 #'
@@ -20,10 +22,6 @@
 #'
 #'   - warnings: any warnings generated during fitting
 #'   - errors: any errors generated during fitting
-#'
-#'   If `as_tibble = TRUE`, a `trending_fit_tbl` object which is a
-#'   [`tibble`][tibble::tibble()] subclass with one row for each model and
-#'   columns 'result', 'warnings' and 'errors' with contents as above.
 #'
 #' @examples
 #' x = rnorm(100, mean = 0)
@@ -38,7 +36,7 @@
 #' @author Tim Taylor
 #' @seealso [fit.trending_model()]
 #' @export
-fit.list <- function(x, data, as_tibble = TRUE, ...) {
+fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entries should be `trending_model` objects", call. = FALSE)
   }
@@ -46,17 +44,12 @@ fit.list <- function(x, data, as_tibble = TRUE, ...) {
   res <- eval(qfun)
   nms <- names(x)
   if (!is.null(nms)) names(res) <- nms
-  if (as_tibble) {
-    res <- lapply(seq_along(res[[1]]), function(i) lapply(res, "[[", i))
-    res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
-    model_name <- NULL
-    if (!is.null(nms)) {
-      res <- cbind(tibble(model_name = nms), res)
-      model_name <- "model_name"
-    }
-    res <- new_trending_fit_tbl(res, model_name = model_name)
-  } else {
-    res <- new_trending_fit_list(res)
+  res <- lapply(seq_along(res[[1]]), function(i) lapply(res, "[[", i))
+  res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
+  model_name <- NULL
+  if (!is.null(nms)) {
+    res <- cbind(tibble(model_name = nms), res)
+    model_name <- "model_name"
   }
-  res
+  new_trending_fit_tbl(res, model_name = model_name)
 }

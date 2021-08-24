@@ -87,8 +87,7 @@ predict(fitted_poisson, as_tibble = TRUE)
 
 }
 \seealso{
-\code{\link[=predict.trending_fit_list]{predict.trending_fit_list()}}, \code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}} and
-\code{\link[=predict.trending_model]{predict.trending_model()}}
+\code{\link[=predict.trending_fit_tbl]{predict.trending_fit_tbl()}} and \code{\link[=predict.trending_model]{predict.trending_model()}}
 }
 \author{
 Tim Taylor

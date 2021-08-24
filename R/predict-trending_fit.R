@@ -6,26 +6,7 @@
 #' @param object A [`trending_fit`][fit.trending_model()] object.
 #' @param new_data A `data.frame` containing data for which estimates are to be
 #'   derived. If missing, the model frame from the fit data will be used.
-#' @param name Character vector of length one giving the name to use for the
-#'   calculated estimate.
-#' @param alpha The alpha threshold to be used for prediction intervals,
-#'   defaulting to 0.05, i.e. 95% prediction intervals are derived.
-#' @param add_ci Should a confidence interval be added to the output.
-#'   Default TRUE.
-#' @param ci_names Names to use for the resulting confidence intervals.
-#' @param add_pi Should a prediction interval be added to the output.
-#'   Default TRUE.
-#' @param pi_names Names to use for the resulting prediction intervals.
-#' @param simulate_pi Should the prediction intervals for glm models be
-#'   simulated. If TRUE, default, `predict()` uses the [ciTools::add_pi()]
-#'   function to generate the intervals.
-#' @param sims The number of simulations to run when simulating prediction
-#'   intervals for a glm model.
-#' @param uncertain Only used for glm models and when `simulate_pi = FALSE`.
-#'   Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
-#'   when generating the parametric prediction intervals.
-#' @param as_tibble Should the output be converted to a tibble subclass.
-#' @param ... Not currently used.
+#' @inheritParams predict.trending_model
 #'
 #' @examples
 #' x = rnorm(100, mean = 0)
@@ -50,8 +31,7 @@
 #'   'result', 'warnings' and 'errors' with contents as above.
 #'
 #' @author Tim Taylor
-#' @seealso [predict.trending_fit_list()], [predict.trending_fit_tbl()] and
-#'   [predict.trending_model()]
+#' @seealso [predict.trending_fit_tbl()] and [predict.trending_model()]
 #' @export
 predict.trending_fit <- function(
     object,

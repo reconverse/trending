@@ -4,12 +4,6 @@ new_trending_fit <- function(x) {
 
 # -------------------------------------------------------------------------
 
-new_trending_fit_list <- function(x) {
-  structure(x, class = c("trending_fit_list", class(x)))
-}
-
-# -------------------------------------------------------------------------
-
 new_trending_fit_tbl <- function(
     x,
     model_name = NULL,
@@ -32,12 +26,6 @@ new_trending_fit_tbl <- function(
 
 new_trending_predict <- function(x) {
   structure(x, class = c("trending_predict", class(x)))
-}
-
-# -------------------------------------------------------------------------
-
-new_trending_predict_list <- function(x) {
-  structure(x, class = c("trending_predict_list", class(x)))
 }
 
 # -------------------------------------------------------------------------

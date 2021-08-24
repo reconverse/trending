@@ -4,22 +4,16 @@
 #' to data based on trending_model fit.
 #'
 #' @param object A list of [`trending_model`] objects.
-#' @param data A `data.frame` containing data to which the model is to be fit
-#'   and estimates derived.
-#' @inheritParams predict.trending_fit
+#' @inheritParams predict.trending_model
 #'
-#' @returns If `as_tibble = FALSE`, a `trending_predict` object, which is a list
-#'   subclass, with entries:
+#' @returns A `trending_predict_tbl` object which is a
+#'   [`tibble`][tibble::tibble()] subclass with one row per model and columns:
 #'
 #'   - result: the input data frame with additional estimates and, optionally,
 #'     confidence and or prediction intervals. `NULL` if the associated
 #'     `predict` method fails.
 #'   - warnings: any warnings generated during prediction.
 #'   - errors: any errors generated during prediction.
-#'
-#'   If `as_tibble = TRUE`, a `trending_predict_tbl` object which is a
-#'   [`tibble`][tibble::tibble()] subclass with one row per model and columns
-#'   'result', 'warnings' and 'errors' with contents as above.
 #'
 #' @examples
 #' x = rnorm(100, mean = 0)
@@ -31,8 +25,8 @@
 #' predict(list(pm = poisson_model, nm = negbin_model), dat)
 #'
 #' @author Tim Taylor
-#' @seealso [predict.trending_fit()], [predict.trending_fit_list()],
-#'   [predict.trending_fit_tbl()], [predict.trending_model()]
+#' @seealso [predict.trending_model()], [predict.trending_fit()],
+#'   [predict.trending_fit_tbl()],
 #' @export
 predict.list <- function(
   object,
@@ -46,11 +40,15 @@ predict.list <- function(
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
-  as_tibble = TRUE,
   ...
 ) {
+
+  #tmp <- substitute(fit.list(object, data, as_tibble = as_tibble))
+  tmp <- bquote(fit.list(object, .(substitute(data))))
+  tmp <- eval(tmp)
+
   predict(
-    fit(object, data, as_tibble = FALSE),
+    tmp,
     new_data = data,
     name = name,
     alpha = alpha,
@@ -60,7 +58,6 @@ predict.list <- function(
     pi_names = pi_names,
     simulate_pi = simulate_pi,
     sims = sims,
-    uncertain = uncertain,
-    as_tibble = as_tibble
+    uncertain = uncertain
   )
 }

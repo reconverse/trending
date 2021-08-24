@@ -3,8 +3,7 @@
 #' Generics for accessing model information.
 #'
 #' Methods are provided for  `trending_model`, `trending_fit`,
-#'   `trending_fit_list`, `trending_fit_tbl`, `trending_predict`,
-#'   `trending_predict_list` and `trending_predict_tbl` objects.
+#'   `trending_fit_tbl`, `trending_predict`, and `trending_predict_tbl` objects.
 #'
 #' @param x An \R object.
 #' @param ... Not currently used by any methods.
@@ -65,16 +64,6 @@ get_result.trending_fit <- function(x, ...) x$result
 get_result.trending_predict <- get_result.trending_fit
 
 #' @export
-#' @aliases get_result.trending_fit_list
-#' @rdname accessors
-get_result.trending_fit_list <- function(x, ...) lapply(x, `[[`, "result")
-
-#' @export
-#' @aliases get_result.trending_predict_list
-#' @rdname accessors
-get_result.trending_predict_list <- get_result.trending_fit_list
-
-#' @export
 #' @aliases get_result.trending_fit_tbl
 #' @rdname accessors
 get_result.trending_fit_tbl <- function(x, ...) x[[attr(x, "result")]]
@@ -105,16 +94,6 @@ get_warnings.trending_fit <- function(x, ...) x$warnings
 #' @aliases get_warnings.trending_predict
 #' @rdname accessors
 get_warnings.trending_predict <- get_warnings.trending_fit
-
-#' @export
-#' @aliases get_warnings.trending_fit_list
-#' @rdname accessors
-get_warnings.trending_fit_list <- function(x, ...) lapply(x, `[[`, "warnings")
-
-#' @export
-#' @aliases get_warnings.trending_predict_list
-#' @rdname accessors
-get_warnings.trending_predict_list <- get_warnings.trending_fit_list
 
 #' @export
 #' @aliases get_warnings.trending_fit_tbl
@@ -149,16 +128,6 @@ get_errors.trending_fit <- function(x, ...) x$errors
 get_errors.trending_predict <- get_errors.trending_fit
 
 #' @export
-#' @aliases get_errors.trending_fit_list
-#' @rdname accessors
-get_errors.trending_fit_list <- function(x, ...) lapply(x, `[[`, "errors")
-
-#' @export
-#' @aliases get_errors.trending_predict_list
-#' @rdname accessors
-get_errors.trending_predict_list <- get_errors.trending_fit_list
-
-#' @export
 #' @aliases get_errors.trending_fit_tbl
 #' @rdname accessors
 get_errors.trending_fit_tbl <- function(x, ...) x[[attr(x, "errors")]]
@@ -185,11 +154,6 @@ get_fitted_model.default <- function(x, ...) not_implemented(x)
 #' @aliases get_fitted_model.trending_fit
 #' @export
 get_fitted_model.trending_fit <- get_result.trending_fit
-
-#' @rdname accessors
-#' @aliases get_fitted_model.trending_fit_list
-#' @export
-get_fitted_model.trending_fit_list <- get_result.trending_fit_list
 
 #' @rdname accessors
 #' @aliases get_fitted_model.trending_fit_tbl
@@ -220,9 +184,9 @@ get_fitted_data.trending_fit <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_fitted_model.trending_fit_list
+#' @aliases get_fitted_model.trending_fit_tbl
 #' @export
-get_fitted_data.trending_fit_list <- function(x, ...) {
+get_fitted_data.trending_fit_tbl <- function(x, ...) {
   models <- get_fitted_model(x)
   lapply(
     models,
@@ -234,11 +198,6 @@ get_fitted_data.trending_fit_list <- function(x, ...) {
     }
   )
 }
-
-#' @rdname accessors
-#' @aliases get_fitted_model.trending_fit_tbl
-#' @export
-get_fitted_data.trending_fit_tbl <- get_fitted_data.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -266,20 +225,15 @@ get_formula.trending_fit <- function(x, ...) {
 }
 
 #' @rdname accessors
-#' @aliases get_formula.trending_fit_list
+#' @aliases get_formula.trending_fit_tbl
 #' @export
-get_formula.trending_fit_list <- function(x, ...) {
+get_formula.trending_fit_tbl <- function(x, ...) {
   models <- get_fitted_model(x)
   lapply(
     models,
     function(m) if (inherits(m, "brmsfit")) m$formula else m$call$formula
   )
 }
-
-#' @rdname accessors
-#' @aliases get_formula.trending_fit_tbl
-#' @export
-get_formula.trending_fit_tbl <- get_formula.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -311,9 +265,9 @@ get_response.trending_fit <- function(x, ...) {
 }
 
 #' @export
-#' @aliases get_response.trending_fit_list
+#' @aliases get_response.trending_fit_tbl
 #' @rdname accessors
-get_response.trending_fit_list <- function(x, ...) {
+get_response.trending_fit_tbl <- function(x, ...) {
   formula <- get_formula(x)
   lapply(
     formula,
@@ -323,11 +277,6 @@ get_response.trending_fit_list <- function(x, ...) {
     }
   )
 }
-
-#' @export
-#' @aliases get_response.trending_fit_tbl
-#' @rdname accessors
-get_response.trending_fit_tbl <- get_response.trending_fit_list
 
 # -------------------------------------------------------------------------
 
@@ -358,9 +307,9 @@ get_predictors.trending_model <- function(x, ...) {
 get_predictors.trending_fit <- get_predictors.trending_model
 
 #' @export
-#' @aliases get_predictors.trending_fit_list
+#' @aliases get_predictors.trending_fit_tbl
 #' @rdname accessors
-get_predictors.trending_fit_list <- function(x, ...) {
+get_predictors.trending_fit_tbl <- function(x, ...) {
   formulas <- get_formula(x)
   vars <- lapply(
     formulas,
@@ -372,9 +321,3 @@ get_predictors.trending_fit_list <- function(x, ...) {
   response <- get_response(x)
   .mapply(function(x, y) x[!x %in% y], dots = list(x = vars, y = response), MoreArgs = NULL)
 }
-
-#' @export
-#' @aliases get_predictors.trending_fit_tbl
-#' @rdname accessors
-get_predictors.trending_fit_tbl <- get_predictors.trending_fit_list
-
