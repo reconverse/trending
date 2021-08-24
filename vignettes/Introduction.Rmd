@@ -116,8 +116,8 @@ models  <- list(
 get_result(fitted_tbl)
 ```
 
-This can then be used with `predict()`
+This can also then be used with `predict()`
 ```{r}
-pred <- predict(fitted_tbl, pred_data)
+(pred <- predict(fitted_tbl, pred_data))
 get_result(pred)
 ```
