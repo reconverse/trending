@@ -52,4 +52,8 @@ test_that("lm_model", {
 
   expect_equal(list_pred_nmd$model_name, c("l", "nb"))
 
+  expect_equal(get_response(list_pred), list("hp", "hp"))
+  expect_equal(get_predictors(list_pred), list("cyl", "cyl"))
+  expect_equal(get_estimate(list_pred), c("estimate", "estimate"))
+
 })

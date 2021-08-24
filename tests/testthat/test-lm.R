@@ -36,8 +36,14 @@ test_that("lm_model", {
   expect_identical(get_formula(fit), hp ~ cyl)
   expect_identical(get_response(model), "hp")
   expect_identical(get_response(fit), "hp")
+  expect_identical(get_response(pred), "hp")
+  expect_identical(get_response(pred_tbl), list("hp"))
   expect_identical(get_predictors(model), "cyl")
   expect_identical(get_predictors(fit), "cyl")
+  expect_identical(get_predictors(pred), "cyl")
+  expect_identical(get_predictors(pred_tbl), list("cyl"))
+  expect_identical(get_estimate(pred), "estimate")
+  expect_identical(get_estimate(pred_tbl), "estimate")
 
   # test prediction
   expect_identical(names(pred), c("result", "warnings", "errors"))

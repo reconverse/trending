@@ -40,11 +40,22 @@
 \alias{get_response.trending_model}
 \alias{get_response.trending_fit}
 \alias{get_response.trending_fit_tbl}
+\alias{get_response.trending_prediction}
+\alias{get_response.trending_predict}
+\alias{get_response.trending_predict_tbl}
 \alias{get_predictors}
 \alias{get_predictors.default}
 \alias{get_predictors.trending_model}
 \alias{get_predictors.trending_fit}
 \alias{get_predictors.trending_fit_tbl}
+\alias{get_predictors.trending_prediction}
+\alias{get_predictors.trending_predict}
+\alias{get_predictors.trending_predict_tbl}
+\alias{get_estimate}
+\alias{get_estimate.default}
+\alias{get_estimate.trending_prediction}
+\alias{get_estimate.trending_predict}
+\alias{get_estimate.trending_predict_tbl}
 \title{Accessors generics}
 \usage{
 get_result(x, ...)
@@ -119,6 +130,12 @@ get_response(x, ...)
 
 \method{get_response}{trending_fit_tbl}(x, ...)
 
+\method{get_response}{trending_prediction}(x, ...)
+
+\method{get_response}{trending_predict}(x, ...)
+
+\method{get_response}{trending_predict_tbl}(x, ...)
+
 get_predictors(x, ...)
 
 \method{get_predictors}{default}(x, ...)
@@ -128,6 +145,22 @@ get_predictors(x, ...)
 \method{get_predictors}{trending_fit}(x, ...)
 
 \method{get_predictors}{trending_fit_tbl}(x, ...)
+
+\method{get_predictors}{trending_prediction}(x, ...)
+
+\method{get_predictors}{trending_predict}(x, ...)
+
+\method{get_predictors}{trending_predict_tbl}(x, ...)
+
+get_estimate(x, ...)
+
+\method{get_estimate}{default}(x, ...)
+
+\method{get_estimate}{trending_prediction}(x, ...)
+
+\method{get_estimate}{trending_predict}(x, ...)
+
+\method{get_estimate}{trending_predict_tbl}(x, ...)
 }
 \arguments{
 \item{x}{An \R object.}

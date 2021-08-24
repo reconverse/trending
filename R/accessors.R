@@ -278,6 +278,30 @@ get_response.trending_fit_tbl <- function(x, ...) {
   )
 }
 
+#' @export
+#' @aliases get_response.trending_prediction
+#' @rdname accessors
+get_response.trending_prediction <- function(x, ...) {
+  attr(x, "response")
+}
+
+
+#' @export
+#' @aliases get_response.trending_predict
+#' @rdname accessors
+get_response.trending_predict <- function(x, ...) {
+  result <- get_result(x)
+  get_response(result)
+}
+
+#' @export
+#' @aliases get_response.trending_predict_tbl
+#' @rdname accessors
+get_response.trending_predict_tbl <- function(x, ...) {
+  result <- get_result(x)
+  lapply(result, get_response)
+}
+
 # -------------------------------------------------------------------------
 
 #' @export
@@ -320,4 +344,62 @@ get_predictors.trending_fit_tbl <- function(x, ...) {
   )
   response <- get_response(x)
   .mapply(function(x, y) x[!x %in% y], dots = list(x = vars, y = response), MoreArgs = NULL)
+}
+
+#' @export
+#' @aliases get_predictors.trending_prediction
+#' @rdname accessors
+get_predictors.trending_prediction <- function(x, ...) {
+  attr(x, "predictors")
+}
+
+#' @export
+#' @aliases get_predictors.trending_predict
+#' @rdname accessors
+get_predictors.trending_predict <- function(x, ...) {
+  result <- get_result(x)
+  get_predictors(result)
+}
+
+#' @export
+#' @aliases get_predictors.trending_predict_tbl
+#' @rdname accessors
+get_predictors.trending_predict_tbl <- function(x, ...) {
+  result <- get_result(x)
+  lapply(result, get_predictors)
+}
+
+# -------------------------------------------------------------------------
+
+#' @export
+#' @aliases get_estimate
+#' @rdname accessors
+get_estimate <- function(x, ...) UseMethod("get_estimate")
+
+#' @rdname accessors
+#' @aliases get_estimate.default
+#' @export
+get_estimate.default <- function(x, ...) not_implemented(x)
+
+#' @export
+#' @aliases get_estimate.trending_prediction
+#' @rdname accessors
+get_estimate.trending_prediction <- function(x, ...) {
+  attr(x, "estimate")
+}
+
+#' @export
+#' @aliases get_estimate.trending_predict
+#' @rdname accessors
+get_estimate.trending_predict <- function(x, ...) {
+  result <- get_result(x)
+  get_estimate(result)
+}
+
+#' @export
+#' @aliases get_estimate.trending_predict_tbl
+#' @rdname accessors
+get_estimate.trending_predict_tbl <- function(x, ...) {
+  result <- get_result(x)
+  vapply(result, get_estimate, character(1))
 }
