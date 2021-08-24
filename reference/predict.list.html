@@ -151,7 +151,6 @@ to data based on trending_model fit.</p>
   simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sims <span class='op'>=</span> <span class='fl'>2000</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -213,10 +212,6 @@ Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.</p></td>
     </tr>
     <tr>
-      <th>as_tibble</th>
-      <td><p>Should the output be converted to a tibble subclass.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
     </tr>
@@ -224,8 +219,8 @@ when generating the parametric prediction intervals.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>as_tibble = FALSE</code>, a <code>trending_predict</code> object, which is a list
-subclass, with entries:</p><ul>
+    <p>A <code>trending_predict_tbl</code> object which is a
+<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row per model and columns:</p><ul>
 <li><p>result: the input data frame with additional estimates and, optionally,
 confidence and or prediction intervals. <code>NULL</code> if the associated
 <code>predict</code> method fails.</p></li>
@@ -233,13 +228,10 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <li><p>errors: any errors generated during prediction.</p></li>
 </ul>
 
-<p>If <code>as_tibble = TRUE</code>, a <code>trending_predict_tbl</code> object which is a
-<code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> subclass with one row per model and columns
-'result', 'warnings' and 'errors' with contents as above.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='predict.trending_fit.html'>predict.trending_fit()</a></code>, <code><a href='predict.trending_fit_list.html'>predict.trending_fit_list()</a></code>,
-<code><a href='predict.trending_fit_tbl.html'>predict.trending_fit_tbl()</a></code>, <code><a href='predict.trending_model.html'>predict.trending_model()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='predict.trending_model.html'>predict.trending_model()</a></code>, <code><a href='predict.trending_fit.html'>predict.trending_fit()</a></code>,
+<code><a href='predict.trending_fit_tbl.html'>predict.trending_fit_tbl()</a></code>,</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Tim Taylor</p>
@@ -256,11 +248,11 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;chr [1]&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pm <span class='op'>=</span> <span class='va'>poisson_model</span>, nm <span class='op'>=</span> <span class='va'>negbin_model</span><span class='op'>)</span>, <span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 2 x 3</span>
-#&gt;   result       warnings     errors      
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   
-#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   </div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 2 x 4</span>
+#&gt;   model_name result       warnings     errors      
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;named list&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> pm         <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>2</span> nm         <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;NULL&gt;</span>       <span style='color: #949494;'>&lt;chr [1]&gt;</span>   </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
