@@ -254,20 +254,20 @@
 <span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
 <span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8956    17341</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7372    14551</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7157    14097</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9705    19386</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7702    15125</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7449    14391</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7200    14064</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6692    13659</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5713    11548</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5447    11159</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7418    15261</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5960    11910</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5848    11527</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5526    11163</span></code></pre></div>
+<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8979    17039</span>
+<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7478    14485</span>
+<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7248    14022</span>
+<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9671    19752</span>
+<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7602    14982</span>
+<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7511    14674</span>
+<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7226    14110</span>
+<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6921    13688</span>
+<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5767    11437</span>
+<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5535    11388</span>
+<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7447    15396</span>
+<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5982    12071</span>
+<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5741    11621</span>
+<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5632    11207</span></code></pre></div>
 </div>
 <div id="example-of-failed-model-fitting" class="section level2">
 <h2 class="hasAnchor">
@@ -350,9 +350,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $will_error</span>
 <span class="co">#&gt; NULL</span></code></pre></div>
-<p>This can then be used with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code></p>
+<p>This can also then be used with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_tbl</span>, <span class="va">pred_data</span><span class="op">)</span>
+<code class="sourceCode R"><span class="op">(</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_tbl</span>, <span class="va">pred_data</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; &lt;trending_predict_tbl&gt; 4 x 4</span>
+<span class="co">#&gt;   model_name  result                         warnings     errors      </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;named list&gt;                   &lt;named list&gt; &lt;named list&gt;</span>
+<span class="co">#&gt; 1 simple      &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 2 glm_poisson &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 3 glm_negbin  &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
+<span class="co">#&gt; 4 will_error  &lt;NULL&gt;                         &lt;NULL&gt;       &lt;chr [1]&gt;</span>
 <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">pred</span><span class="op">)</span>
 <span class="co">#&gt; $simple</span>
 <span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
