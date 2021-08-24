@@ -49,8 +49,7 @@
 #' predict(poisson_model, dat, as_tibble = TRUE)
 #'
 #' @author Tim Taylor
-#' @seealso [predict.trending_fit()], [predict.trending_fit_list()] and
-#'   [predict.trending_fit_tbl()]
+#' @seealso [predict.trending_fit()] and [predict.trending_fit_tbl()]
 #' @export
 predict.trending_model <- function(
   object,
