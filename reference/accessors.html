@@ -237,6 +237,15 @@
 <span class='co'># S3 method for trending_fit_tbl</span>
 <span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for trending_prediction</span>
+<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict_tbl</span>
+<span class='fu'>get_response</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
@@ -249,7 +258,30 @@
 <span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for trending_fit_tbl</span>
-<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_prediction</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict_tbl</span>
+<span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>get_estimate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>get_estimate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_prediction</span>
+<span class='fu'>get_estimate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict</span>
+<span class='fu'>get_estimate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for trending_predict_tbl</span>
+<span class='fu'>get_estimate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -302,7 +334,7 @@
 #&gt; Null Deviance:	    233.5 
 #&gt; Residual Deviance: 114.8 	AIC: 446</div><div class='input'><span class='fu'>get_formula</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; y ~ x
-#&gt; &lt;environment: 0x7f9bf6d3fba0&gt;</div><div class='input'><span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+#&gt; &lt;environment: 0x7fec9da4fef8&gt;</div><div class='input'><span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "y"</div><div class='input'><span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "x"</div><div class='input'>
 </div></pre>
