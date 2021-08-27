@@ -5,6 +5,7 @@
 #'
 #' @param object A list of [`trending_model`] objects.
 #' @inheritParams predict.trending_model
+#' @param envir Advanced use only. Where to evaluate the fits.
 #'
 #' @returns A `trending_predict_tbl` object which is a
 #'   [`tibble`][tibble::tibble()] subclass with one row per model and columns:
@@ -40,12 +41,12 @@ predict.list <- function(
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
+  envir = parent.frame(),
   ...
 ) {
 
-  #tmp <- substitute(fit.list(object, data, as_tibble = as_tibble))
-  tmp <- bquote(fit.list(object, .(substitute(data))))
-  tmp <- eval(tmp)
+  tmp <- substitute(fit.list(object, data))
+  tmp <- eval(tmp, envir)
 
   predict(
     tmp,

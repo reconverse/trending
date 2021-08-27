@@ -16,6 +16,7 @@
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
+  envir = parent.frame(),
   ...
 )
 }
@@ -51,6 +52,8 @@ intervals for a glm model.}
 \item{uncertain}{Only used for glm models and when \code{simulate_pi = FALSE}.
 Default TRUE.  If FALSE uncertainty in the fitted parameters is ignored
 when generating the parametric prediction intervals.}
+
+\item{envir}{Advanced use only. Where to evaluate the fits.}
 
 \item{...}{Not currently used.}
 }
