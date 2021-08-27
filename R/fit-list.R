@@ -4,7 +4,6 @@
 #'
 #' @param x A list of trending_model objects
 #' @inheritParams fit.trending_model
-#' @param envir Advanced use only. Where to evaluate the fits.
 #'
 #' @return  A `trending_fit_tbl` object which is a [`tibble`][tibble::tibble()]
 #'   subclass with one row for each model and entries:
@@ -37,12 +36,12 @@
 #' @author Tim Taylor
 #' @seealso [fit.trending_model()]
 #' @export
-fit.list <- function(x, data, envir = parent.frame(), ...) {
+fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entries should be `trending_model` objects", call. = FALSE)
   }
-  qfun <- substitute(lapply(x, fit, data = data))
-  res <- eval(qfun, envir)
+  qfun <- bquote(lapply(x, fit, data = .(substitute(data))))
+  res <- eval(qfun)
   nms <- names(x)
   if (!is.null(nms)) names(res) <- nms
   res <- lapply(seq_along(res[[1]]), function(i) lapply(res, "[[", i))

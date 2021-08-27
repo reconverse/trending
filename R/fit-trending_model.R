@@ -44,11 +44,11 @@
 #' @export
 fit.trending_model <- function(x, data, as_tibble = FALSE, ...) {
   x[["data"]] <- substitute(data)
-  env = parent.frame()
-  if (inherits(x, "brm_trending_model")) env$brm <- brms::brm
-  if (inherits(x, "glm.nb_trending_model")) env$glm.nb <-  MASS::glm.nb
+  envir = parent.frame()
+  if (inherits(x, "brm_trending_model")) envir$brm <- brms::brm
+  if (inherits(x, "glm.nb_trending_model")) envir$glm.nb <-  MASS::glm.nb
   f <- make_catcher(eval)
-  res <- f(x, env)
+  res <- f(x, envir)
   if (as_tibble) {
     res <- tibble(
       result = list(res[[1]]),

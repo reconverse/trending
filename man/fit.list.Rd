@@ -4,14 +4,12 @@
 \alias{fit.list}
 \title{Fit method list object}
 \usage{
-\method{fit}{list}(x, data, envir = parent.frame(), ...)
+\method{fit}{list}(x, data, ...)
 }
 \arguments{
 \item{x}{A list of trending_model objects}
 
 \item{data}{A data frame containing the data to fit.}
-
-\item{envir}{Advanced use only. Where to evaluate the fits.}
 
 \item{...}{Not currently used.}
 }
