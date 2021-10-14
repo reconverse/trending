@@ -15,7 +15,7 @@
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
 #' fitted_poisson <- fit(poisson_model, dat)
 #' predict(fitted_poisson)
-#' predict(fitted_poisson, as_tibble = TRUE)
+#' predict(fitted_poisson, as_tibble = FALSE)
 #'
 #' @returns If `as_tibble = FALSE`, a `trending_predict` object, which is a list
 #'   subclass, with entries:
@@ -45,7 +45,7 @@ predict.trending_fit <- function(
     simulate_pi = FALSE,
     sims = 2000,
     uncertain = TRUE,
-    as_tibble = FALSE,
+    as_tibble = TRUE,
     ...
 ) {
 

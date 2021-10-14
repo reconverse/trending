@@ -2,18 +2,18 @@ test_that("glm_model", {
 
   # setup
   model <- glm_model(hp ~ cyl, family = poisson)
-  fit <- fit(model, mtcars)
+  fit <- fit(model, mtcars, as_tibble = FALSE)
   model_with_nonexistant <- glm_model(hp ~ bob, family = poisson)
-  fit_with_error <- fit(model_with_nonexistant, mtcars)
-  pred_with_error <- predict(fit_with_error)
-  fit_tbl <- fit(model, mtcars, as_tibble = TRUE)
+  fit_with_error <- fit(model_with_nonexistant, mtcars, as_tibble = FALSE)
+  pred_with_error <- predict(fit_with_error, as_tibble = FALSE)
+  fit_tbl <- fit(model, mtcars)
   expected_model <- glm(hp ~ cyl, data = mtcars, family = poisson)
-  pred <- predict(fit, add_ci = FALSE, simulate_pi = TRUE)
-  pred_tbl <- predict(fit, mtcars, add_ci = FALSE, simulate_pi = TRUE, as_tibble = TRUE)  # prediction with new data and as tibble from list
-  pred2 <- predict(fit, add_pi = FALSE)                                                   # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)                                           # prediction from tibble
-  pred_from_model <- predict(model, mtcars)
-  pred_from_model_tbl <- predict(model, mtcars, as_tibble = TRUE)
+  pred <- predict(fit, add_ci = FALSE, simulate_pi = TRUE, as_tibble = FALSE)
+  pred_tbl <- predict(fit, mtcars, add_ci = FALSE, simulate_pi = TRUE)  # prediction with new data and as tibble from list
+  pred2 <- predict(fit, add_pi = FALSE, as_tibble = FALSE)              # prediction with no new data or pi
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)                         # prediction from tibble
+  pred_from_model <- predict(model, mtcars, as_tibble = FALSE)
+  pred_from_model_tbl <- predict(model, mtcars)
 
   # test printing
   expect_snapshot(glm_model(count ~ day, na.action = na.exclude))
@@ -49,7 +49,7 @@ test_that("glm_model", {
   expect_identical(names(pred_tbl), c("result", "warnings", "errors"))
   expect_identical(names(pred2), c("result", "warnings", "errors"))
   expect_identical(names(pred2_tbl), c("result", "warnings", "errors"))
-  expect_identical(predict(fit, mtcars), pred_from_model)
+  expect_identical(predict(fit, mtcars, as_tibble = FALSE), pred_from_model)
   expect_identical(predict(fit_tbl, mtcars), pred_from_model_tbl)
 
   # test prediction accessors

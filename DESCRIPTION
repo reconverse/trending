@@ -47,6 +47,7 @@ Suggests:
     outbreaks,
     testthat (>= 3.0.0),
     ggplot2,
-    patchwork
+    patchwork,
+    covr
 VignetteBuilder: knitr
 Config/testthat/edition: 3

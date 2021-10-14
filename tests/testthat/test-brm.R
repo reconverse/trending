@@ -4,12 +4,12 @@ test_that("brm_model", {
 
   # setup
   model <- brm_model(hp ~ cyl, family = poisson)
-  fit <- fit(model, mtcars)
-  fit_tbl <- fit(model, mtcars, as_tibble = TRUE)
-  pred <- predict(fit, mtcars)                        # prediction with new data
-  pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
-  pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)       # prediction from tibble
+  fit <- fit(model, mtcars, as_tibble = FALSE)
+  fit_tbl <- fit(model, mtcars)
+  pred <- predict(fit, mtcars, as_tibble = FALSE)           # prediction with new data
+  pred_tbl <- predict(fit, mtcars)                          # prediction as tibble from list
+  pred2 <- predict(fit, add_pi = FALSE, as_tibble = FALSE)  # prediction with no new data or pi
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)             # prediction from tibble
 
   # test printing
   expect_snapshot(brm_model(count ~ day, na.action = na.exclude))

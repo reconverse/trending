@@ -16,7 +16,7 @@
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
-  as_tibble = FALSE,
+  as_tibble = TRUE,
   ...
 )
 }
@@ -82,7 +82,7 @@ y = rpois(n = 100, lambda = exp(1.5 + 0.5*x))
 dat <- data.frame(x = x, y = y)
 poisson_model <- glm_model(y ~ x , family = "poisson")
 predict(poisson_model, dat)
-predict(poisson_model, dat, as_tibble = TRUE)
+predict(poisson_model, dat, as_tibble = FALSE)
 
 }
 \seealso{

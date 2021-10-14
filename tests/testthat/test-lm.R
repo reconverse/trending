@@ -2,15 +2,15 @@ test_that("lm_model", {
 
   # setup
   model <- lm_model(hp ~ cyl)
-  fit <- fit(model, mtcars)
-  fit_tbl <- fit(model, mtcars, as_tibble = TRUE)
+  fit <- fit(model, mtcars, as_tibble = FALSE)
+  fit_tbl <- fit(model, mtcars)
   expected_model <- lm(hp ~ cyl, data = mtcars)
-  pred <- predict(fit, mtcars)                        # prediction with new data
-  pred_tbl <- predict(fit, mtcars, as_tibble = TRUE)  # prediction as tibble from list
-  pred2 <- predict(fit, add_pi = FALSE)               # prediction with no new data or pi
-  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)       # prediction tibble
-  pred_from_model <- predict(model, mtcars)
-  pred_from_model_tbl <- predict(model, mtcars, as_tibble = TRUE)
+  pred <- predict(fit, mtcars, as_tibble = FALSE)           # prediction with new data
+  pred_tbl <- predict(fit, mtcars)                          # prediction as tibble from list
+  pred2 <- predict(fit, add_pi = FALSE, as_tibble = FALSE)  # prediction with no new data or pi
+  pred2_tbl <- predict(fit_tbl, add_pi = FALSE)             # prediction tibble
+  pred_from_model <- predict(model, mtcars, as_tibble = FALSE)
+  pred_from_model_tbl <- predict(model, mtcars)
 
   # test printing
   expect_snapshot(lm_model(count ~ day, na.action = na.exclude))

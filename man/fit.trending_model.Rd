@@ -4,7 +4,7 @@
 \alias{fit.trending_model}
 \title{Fit method for trending_model objects}
 \usage{
-\method{fit}{trending_model}(x, data, as_tibble = FALSE, ...)
+\method{fit}{trending_model}(x, data, as_tibble = TRUE, ...)
 }
 \arguments{
 \item{x}{An \R object}

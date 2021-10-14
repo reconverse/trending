@@ -42,7 +42,7 @@
 #' @author Tim Taylor
 #' @seealso [fit.list()]
 #' @export
-fit.trending_model <- function(x, data, as_tibble = FALSE, ...) {
+fit.trending_model <- function(x, data, as_tibble = TRUE, ...) {
   x[["data"]] <- substitute(data)
   envir = parent.frame()
   if (inherits(x, "brm_trending_model")) envir$brm <- brms::brm

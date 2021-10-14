@@ -46,7 +46,7 @@
 #' dat <- data.frame(x = x, y = y)
 #' poisson_model <- glm_model(y ~ x , family = "poisson")
 #' predict(poisson_model, dat)
-#' predict(poisson_model, dat, as_tibble = TRUE)
+#' predict(poisson_model, dat, as_tibble = FALSE)
 #'
 #' @author Tim Taylor
 #' @seealso [predict.trending_fit()] and [predict.trending_fit_tbl()]
@@ -63,10 +63,10 @@ predict.trending_model <- function(
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
-  as_tibble = FALSE,
+  as_tibble = TRUE,
   ...
 ) {
-  tmp <- fit.trending_model(object, data)
+  tmp <- fit.trending_model(object, data, as_tibble = as_tibble)
   predict(
     tmp,
     new_data = data,

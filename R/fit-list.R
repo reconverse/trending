@@ -40,7 +40,7 @@ fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entries should be `trending_model` objects", call. = FALSE)
   }
-  qfun <- bquote(lapply(x, fit, data = .(substitute(data))))
+  qfun <- bquote(lapply(x, fit, data = .(substitute(data)), as_tibble = FALSE))
   res <- eval(qfun)
   nms <- names(x)
   if (!is.null(nms)) names(res) <- nms

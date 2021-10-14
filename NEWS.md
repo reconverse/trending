@@ -1,3 +1,8 @@
+# Development version
+
+* Fit and predict not return tibbles showing results warning and errors by
+  default.
+
 # trending 0.0.3
 
 * Default to using ciTools and a simulation approach for prediction intervals.

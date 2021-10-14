@@ -16,7 +16,7 @@
   simulate_pi = FALSE,
   sims = 2000,
   uncertain = TRUE,
-  as_tibble = FALSE,
+  as_tibble = TRUE,
   ...
 )
 }
@@ -83,7 +83,7 @@ dat <- data.frame(x = x, y = y)
 poisson_model <- glm_model(y ~ x , family = "poisson")
 fitted_poisson <- fit(poisson_model, dat)
 predict(fitted_poisson)
-predict(fitted_poisson, as_tibble = TRUE)
+predict(fitted_poisson, as_tibble = FALSE)
 
 }
 \seealso{
