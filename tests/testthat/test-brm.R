@@ -1,6 +1,8 @@
 test_that("brm_model", {
 
-  skip_if_not_installed("brms")
+  testthat::skip_if_not_installed("brms")
+  testthat::skip_on_cran()
+  testthat::skip_on_ci()
 
   # setup
   model <- brm_model(hp ~ cyl, family = poisson)
