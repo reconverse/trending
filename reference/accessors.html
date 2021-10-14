@@ -323,7 +323,8 @@
 <span class='va'>fitted_poisson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
 
 <span class='fu'>get_fitted_model</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
+</div><div class='output co'>#&gt; [[1]]
+#&gt; 
 #&gt; Call:  glm(formula = y ~ x, family = "poisson", data = dat)
 #&gt; 
 #&gt; Coefficients:
@@ -332,11 +333,18 @@
 #&gt; 
 #&gt; Degrees of Freedom: 99 Total (i.e. Null);  98 Residual
 #&gt; Null Deviance:	    233.5 
-#&gt; Residual Deviance: 114.8 	AIC: 446</div><div class='input'><span class='fu'>get_formula</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; y ~ x
-#&gt; &lt;environment: 0x7f8c1d456fc0&gt;</div><div class='input'><span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "y"</div><div class='input'><span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "x"</div><div class='input'>
+#&gt; Residual Deviance: 114.8 	AIC: 446
+#&gt; </div><div class='input'><span class='fu'>get_formula</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; y ~ x
+#&gt; &lt;environment: 0x55d4449a0640&gt;
+#&gt; </div><div class='input'><span class='fu'>get_response</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "y"
+#&gt; </div><div class='input'><span class='fu'>get_predictors</span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "x"
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

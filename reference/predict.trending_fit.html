@@ -151,7 +151,7 @@ to trending_fit objects.</p>
   simulate_pi <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sims <span class='op'>=</span> <span class='fl'>2000</span>,
   uncertain <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -250,30 +250,10 @@ confidence and or prediction intervals. <code>NULL</code> if the associated
 <span class='va'>poisson_model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='trending_model.html'>glm_model</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> , family <span class='op'>=</span> <span class='st'>"poisson"</span><span class='op'>)</span>
 <span class='va'>fitted_poisson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fit.html'>fit</a></span><span class='op'>(</span><span class='va'>poisson_model</span>, <span class='va'>dat</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $result
-#&gt; <span style='color: #949494;'>&lt;trending_prediction&gt; 100 x 7</span>
-#&gt;        y       x estimate lower_ci upper_ci lower_pi upper_pi
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>    16  1.87      11.4      9.71    13.3         4       21
-#&gt; <span style='color: #BCBCBC;'> 2</span>     3 -<span style='color: #BB0000;'>0.730</span>      3.03     2.63     3.50        0        8
-#&gt; <span style='color: #BCBCBC;'> 3</span>     2 -<span style='color: #BB0000;'>1.28</span>       2.30     1.91     2.76        0        6
-#&gt; <span style='color: #BCBCBC;'> 4</span>     1 -<span style='color: #BB0000;'>0.868</span>      2.83     2.43     3.29        0        7
-#&gt; <span style='color: #BCBCBC;'> 5</span>     9  1.19       8.05     7.20     8.99        2       15
-#&gt; <span style='color: #BCBCBC;'> 6</span>     0 -<span style='color: #BB0000;'>1.44</span>       2.11     1.73     2.57        0        6
-#&gt; <span style='color: #BCBCBC;'> 7</span>     7  0.255      5.00     4.57     5.47        1       10
-#&gt; <span style='color: #BCBCBC;'> 8</span>     4 -<span style='color: #BB0000;'>0.079</span><span style='color: #BB0000; text-decoration: underline;'>9</span>     4.22     3.81     4.67        1        9
-#&gt; <span style='color: #BCBCBC;'> 9</span>     3  0.783      6.54     5.96     7.17        2       13
-#&gt; <span style='color: #BCBCBC;'>10</span>     9  1.11       7.71     6.93     8.57        2       15
-#&gt; <span style='color: #949494;'># … with 90 more rows</span>
-#&gt; 
-#&gt; $warnings
-#&gt; NULL
-#&gt; 
-#&gt; $errors
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "trending_predict" "list"            </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span>, as_tibble <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 1 x 3</span>
+#&gt;   result                          warnings errors
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;trending_prediction [100 × 7]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   <span style='color: #949494;'>&lt;NULL&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>fitted_poisson</span>, as_tibble <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'>&lt;trending_predict_tbl&gt; 1 x 3</span>
 #&gt;   result                          warnings errors
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>
