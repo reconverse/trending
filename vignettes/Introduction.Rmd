@@ -71,7 +71,7 @@ pred_data <- select(dat[[1]], date, day, weekday)
 ```{r}
 (model  <- glm_nb_model(count ~ day + weekday))
 (fitted_model <- fit(model, fitting_data))
-fitted_model |> get_result()
+fitted_model %>% get_result()
 
 # default
 fitted_model %>% 
