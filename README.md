@@ -4,9 +4,9 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/trending)](https://CRAN.R-project.org/package=trending)
-[![Codecov test
-coverage](https://codecov.io/gh/reconverse/trending/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/trending?branch=master)
 [![R-CMD-check](https://github.com/reconverse/trending/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/trending/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/reconverse/trending/branch/master/graph/badge.svg)](https://app.codecov.io/gh/reconverse/trending?branch=master)
 <!-- badges: end -->
 
 # Trending
