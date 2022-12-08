@@ -1,13 +1,13 @@
 Package: trending
 Title: Model Temporal Trends
-Version: 0.0.3.9000
+Version: 0.0.3.9001
 Authors@R: 
     c(
       person(
         given = "Tim",
         family = "Taylor",
         email = "tim.taylor@hiddenelephants.co.uk", 
-        role = c("aut", "cre"), 
+        role = "aut", 
         comment = c(ORCID = "0000-0002-8587-7113")
       ),
       person(
@@ -19,7 +19,7 @@ Authors@R:
       person(
         given = "Thibaut",
         family = "Jombart",
-        role = c("ctb"),
+        role = c("ctb", "cre"),
         email = "thibautjombart@gmail.com"
       )
     )
