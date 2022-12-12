@@ -15,10 +15,10 @@
       print(pred)
     Output
       <trending_predict_tbl> 2 x 4
-        model_name result                         warnings     errors      
-        <chr>      <named list>                   <named list> <named list>
-      1 l          <trending_prediction [32 x 7]> <NULL>       <NULL>      
-      2 nb         <trending_prediction [32 x 7]> <NULL>       <NULL>      
+        model_name result              warnings     errors      
+        <chr>      <named list>        <named list> <named list>
+      1 l          <trndng_p [32 x 7]> <NULL>       <NULL>      
+      2 nb         <trndng_p [32 x 7]> <NULL>       <NULL>      
 
 ---
 

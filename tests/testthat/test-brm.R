@@ -29,7 +29,9 @@ test_that("brm_model", {
   expect_identical(get_result(fit), fitted_model)
   expect_null(get_warnings(fit))
   expect_null(get_errors(fit))
-  expect_identical(get_fitted_data(fit), mtcars[c("hp", "cyl")])
+
+  ## note: converting to matrix as a rogue attribute $drop_unused_levels poses problems
+  expect_identical(as.matrix(get_fitted_data(fit)), as.matrix(mtcars[c("hp", "cyl")]))
   expect_identical(get_formula(model), hp ~ cyl)
   fml <- get_formula(fit)$formula
   attributes(fml) <- NULL
