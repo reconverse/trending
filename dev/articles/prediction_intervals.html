@@ -147,13 +147,13 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; Warning in add_pi.glm(dat, fit, names = c("lpb", "upb"), alpha = 0.1, nsims =</span></span>
 <span><span class="co">#&gt; 20000): The response is not continuous, so Prediction Intervals are approximate</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            x  y     pred lpb upb</span></span>
-<span><span class="co">#&gt; 1  0.9656033  7 7.478368   3  12</span></span>
-<span><span class="co">#&gt; 2 -0.3886679  2 3.882521   1   7</span></span>
-<span><span class="co">#&gt; 3  1.2446994 12 8.560084   4  13</span></span>
-<span><span class="co">#&gt; 4  0.5060423  2 5.986853   2  10</span></span>
-<span><span class="co">#&gt; 5 -0.5242486  4 3.635903   1   7</span></span>
-<span><span class="co">#&gt; 6  0.3254378 12 5.485701   2  10</span></span>
+<span><span class="co">#&gt;            x y     pred lpb upb</span></span>
+<span><span class="co">#&gt; 1 -0.2371830 5 4.238952   1   8</span></span>
+<span><span class="co">#&gt; 2  0.3027586 7 5.642549   2  10</span></span>
+<span><span class="co">#&gt; 3 -0.4662134 2 3.754643   1   7</span></span>
+<span><span class="co">#&gt; 4 -0.5188776 2 3.651346   1   7</span></span>
+<span><span class="co">#&gt; 5  0.8089458 8 7.377797   3  12</span></span>
+<span><span class="co">#&gt; 6  0.8142616 8 7.398602   3  12</span></span>
 <span></span>
 <span><span class="co"># add intervals with trending (no uncertainty in parameters)</span></span>
 <span><span class="va">poisson_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span></span>
@@ -164,12 +164,12 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 6 x 7</span></span></span>
 <span><span class="co">#&gt;       y      x estimate lower_ci upper_ci lower_pi upper_pi</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     7  0.966     7.48     6.93     8.07        3       12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 -<span style="color: #BB0000;">0.389</span>     3.88     3.52     4.28        1        7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    12  1.24      8.56     7.86     9.32        4       14</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2  0.506     5.99     5.58     6.42        2       10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 -<span style="color: #BB0000;">0.524</span>     3.64     3.28     4.03        1        7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    12  0.325     5.49     5.10     5.90        2       10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 -<span style="color: #BB0000;">0.237</span>     4.24     3.88     4.64        1        8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     7  0.303     5.64     5.25     6.06        2       10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 -<span style="color: #BB0000;">0.466</span>     3.75     3.39     4.16        1        7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 -<span style="color: #BB0000;">0.519</span>     3.65     3.28     4.06        1        7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     8  0.809     7.38     6.82     7.98        3       12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     8  0.814     7.40     6.84     8.00        3       12</span></span>
 <span></span>
 <span><span class="co"># add intervals with trending (uncertainty in parameters)</span></span>
 <span><span class="va">dat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -178,12 +178,12 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 6 x 7</span></span></span>
 <span><span class="co">#&gt;       y      x estimate lower_ci upper_ci lower_pi upper_pi</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     7  0.966     7.48     6.93     8.07        3       13</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 -<span style="color: #BB0000;">0.389</span>     3.88     3.52     4.28        1        8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    12  1.24      8.56     7.86     9.32        4       15</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2  0.506     5.99     5.58     6.42        2       11</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 -<span style="color: #BB0000;">0.524</span>     3.64     3.28     4.03        1        8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    12  0.325     5.49     5.10     5.90        2       10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 -<span style="color: #BB0000;">0.237</span>     4.24     3.88     4.64        1        8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     7  0.303     5.64     5.25     6.06        2       10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 -<span style="color: #BB0000;">0.466</span>     3.75     3.39     4.16        1        8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 -<span style="color: #BB0000;">0.519</span>     3.65     3.28     4.06        1        8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     8  0.809     7.38     6.82     7.98        3       13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     8  0.814     7.40     6.84     8.00        3       13</span></span>
 <span></span>
 <span><span class="co"># plots</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dat1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -230,12 +230,12 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; 20000): The response is not continuous, so Prediction Intervals are approximate</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           x  y      pred lpb upb</span></span>
-<span><span class="co">#&gt; 1 0.6870865  5  5.204962   0  15</span></span>
-<span><span class="co">#&gt; 2 1.5555912  0 13.931078   3  29</span></span>
-<span><span class="co">#&gt; 3 0.1915422  7  2.967972   0  10</span></span>
-<span><span class="co">#&gt; 4 1.0723759 13  8.055575   1  20</span></span>
-<span><span class="co">#&gt; 5 1.6269971 13 15.105602   4  31</span></span>
-<span><span class="co">#&gt; 6 1.6730471  7 15.915072   4  33</span></span>
+<span><span class="co">#&gt; 1 1.3185688  7  9.315308   2  20</span></span>
+<span><span class="co">#&gt; 2 0.8402462  6  5.094015   0  13</span></span>
+<span><span class="co">#&gt; 3 1.6213157 16 13.649373   4  27</span></span>
+<span><span class="co">#&gt; 4 1.0692339  6  6.800694   1  16</span></span>
+<span><span class="co">#&gt; 5 0.3934254  2  2.898594   0  10</span></span>
+<span><span class="co">#&gt; 6 0.2041044 12  2.282617   0   8</span></span>
 <span></span>
 <span><span class="co"># add intervals with trending (no uncertainty in parameters)</span></span>
 <span><span class="va">quasipoisson_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">quasipoisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span>
@@ -246,12 +246,12 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 6 x 7</span></span></span>
 <span><span class="co">#&gt;       y     x estimate lower_ci upper_ci lower_pi upper_pi</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 0.687     5.20     4.28     6.33        0       15</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     0 1.56     13.9     12.3     15.8         3       29</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     7 0.192     2.97     2.21     3.98        0       11</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    13 1.07      8.06     7.03     9.23        1       20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    13 1.63     15.1     13.2     17.3         4       31</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     7 1.67     15.9     13.8     18.3         4       32</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     7 1.32      9.32     8.34    10.4         2       20</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 0.840     5.09     4.35     5.97        0       13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    16 1.62     13.6     12.0     15.5         4       26</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     6 1.07      6.80     5.99     7.72        1       16</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     2 0.393     2.90     2.28     3.69        0        9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    12 0.204     2.28     1.72     3.02        0        8</span></span>
 <span></span>
 <span><span class="co"># add intervals with trending (uncertainty in parameters)</span></span>
 <span><span class="va">dat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -260,12 +260,12 @@ glm vignette</a>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 6 x 7</span></span></span>
 <span><span class="co">#&gt;       y     x estimate lower_ci upper_ci lower_pi upper_pi</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 0.687     5.20     4.28     6.33        0       17</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     0 1.56     13.9     12.3     15.8         3       32</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     7 0.192     2.97     2.21     3.98        0       13</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    13 1.07      8.06     7.03     9.23        0       22</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    13 1.63     15.1     13.2     17.3         3       34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     7 1.67     15.9     13.8     18.3         3       36</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     7 1.32      9.32     8.34    10.4         2       22</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 0.840     5.09     4.35     5.97        0       15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    16 1.62     13.6     12.0     15.5         3       29</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     6 1.07      6.80     5.99     7.72        1       17</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     2 0.393     2.90     2.28     3.69        0       11</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    12 0.204     2.28     1.72     3.02        0        9</span></span>
 <span></span>
 <span><span class="co"># plots</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dat1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
