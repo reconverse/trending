@@ -38,17 +38,17 @@ remotes::install_github("reconverse/trending", build_vignettes = TRUE)
 
 ## Main features
 
--   **Model specification:** Interfaces to common models through
-    intuitive functions; `lm_model()`, `glm_model()`, `glm_nb_model` and
-    `brms_model`\*.
+- **Model specification:** Interfaces to common models through intuitive
+  functions; `lm_model()`, `glm_model()`, `glm_nb_model` and
+  `brms_model`\*.
 
--   **Model fitting and prediction:** Once specified, models can be fit
-    to data and generate confidence and prediction intervals for future
-    data using `fit()` and `predict()`.
+- **Model fitting and prediction:** Once specified, models can be fit to
+  data and generate confidence and prediction intervals for future data
+  using `fit()` and `predict()`.
 
--   **Error and warning catching:** The provided methods for `fit` and
-    `predict` catch all warnings and errors, returning the output and
-    these captured values in a list.
+- **Error and warning catching:** The provided methods for `fit` and
+  `predict` catch all warnings and errors, returning the output and
+  these captured values in a list.
 
 \*   Requires [brms](https://CRAN.R-project.org/package=brms)
 
@@ -69,13 +69,13 @@ join.
 
 # Acknowledgements
 
--   Gavin Simpson; Our method to calculate prediction intervals follows
-    one that he described in two posts on his
-    [blog](https://fromthebottomoftheheap.net); see [part
-    1](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/)
-    and [part
-    2](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-ii/).
+- Gavin Simpson; Our method to calculate prediction intervals follows
+  one that he described in two posts on his
+  [blog](https://fromthebottomoftheheap.net); see [part
+  1](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-i/)
+  and [part
+  2](https://fromthebottomoftheheap.net/2017/05/01/glm-prediction-intervals-ii/).
 
--   John Haman and Matthew Avery; Our implementation of prediction
-    intervals was guided by their bootstrapped approach within the
-    [ciTools](https://CRAN.R-project.org/package=ciTools) package.
+- John Haman and Matthew Avery; Our implementation of prediction
+  intervals was guided by their bootstrapped approach within the
+  [ciTools](https://CRAN.R-project.org/package=ciTools) package.

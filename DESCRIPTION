@@ -1,6 +1,6 @@
 Package: trending
 Title: Model Temporal Trends
-Version: 0.0.3.9001
+Version: 0.1.0
 Authors@R: 
     c(
       person(
@@ -43,6 +43,7 @@ Suggests:
     knitr,
     brms,
     BH,
+    RcppEigen,
     rmarkdown,
     dplyr,
     outbreaks,
