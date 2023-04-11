@@ -16,6 +16,8 @@ not_implemented <- function(x, call. = FALSE) {
 
 # -------------------------------------------------------------------------
 
+# h/t Martin Morgan
+# https://stackoverflow.com/a/4952908
 make_catcher <- function(fun) {
   function(...) {
 
