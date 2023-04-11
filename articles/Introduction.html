@@ -4,432 +4,426 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="trending">
 <title>Introduction • trending</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction">
 <meta property="og:description" content="trending">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">trending</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">trending</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Using the trending package</li>
-    <li>
-      <a href="../articles/Introduction.html">Introduction</a>
-    </li>
-    <li>
-      <a href="../articles/prediction_intervals.html">Prediction intervals</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/reconhub/trending">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
+    <a class="dropdown-item" href="../articles/prediction_intervals.html">Prediction intervals for GLMs</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/reconverse/trending/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction</h1>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Introduction</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/reconverse/trending/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
-      <div class="hidden name"><code>Introduction.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/reconverse/trending/blob/HEAD/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
+      <div class="d-none name"><code>Introduction.Rmd</code></div>
     </div>
 
     
     
-<p><em>trending</em> aims to provides a coherent interface to several modelling tools. Whilst it is useful in an interactive context, it’s main focus is to provide an intuitive interface on which other packages can be developed (e.g. <a href="https://github.com/reconhub/trendbreaker"><em>trendbreaker</em></a>).</p>
-<div id="main-features" class="section level1">
-<h1 class="hasAnchor">
-<a href="#main-features" class="anchor"></a>Main features</h1>
+<p><em>trending</em> aims to provides a coherent interface to several
+modelling tools. Whilst it is useful in an interactive context, it’s
+main focus is to provide an intuitive interface on which other packages
+can be developed (e.g. <a href="https://github.com/reconhub/trendbreaker" class="external-link"><em>trendbreaker</em></a>).</p>
+<div class="section level2">
+<h2 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
+</h2>
 <ul>
-<li><p><strong>Model specification:</strong> Interfaces to common models through intuitive functions; <code><a href="../reference/trending_model.html">lm_model()</a></code>, <code><a href="../reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code> and <code>brms_model</code>*.</p></li>
-<li><p><strong>Model fitting and prediction:</strong> Once specified, models can be fit to data and generate confidence and prediction intervals for future data using <code><a href="../reference/fit.html">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p></li>
-<li><p><strong>Error and warning catching:</strong> The provided methods for <code>fit</code> and <code>predict</code> catch all warnings and errors, returning the output and these captured values in a list.</p></li>
+<li><p><strong>Model specification:</strong> Interfaces to common models
+through intuitive functions; <code><a href="../reference/trending_model.html">lm_model()</a></code>,
+<code><a href="../reference/trending_model.html">glm_model()</a></code>, <code>glm_nb_model</code> and
+<code>brms_model</code>*.</p></li>
+<li><p><strong>Model fitting and prediction:</strong> Once specified,
+models can be fit to data and generate confidence and prediction
+intervals for future data using <code><a href="../reference/fit.html">fit()</a></code> and
+<code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>.</p></li>
+<li><p><strong>Error and warning catching:</strong> The provided methods
+for <code>fit</code> and <code>predict</code> catch all warnings and
+errors, returning the output and these captured values in a
+list.</p></li>
 </ul>
-<p>*   Requires <a href="https://CRAN.R-project.org/package=brms">brms</a></p>
+<p>*   Requires <a href="https://CRAN.R-project.org/package=brms" class="external-link">brms</a></p>
 </div>
-<div id="example-usage" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-usage" class="anchor"></a>Example usage</h1>
-<div id="setup" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h2>
+<div class="section level2">
+<h2 id="example-usage">Example usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+</h2>
+<div class="section level3">
+<h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>  <span class="co"># for data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/trending">trending</a></span><span class="op">)</span>   <span class="co"># for trend fitting</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>      <span class="co"># for data manipulation</span>
-
-<span class="co"># load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">covid19_england_nhscalls_2020</span><span class="op">)</span>
-
-<span class="co"># select 6 weeks of data (from a period when the prevalence was decreasing)</span>
-<span class="va">last_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-05-28"</span><span class="op">)</span>
-<span class="va">first_date</span> <span class="op">&lt;-</span> <span class="va">last_date</span> <span class="op">-</span> <span class="fl">8</span><span class="op">*</span><span class="fl">7</span>
-<span class="va">pathways_recent</span> <span class="op">&lt;-</span>
-  <span class="va">covid19_england_nhscalls_2020</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="va">first_date</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="va">last_date</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">day</span>, <span class="va">weekday</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span>
-
-<span class="co"># split data for fitting and prediction</span>
-<span class="va">dat</span> <span class="op">&lt;-</span>
-  <span class="va">pathways_recent</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;=</span> <span class="va">first_date</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="fl">7</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">fitting_data</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-<span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">date</span>, <span class="va">day</span>, <span class="va">weekday</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a></span><span class="op">)</span>  <span class="co"># for data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/trending" class="external-link">trending</a></span><span class="op">)</span>   <span class="co"># for trend fitting</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>      <span class="co"># for data manipulation</span></span>
+<span></span>
+<span><span class="co"># load data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid19_england_nhscalls_2020</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># select 6 weeks of data (from a period when the prevalence was decreasing)</span></span>
+<span><span class="va">last_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-05-28"</span><span class="op">)</span></span>
+<span><span class="va">first_date</span> <span class="op">&lt;-</span> <span class="va">last_date</span> <span class="op">-</span> <span class="fl">8</span><span class="op">*</span><span class="fl">7</span></span>
+<span><span class="va">pathways_recent</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">covid19_england_nhscalls_2020</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="va">first_date</span>, <span class="va">date</span> <span class="op">&lt;=</span> <span class="va">last_date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">day</span>, <span class="va">weekday</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># split data for fitting and prediction</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">pathways_recent</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;=</span> <span class="va">first_date</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="fl">7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html" class="external-link">group_split</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fitting_data</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">date</span>, <span class="va">day</span>, <span class="va">weekday</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="a-succesful-model-fit" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-succesful-model-fit" class="anchor"></a>A succesful model fit</h2>
+<div class="section level3">
+<h3 id="a-succesful-model-fit">A succesful model fit<a class="anchor" aria-label="anchor" href="#a-succesful-model-fit"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">model</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Untrained trending model:</span>
-<span class="co">#&gt;     glm.nb(formula = count ~ day + weekday)</span>
-<span class="op">(</span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_fit_tbl&gt; 1 x 3</span>
-<span class="co">#&gt;   result   warnings errors</span>
-<span class="co">#&gt;   &lt;list&gt;   &lt;list&gt;   &lt;list&gt;</span>
-<span class="co">#&gt; 1 &lt;negbin&gt; &lt;NULL&gt;   &lt;NULL&gt;</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:  glm.nb(formula = count ~ day + weekday, data = fitting_data, </span>
-<span class="co">#&gt;     init.theta = 39.34595795, link = log)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;    (Intercept)             day   weekdaymonday  weekdayweekend  </span>
-<span class="co">#&gt;       11.46417        -0.03476         0.19162        -0.14224  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  39 Residual</span>
-<span class="co">#&gt; Null Deviance:       395.9 </span>
-<span class="co">#&gt; Residual Deviance: 43.17     AIC: 850.6</span>
-
-<span class="co"># default</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8107    18870</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     6618    16223</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     6373    15714</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     8363    21784</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     6962    16638</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     6701    16124</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     6450    15626</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6208    15145</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5079    12992</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     4889    12588</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     6439    17388</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5326    13366</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5126    12955</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     4933    12558</span>
-
-<span class="co"># without uncertainty</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, uncertain <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     9027    16948</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7562    14199</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7304    13715</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9852    18494</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7855    14748</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7586    14245</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7327    13758</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     7076    13289</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5928    11134</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5725    10754</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7723    14501</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     6157    11564</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5947    11170</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5743    10788</span>
-
-<span class="co"># without prediction intervals</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, add_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 6</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.</span>
-
-<span class="co"># bootstraped prediction intervals</span>
-<span class="va">fitted_model</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, simulate_pi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8759    17153</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     7378    14757</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     7067    14016</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     9755    19213</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     7608    14985</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     7443    14437</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     7271    14042</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6864    13664</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5821    11678</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     5459    11132</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     7387    15185</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     6049    11888</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5768    11453</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     5633    11196</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">model</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Untrained trending model:</span></span>
+<span><span class="co">#&gt;     glm.nb(formula = count ~ day + weekday)</span></span>
+<span><span class="op">(</span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_fit_tbl&gt; 1 x 3</span></span></span>
+<span><span class="co">#&gt;   result   warnings errors</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;negbin&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span>   <span style="color: #949494;">&lt;NULL&gt;</span></span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:  glm.nb(formula = count ~ day + weekday, data = fitting_data, </span></span>
+<span><span class="co">#&gt;     init.theta = 39.34595795, link = log)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;    (Intercept)             day   weekdaymonday  weekdayweekend  </span></span>
+<span><span class="co">#&gt;       11.46417        -0.03476         0.19162        -0.14224  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  39 Residual</span></span>
+<span><span class="co">#&gt; Null Deviance:       395.9 </span></span>
+<span><span class="co">#&gt; Residual Deviance: 43.17     AIC: 850.6</span></span>
+<span></span>
+<span><span class="co"># default</span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">12</span>682.   <span style="text-decoration: underline;">11</span>390.   <span style="text-decoration: underline;">14</span>122.     <span style="text-decoration: underline;">8</span>107    <span style="text-decoration: underline;">18</span>870</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">10</span>625.    <span style="text-decoration: underline;">9</span>299.   <span style="text-decoration: underline;">12</span>140.     <span style="text-decoration: underline;">6</span>618    <span style="text-decoration: underline;">16</span>223</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>262.    <span style="text-decoration: underline;">8</span>956.   <span style="text-decoration: underline;">11</span>759.     <span style="text-decoration: underline;">6</span>373    <span style="text-decoration: underline;">15</span>714</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">13</span>840.   <span style="text-decoration: underline;">11</span>749.   <span style="text-decoration: underline;">16</span>303.     <span style="text-decoration: underline;">8</span>363    <span style="text-decoration: underline;">21</span>784</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week   <span style="text-decoration: underline;">11</span>036.    <span style="text-decoration: underline;">9</span>782.   <span style="text-decoration: underline;">12</span>450.     <span style="text-decoration: underline;">6</span>962    <span style="text-decoration: underline;">16</span>638</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week   <span style="text-decoration: underline;">10</span>659.    <span style="text-decoration: underline;">9</span>416.   <span style="text-decoration: underline;">12</span>066.     <span style="text-decoration: underline;">6</span>701    <span style="text-decoration: underline;">16</span>124</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week   <span style="text-decoration: underline;">10</span>295.    <span style="text-decoration: underline;">9</span>064.   <span style="text-decoration: underline;">11</span>693.     <span style="text-decoration: underline;">6</span>450    <span style="text-decoration: underline;">15</span>626</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">9</span>943.    <span style="text-decoration: underline;">8</span>724.   <span style="text-decoration: underline;">11</span>333.     <span style="text-decoration: underline;">6</span>208    <span style="text-decoration: underline;">15</span>145</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>330.    <span style="text-decoration: underline;">7</span>138.    <span style="text-decoration: underline;">9</span>721.     <span style="text-decoration: underline;">5</span>079    <span style="text-decoration: underline;">12</span>992</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>045.    <span style="text-decoration: underline;">6</span>872.    <span style="text-decoration: underline;">9</span>419.     <span style="text-decoration: underline;">4</span>889    <span style="text-decoration: underline;">12</span>588</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         <span style="text-decoration: underline;">10</span>851.    <span style="text-decoration: underline;">9</span>048.   <span style="text-decoration: underline;">13</span>012.     <span style="text-decoration: underline;">6</span>439    <span style="text-decoration: underline;">17</span>388</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">8</span>652.    <span style="text-decoration: underline;">7</span>486.   <span style="text-decoration: underline;">10</span>001.     <span style="text-decoration: underline;">5</span>326    <span style="text-decoration: underline;">13</span>366</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">8</span>357.    <span style="text-decoration: underline;">7</span>204.    <span style="text-decoration: underline;">9</span>694.     <span style="text-decoration: underline;">5</span>126    <span style="text-decoration: underline;">12</span>955</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">8</span>071.    <span style="text-decoration: underline;">6</span>933.    <span style="text-decoration: underline;">9</span>396.     <span style="text-decoration: underline;">4</span>933    <span style="text-decoration: underline;">12</span>558</span></span>
+<span></span>
+<span><span class="co"># without uncertainty</span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, uncertain <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">12</span>682.   <span style="text-decoration: underline;">11</span>390.   <span style="text-decoration: underline;">14</span>122.     <span style="text-decoration: underline;">9</span>027    <span style="text-decoration: underline;">16</span>948</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">10</span>625.    <span style="text-decoration: underline;">9</span>299.   <span style="text-decoration: underline;">12</span>140.     <span style="text-decoration: underline;">7</span>562    <span style="text-decoration: underline;">14</span>199</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>262.    <span style="text-decoration: underline;">8</span>956.   <span style="text-decoration: underline;">11</span>759.     <span style="text-decoration: underline;">7</span>304    <span style="text-decoration: underline;">13</span>715</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">13</span>840.   <span style="text-decoration: underline;">11</span>749.   <span style="text-decoration: underline;">16</span>303.     <span style="text-decoration: underline;">9</span>852    <span style="text-decoration: underline;">18</span>494</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week   <span style="text-decoration: underline;">11</span>036.    <span style="text-decoration: underline;">9</span>782.   <span style="text-decoration: underline;">12</span>450.     <span style="text-decoration: underline;">7</span>855    <span style="text-decoration: underline;">14</span>748</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week   <span style="text-decoration: underline;">10</span>659.    <span style="text-decoration: underline;">9</span>416.   <span style="text-decoration: underline;">12</span>066.     <span style="text-decoration: underline;">7</span>586    <span style="text-decoration: underline;">14</span>245</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week   <span style="text-decoration: underline;">10</span>295.    <span style="text-decoration: underline;">9</span>064.   <span style="text-decoration: underline;">11</span>693.     <span style="text-decoration: underline;">7</span>327    <span style="text-decoration: underline;">13</span>758</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">9</span>943.    <span style="text-decoration: underline;">8</span>724.   <span style="text-decoration: underline;">11</span>333.     <span style="text-decoration: underline;">7</span>076    <span style="text-decoration: underline;">13</span>289</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>330.    <span style="text-decoration: underline;">7</span>138.    <span style="text-decoration: underline;">9</span>721.     <span style="text-decoration: underline;">5</span>928    <span style="text-decoration: underline;">11</span>134</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>045.    <span style="text-decoration: underline;">6</span>872.    <span style="text-decoration: underline;">9</span>419.     <span style="text-decoration: underline;">5</span>725    <span style="text-decoration: underline;">10</span>754</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         <span style="text-decoration: underline;">10</span>851.    <span style="text-decoration: underline;">9</span>048.   <span style="text-decoration: underline;">13</span>012.     <span style="text-decoration: underline;">7</span>723    <span style="text-decoration: underline;">14</span>501</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">8</span>652.    <span style="text-decoration: underline;">7</span>486.   <span style="text-decoration: underline;">10</span>001.     <span style="text-decoration: underline;">6</span>157    <span style="text-decoration: underline;">11</span>564</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">8</span>357.    <span style="text-decoration: underline;">7</span>204.    <span style="text-decoration: underline;">9</span>694.     <span style="text-decoration: underline;">5</span>947    <span style="text-decoration: underline;">11</span>170</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">8</span>071.    <span style="text-decoration: underline;">6</span>933.    <span style="text-decoration: underline;">9</span>396.     <span style="text-decoration: underline;">5</span>743    <span style="text-decoration: underline;">10</span>788</span></span>
+<span></span>
+<span><span class="co"># without prediction intervals</span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, add_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 6</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">12</span>682.   <span style="text-decoration: underline;">11</span>390.   <span style="text-decoration: underline;">14</span>122.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">10</span>625.    <span style="text-decoration: underline;">9</span>299.   <span style="text-decoration: underline;">12</span>140.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>262.    <span style="text-decoration: underline;">8</span>956.   <span style="text-decoration: underline;">11</span>759.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">13</span>840.   <span style="text-decoration: underline;">11</span>749.   <span style="text-decoration: underline;">16</span>303.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week   <span style="text-decoration: underline;">11</span>036.    <span style="text-decoration: underline;">9</span>782.   <span style="text-decoration: underline;">12</span>450.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week   <span style="text-decoration: underline;">10</span>659.    <span style="text-decoration: underline;">9</span>416.   <span style="text-decoration: underline;">12</span>066.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week   <span style="text-decoration: underline;">10</span>295.    <span style="text-decoration: underline;">9</span>064.   <span style="text-decoration: underline;">11</span>693.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">9</span>943.    <span style="text-decoration: underline;">8</span>724.   <span style="text-decoration: underline;">11</span>333.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>330.    <span style="text-decoration: underline;">7</span>138.    <span style="text-decoration: underline;">9</span>721.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>045.    <span style="text-decoration: underline;">6</span>872.    <span style="text-decoration: underline;">9</span>419.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         <span style="text-decoration: underline;">10</span>851.    <span style="text-decoration: underline;">9</span>048.   <span style="text-decoration: underline;">13</span>012.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">8</span>652.    <span style="text-decoration: underline;">7</span>486.   <span style="text-decoration: underline;">10</span>001.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">8</span>357.    <span style="text-decoration: underline;">7</span>204.    <span style="text-decoration: underline;">9</span>694.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">8</span>071.    <span style="text-decoration: underline;">6</span>933.    <span style="text-decoration: underline;">9</span>396.</span></span>
+<span></span>
+<span><span class="co"># bootstraped prediction intervals</span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">pred_data</span>, simulate_pi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">12</span>682.   <span style="text-decoration: underline;">11</span>390.   <span style="text-decoration: underline;">14</span>122.     <span style="text-decoration: underline;">8</span>943    <span style="text-decoration: underline;">17</span>141</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">10</span>625.    <span style="text-decoration: underline;">9</span>299.   <span style="text-decoration: underline;">12</span>140.     <span style="text-decoration: underline;">7</span>502    <span style="text-decoration: underline;">14</span>550</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>262.    <span style="text-decoration: underline;">8</span>956.   <span style="text-decoration: underline;">11</span>759.     <span style="text-decoration: underline;">7</span>031    <span style="text-decoration: underline;">14</span>116</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">13</span>840.   <span style="text-decoration: underline;">11</span>749.   <span style="text-decoration: underline;">16</span>303.     <span style="text-decoration: underline;">9</span>530    <span style="text-decoration: underline;">19</span>059</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week   <span style="text-decoration: underline;">11</span>036.    <span style="text-decoration: underline;">9</span>782.   <span style="text-decoration: underline;">12</span>450.     <span style="text-decoration: underline;">7</span>619    <span style="text-decoration: underline;">14</span>946</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week   <span style="text-decoration: underline;">10</span>659.    <span style="text-decoration: underline;">9</span>416.   <span style="text-decoration: underline;">12</span>066.     <span style="text-decoration: underline;">7</span>396    <span style="text-decoration: underline;">14</span>427</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week   <span style="text-decoration: underline;">10</span>295.    <span style="text-decoration: underline;">9</span>064.   <span style="text-decoration: underline;">11</span>693.     <span style="text-decoration: underline;">7</span>219    <span style="text-decoration: underline;">14</span>028</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">9</span>943.    <span style="text-decoration: underline;">8</span>724.   <span style="text-decoration: underline;">11</span>333.     <span style="text-decoration: underline;">6</span>946    <span style="text-decoration: underline;">13</span>532</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>330.    <span style="text-decoration: underline;">7</span>138.    <span style="text-decoration: underline;">9</span>721.     <span style="text-decoration: underline;">5</span>694    <span style="text-decoration: underline;">11</span>563</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>045.    <span style="text-decoration: underline;">6</span>872.    <span style="text-decoration: underline;">9</span>419.     <span style="text-decoration: underline;">5</span>608    <span style="text-decoration: underline;">11</span>247</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         <span style="text-decoration: underline;">10</span>851.    <span style="text-decoration: underline;">9</span>048.   <span style="text-decoration: underline;">13</span>012.     <span style="text-decoration: underline;">7</span>388    <span style="text-decoration: underline;">15</span>247</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">8</span>652.    <span style="text-decoration: underline;">7</span>486.   <span style="text-decoration: underline;">10</span>001.     <span style="text-decoration: underline;">6</span>011    <span style="text-decoration: underline;">12</span>209</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">8</span>357.    <span style="text-decoration: underline;">7</span>204.    <span style="text-decoration: underline;">9</span>694.     <span style="text-decoration: underline;">5</span>857    <span style="text-decoration: underline;">11</span>701</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">8</span>071.    <span style="text-decoration: underline;">6</span>933.    <span style="text-decoration: underline;">9</span>396.     <span style="text-decoration: underline;">5</span>564    <span style="text-decoration: underline;">11</span>239</span></span></code></pre></div>
 </div>
-<div id="example-of-failed-model-fitting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-of-failed-model-fitting" class="anchor"></a>Example of failed model fitting</h2>
+<div class="section level3">
+<h3 id="example-of-failed-model-fitting">Example of failed model fitting<a class="anchor" aria-label="anchor" href="#example-of-failed-model-fitting"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">model2</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistent</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Untrained trending model:</span>
-<span class="co">#&gt;     glm.nb(formula = count ~ day + nonexistent)</span>
-<span class="op">(</span><span class="va">fitted_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model2</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_fit_tbl&gt; 1 x 3</span>
-<span class="co">#&gt;   result warnings errors   </span>
-<span class="co">#&gt;   &lt;list&gt; &lt;list&gt;   &lt;list&gt;   </span>
-<span class="co">#&gt; 1 &lt;NULL&gt; &lt;NULL&gt;   &lt;chr [1]&gt;</span>
-<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">fitted_model2</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; NULL</span>
-<span class="fu"><a href="../reference/accessors.html">get_errors</a></span><span class="op">(</span><span class="va">fitted_model2</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "object 'nonexistent' not found"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">model2</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistent</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Untrained trending model:</span></span>
+<span><span class="co">#&gt;     glm.nb(formula = count ~ day + nonexistent)</span></span>
+<span><span class="op">(</span><span class="va">fitted_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model2</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_fit_tbl&gt; 1 x 3</span></span></span>
+<span><span class="co">#&gt;   result warnings errors   </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;NULL&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">fitted_model2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span><span class="fu"><a href="../reference/accessors.html">get_errors</a></span><span class="op">(</span><span class="va">fitted_model2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "object 'nonexistent' not found"</span></span></code></pre></div>
 </div>
-<div id="multiple-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multiple-models" class="anchor"></a>Multiple models</h2>
+<div class="section level3">
+<h3 id="multiple-models">Multiple models<a class="anchor" aria-label="anchor" href="#multiple-models"></a>
+</h3>
 <p>The fit function also works with a list input of multiple models.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  simple <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">lm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span><span class="op">)</span>,
-  glm_poisson <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>,
-  glm_negbin <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span>,
-  will_error <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistant</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="op">(</span><span class="va">fitted_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_fit_tbl&gt; 4 x 4</span>
-<span class="co">#&gt;   model_name  result       warnings     errors      </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;named list&gt; &lt;named list&gt; &lt;named list&gt;</span>
-<span class="co">#&gt; 1 simple      &lt;lm&gt;         &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 2 glm_poisson &lt;glm&gt;        &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 3 glm_negbin  &lt;negbin&gt;     &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 4 will_error  &lt;NULL&gt;       &lt;NULL&gt;       &lt;chr [1]&gt;</span>
-<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">fitted_tbl</span><span class="op">)</span>
-<span class="co">#&gt; $simple</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; lm(formula = count ~ day, data = fitting_data)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          day  </span>
-<span class="co">#&gt;       69202        -1093  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $glm_poisson</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:  glm(formula = count ~ day, family = "poisson", data = fitting_data)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt; (Intercept)          day  </span>
-<span class="co">#&gt;    11.57014     -0.03822  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  41 Residual</span>
-<span class="co">#&gt; Null Deviance:       321600 </span>
-<span class="co">#&gt; Residual Deviance: 50970     AIC: 51490</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $glm_negbin</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:  glm.nb(formula = count ~ day + weekday, data = fitting_data, </span>
-<span class="co">#&gt;     init.theta = 39.34595795, link = log)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;    (Intercept)             day   weekdaymonday  weekdayweekend  </span>
-<span class="co">#&gt;       11.46417        -0.03476         0.19162        -0.14224  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  39 Residual</span>
-<span class="co">#&gt; Null Deviance:       395.9 </span>
-<span class="co">#&gt; Residual Deviance: 43.17     AIC: 850.6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $will_error</span>
-<span class="co">#&gt; NULL</span></code></pre></div>
-<p>This can also then be used with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code></p>
+<code class="sourceCode R"><span><span class="va">models</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  simple <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">lm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span><span class="op">)</span>,</span>
+<span>  glm_poisson <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span>, family <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>,</span>
+<span>  glm_negbin <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">weekday</span><span class="op">)</span>,</span>
+<span>  will_error <span class="op">=</span> <span class="fu"><a href="../reference/trending_model.html">glm_nb_model</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">nonexistant</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">fitted_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">models</span>, <span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_fit_tbl&gt; 4 x 4</span></span></span>
+<span><span class="co">#&gt;   model_name  result       warnings     errors      </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> simple      <span style="color: #949494;">&lt;lm&gt;</span>         <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> glm_poisson <span style="color: #949494;">&lt;glm&gt;</span>        <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glm_negbin  <span style="color: #949494;">&lt;negbin&gt;</span>     <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> will_error  <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">fitted_tbl</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $simple</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = count ~ day, data = fitting_data)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          day  </span></span>
+<span><span class="co">#&gt;       69202        -1093  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $glm_poisson</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:  glm(formula = count ~ day, family = "poisson", data = fitting_data)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          day  </span></span>
+<span><span class="co">#&gt;    11.57014     -0.03822  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  41 Residual</span></span>
+<span><span class="co">#&gt; Null Deviance:       321600 </span></span>
+<span><span class="co">#&gt; Residual Deviance: 50970     AIC: 51490</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $glm_negbin</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:  glm.nb(formula = count ~ day + weekday, data = fitting_data, </span></span>
+<span><span class="co">#&gt;     init.theta = 39.34595795, link = log)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;    (Intercept)             day   weekdaymonday  weekdayweekend  </span></span>
+<span><span class="co">#&gt;       11.46417        -0.03476         0.19162        -0.14224  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Degrees of Freedom: 42 Total (i.e. Null);  39 Residual</span></span>
+<span><span class="co">#&gt; Null Deviance:       395.9 </span></span>
+<span><span class="co">#&gt; Residual Deviance: 43.17     AIC: 850.6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $will_error</span></span>
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
+<p>This can also then be used with <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_tbl</span>, <span class="va">pred_data</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;trending_predict_tbl&gt; 4 x 4</span>
-<span class="co">#&gt;   model_name  result                         warnings     errors      </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;named list&gt;                   &lt;named list&gt; &lt;named list&gt;</span>
-<span class="co">#&gt; 1 simple      &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 2 glm_poisson &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 3 glm_negbin  &lt;trending_prediction [14 × 8]&gt; &lt;NULL&gt;       &lt;NULL&gt;      </span>
-<span class="co">#&gt; 4 will_error  &lt;NULL&gt;                         &lt;NULL&gt;       &lt;chr [1]&gt;</span>
-<span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">pred</span><span class="op">)</span>
-<span class="co">#&gt; $simple</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week    5813.     234.   11392.  -13007.   24632.</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend         4720.   -1053.   10492.  -14158.   23597.</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend         3627.   -2341.    9594.  -15311.   22565.</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday          2534.   -3631.    8699.  -16467.   21535.</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week    1441.   -4922.    7804.  -17626.   20508.</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week     348.   -6215.    6911.  -18786.   19482.</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week    -745.   -7509.    6020.  -19949.   18459.</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week   -1838.   -8805.    5129.  -21114.   17439.</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend        -2931.  -10101.    4240.  -22282.   16420.</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend        -4024.  -11399.    3352.  -23451.   15404.</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         -5116.  -12697.    2464.  -24623.   14390.</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week   -6209.  -13996.    1578.  -25797.   13378.</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week   -7302.  -15296.     692.  -26973.   12369.</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week   -8395.  -16597.    -193.  -28152.   11361.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $glm_poisson</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   11535.   11484.   11587.    11275    11798</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        11103.   11052.   11154.    10846    11361</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10686.   10636.   10737.    10434    10941</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         10286.   10236.   10336.    10038    10536</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week    9900.    9850.    9950.     9656    10146</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week    9529.    9480.    9578.     9289     9770</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week    9171.    9123.    9220.     8936     9409</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    8827.    8780.    8876.     8596     9061</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8496.    8449.    8544.     8269     8726</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8178.    8131.    8225.     7955     8403</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday          7871.    7825.    7917.     7652     8092</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    7576.    7531.    7621.     7361     7793</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    7292.    7247.    7337.     7081     7505</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    7018.    6974.    7063.     6811     7228</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $glm_negbin</span>
-<span class="co">#&gt; &lt;trending_prediction&gt; 14 x 8</span>
-<span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2020-05-15    58 rest_of_week   12682.   11390.   14122.     8107    18870</span>
-<span class="co">#&gt;  2 2020-05-16    59 weekend        10625.    9299.   12140.     6618    16223</span>
-<span class="co">#&gt;  3 2020-05-17    60 weekend        10262.    8956.   11759.     6373    15714</span>
-<span class="co">#&gt;  4 2020-05-18    61 monday         13840.   11749.   16303.     8363    21784</span>
-<span class="co">#&gt;  5 2020-05-19    62 rest_of_week   11036.    9782.   12450.     6962    16638</span>
-<span class="co">#&gt;  6 2020-05-20    63 rest_of_week   10659.    9416.   12066.     6701    16124</span>
-<span class="co">#&gt;  7 2020-05-21    64 rest_of_week   10295.    9064.   11693.     6450    15626</span>
-<span class="co">#&gt;  8 2020-05-22    65 rest_of_week    9943.    8724.   11333.     6208    15145</span>
-<span class="co">#&gt;  9 2020-05-23    66 weekend         8330.    7138.    9721.     5079    12992</span>
-<span class="co">#&gt; 10 2020-05-24    67 weekend         8045.    6872.    9419.     4889    12588</span>
-<span class="co">#&gt; 11 2020-05-25    68 monday         10851.    9048.   13012.     6439    17388</span>
-<span class="co">#&gt; 12 2020-05-26    69 rest_of_week    8652.    7486.   10001.     5326    13366</span>
-<span class="co">#&gt; 13 2020-05-27    70 rest_of_week    8357.    7204.    9694.     5126    12955</span>
-<span class="co">#&gt; 14 2020-05-28    71 rest_of_week    8071.    6933.    9396.     4933    12558</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $will_error</span>
-<span class="co">#&gt; NULL</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fitted_tbl</span>, <span class="va">pred_data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_predict_tbl&gt; 4 x 4</span></span></span>
+<span><span class="co">#&gt;   model_name  result              warnings     errors      </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> simple      <span style="color: #949494;">&lt;trndng_p [14 × 8]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> glm_poisson <span style="color: #949494;">&lt;trndng_p [14 × 8]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glm_negbin  <span style="color: #949494;">&lt;trndng_p [14 × 8]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;NULL&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> will_error  <span style="color: #949494;">&lt;NULL&gt;</span>              <span style="color: #949494;">&lt;NULL&gt;</span>       <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="fu"><a href="../reference/accessors.html">get_result</a></span><span class="op">(</span><span class="va">pred</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $simple</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week    <span style="text-decoration: underline;">5</span>813.     234.   <span style="text-decoration: underline;">11</span>392.  -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">007.</span>   <span style="text-decoration: underline;">24</span>632.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend         <span style="text-decoration: underline;">4</span>720.   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">053.</span>   <span style="text-decoration: underline;">10</span>492.  -<span style="color: #BB0000; text-decoration: underline;">14</span><span style="color: #BB0000;">158.</span>   <span style="text-decoration: underline;">23</span>597.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend         <span style="text-decoration: underline;">3</span>627.   -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">341.</span>    <span style="text-decoration: underline;">9</span>594.  -<span style="color: #BB0000; text-decoration: underline;">15</span><span style="color: #BB0000;">311.</span>   <span style="text-decoration: underline;">22</span>565.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday          <span style="text-decoration: underline;">2</span>534.   -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">631.</span>    <span style="text-decoration: underline;">8</span>699.  -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">467.</span>   <span style="text-decoration: underline;">21</span>535.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week    <span style="text-decoration: underline;">1</span>441.   -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">922.</span>    <span style="text-decoration: underline;">7</span>804.  -<span style="color: #BB0000; text-decoration: underline;">17</span><span style="color: #BB0000;">626.</span>   <span style="text-decoration: underline;">20</span>508.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week     348.   -<span style="color: #BB0000; text-decoration: underline;">6</span><span style="color: #BB0000;">215.</span>    <span style="text-decoration: underline;">6</span>911.  -<span style="color: #BB0000; text-decoration: underline;">18</span><span style="color: #BB0000;">786.</span>   <span style="text-decoration: underline;">19</span>482.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week    -<span style="color: #BB0000;">745.</span>   -<span style="color: #BB0000; text-decoration: underline;">7</span><span style="color: #BB0000;">509.</span>    <span style="text-decoration: underline;">6</span>020.  -<span style="color: #BB0000; text-decoration: underline;">19</span><span style="color: #BB0000;">949.</span>   <span style="text-decoration: underline;">18</span>459.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">838.</span>   -<span style="color: #BB0000; text-decoration: underline;">8</span><span style="color: #BB0000;">805.</span>    <span style="text-decoration: underline;">5</span>129.  -<span style="color: #BB0000; text-decoration: underline;">21</span><span style="color: #BB0000;">114.</span>   <span style="text-decoration: underline;">17</span>439.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend        -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">931.</span>  -<span style="color: #BB0000; text-decoration: underline;">10</span><span style="color: #BB0000;">101.</span>    <span style="text-decoration: underline;">4</span>240.  -<span style="color: #BB0000; text-decoration: underline;">22</span><span style="color: #BB0000;">282.</span>   <span style="text-decoration: underline;">16</span>420.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend        -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">024.</span>  -<span style="color: #BB0000; text-decoration: underline;">11</span><span style="color: #BB0000;">399.</span>    <span style="text-decoration: underline;">3</span>352.  -<span style="color: #BB0000; text-decoration: underline;">23</span><span style="color: #BB0000;">451.</span>   <span style="text-decoration: underline;">15</span>404.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         -<span style="color: #BB0000; text-decoration: underline;">5</span><span style="color: #BB0000;">116.</span>  -<span style="color: #BB0000; text-decoration: underline;">12</span><span style="color: #BB0000;">697.</span>    <span style="text-decoration: underline;">2</span>464.  -<span style="color: #BB0000; text-decoration: underline;">24</span><span style="color: #BB0000;">623.</span>   <span style="text-decoration: underline;">14</span>390.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week   -<span style="color: #BB0000; text-decoration: underline;">6</span><span style="color: #BB0000;">209.</span>  -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">996.</span>    <span style="text-decoration: underline;">1</span>578.  -<span style="color: #BB0000; text-decoration: underline;">25</span><span style="color: #BB0000;">797.</span>   <span style="text-decoration: underline;">13</span>378.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week   -<span style="color: #BB0000; text-decoration: underline;">7</span><span style="color: #BB0000;">302.</span>  -<span style="color: #BB0000; text-decoration: underline;">15</span><span style="color: #BB0000;">296.</span>     692.  -<span style="color: #BB0000; text-decoration: underline;">26</span><span style="color: #BB0000;">973.</span>   <span style="text-decoration: underline;">12</span>369.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week   -<span style="color: #BB0000; text-decoration: underline;">8</span><span style="color: #BB0000;">395.</span>  -<span style="color: #BB0000; text-decoration: underline;">16</span><span style="color: #BB0000;">597.</span>    -<span style="color: #BB0000;">193.</span>  -<span style="color: #BB0000; text-decoration: underline;">28</span><span style="color: #BB0000;">152.</span>   <span style="text-decoration: underline;">11</span>361.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $glm_poisson</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">11</span>535.   <span style="text-decoration: underline;">11</span>484.   <span style="text-decoration: underline;">11</span>587.    <span style="text-decoration: underline;">11</span>275    <span style="text-decoration: underline;">11</span>798</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">11</span>103.   <span style="text-decoration: underline;">11</span>052.   <span style="text-decoration: underline;">11</span>154.    <span style="text-decoration: underline;">10</span>846    <span style="text-decoration: underline;">11</span>361</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>686.   <span style="text-decoration: underline;">10</span>636.   <span style="text-decoration: underline;">10</span>737.    <span style="text-decoration: underline;">10</span>434    <span style="text-decoration: underline;">10</span>941</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">10</span>286.   <span style="text-decoration: underline;">10</span>236.   <span style="text-decoration: underline;">10</span>336.    <span style="text-decoration: underline;">10</span>038    <span style="text-decoration: underline;">10</span>536</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week    <span style="text-decoration: underline;">9</span>900.    <span style="text-decoration: underline;">9</span>850.    <span style="text-decoration: underline;">9</span>950.     <span style="text-decoration: underline;">9</span>656    <span style="text-decoration: underline;">10</span>146</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week    <span style="text-decoration: underline;">9</span>529.    <span style="text-decoration: underline;">9</span>480.    <span style="text-decoration: underline;">9</span>578.     <span style="text-decoration: underline;">9</span>289     <span style="text-decoration: underline;">9</span>770</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week    <span style="text-decoration: underline;">9</span>171.    <span style="text-decoration: underline;">9</span>123.    <span style="text-decoration: underline;">9</span>220.     <span style="text-decoration: underline;">8</span>936     <span style="text-decoration: underline;">9</span>409</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">8</span>827.    <span style="text-decoration: underline;">8</span>780.    <span style="text-decoration: underline;">8</span>876.     <span style="text-decoration: underline;">8</span>596     <span style="text-decoration: underline;">9</span>061</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>496.    <span style="text-decoration: underline;">8</span>449.    <span style="text-decoration: underline;">8</span>544.     <span style="text-decoration: underline;">8</span>269     <span style="text-decoration: underline;">8</span>726</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>178.    <span style="text-decoration: underline;">8</span>131.    <span style="text-decoration: underline;">8</span>225.     <span style="text-decoration: underline;">7</span>955     <span style="text-decoration: underline;">8</span>403</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday          <span style="text-decoration: underline;">7</span>871.    <span style="text-decoration: underline;">7</span>825.    <span style="text-decoration: underline;">7</span>917.     <span style="text-decoration: underline;">7</span>652     <span style="text-decoration: underline;">8</span>092</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">7</span>576.    <span style="text-decoration: underline;">7</span>531.    <span style="text-decoration: underline;">7</span>621.     <span style="text-decoration: underline;">7</span>361     <span style="text-decoration: underline;">7</span>793</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">7</span>292.    <span style="text-decoration: underline;">7</span>247.    <span style="text-decoration: underline;">7</span>337.     <span style="text-decoration: underline;">7</span>081     <span style="text-decoration: underline;">7</span>505</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">7</span>018.    <span style="text-decoration: underline;">6</span>974.    <span style="text-decoration: underline;">7</span>063.     <span style="text-decoration: underline;">6</span>811     <span style="text-decoration: underline;">7</span>228</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $glm_negbin</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">&lt;trending_prediction&gt; 14 x 8</span></span></span>
+<span><span class="co">#&gt;    date         day weekday      estimate lower_ci upper_ci lower_pi upper_pi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2020-05-15    58 rest_of_week   <span style="text-decoration: underline;">12</span>682.   <span style="text-decoration: underline;">11</span>390.   <span style="text-decoration: underline;">14</span>122.     <span style="text-decoration: underline;">8</span>107    <span style="text-decoration: underline;">18</span>870</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2020-05-16    59 weekend        <span style="text-decoration: underline;">10</span>625.    <span style="text-decoration: underline;">9</span>299.   <span style="text-decoration: underline;">12</span>140.     <span style="text-decoration: underline;">6</span>618    <span style="text-decoration: underline;">16</span>223</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2020-05-17    60 weekend        <span style="text-decoration: underline;">10</span>262.    <span style="text-decoration: underline;">8</span>956.   <span style="text-decoration: underline;">11</span>759.     <span style="text-decoration: underline;">6</span>373    <span style="text-decoration: underline;">15</span>714</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2020-05-18    61 monday         <span style="text-decoration: underline;">13</span>840.   <span style="text-decoration: underline;">11</span>749.   <span style="text-decoration: underline;">16</span>303.     <span style="text-decoration: underline;">8</span>363    <span style="text-decoration: underline;">21</span>784</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2020-05-19    62 rest_of_week   <span style="text-decoration: underline;">11</span>036.    <span style="text-decoration: underline;">9</span>782.   <span style="text-decoration: underline;">12</span>450.     <span style="text-decoration: underline;">6</span>962    <span style="text-decoration: underline;">16</span>638</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2020-05-20    63 rest_of_week   <span style="text-decoration: underline;">10</span>659.    <span style="text-decoration: underline;">9</span>416.   <span style="text-decoration: underline;">12</span>066.     <span style="text-decoration: underline;">6</span>701    <span style="text-decoration: underline;">16</span>124</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2020-05-21    64 rest_of_week   <span style="text-decoration: underline;">10</span>295.    <span style="text-decoration: underline;">9</span>064.   <span style="text-decoration: underline;">11</span>693.     <span style="text-decoration: underline;">6</span>450    <span style="text-decoration: underline;">15</span>626</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2020-05-22    65 rest_of_week    <span style="text-decoration: underline;">9</span>943.    <span style="text-decoration: underline;">8</span>724.   <span style="text-decoration: underline;">11</span>333.     <span style="text-decoration: underline;">6</span>208    <span style="text-decoration: underline;">15</span>145</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2020-05-23    66 weekend         <span style="text-decoration: underline;">8</span>330.    <span style="text-decoration: underline;">7</span>138.    <span style="text-decoration: underline;">9</span>721.     <span style="text-decoration: underline;">5</span>079    <span style="text-decoration: underline;">12</span>992</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-05-24    67 weekend         <span style="text-decoration: underline;">8</span>045.    <span style="text-decoration: underline;">6</span>872.    <span style="text-decoration: underline;">9</span>419.     <span style="text-decoration: underline;">4</span>889    <span style="text-decoration: underline;">12</span>588</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2020-05-25    68 monday         <span style="text-decoration: underline;">10</span>851.    <span style="text-decoration: underline;">9</span>048.   <span style="text-decoration: underline;">13</span>012.     <span style="text-decoration: underline;">6</span>439    <span style="text-decoration: underline;">17</span>388</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2020-05-26    69 rest_of_week    <span style="text-decoration: underline;">8</span>652.    <span style="text-decoration: underline;">7</span>486.   <span style="text-decoration: underline;">10</span>001.     <span style="text-decoration: underline;">5</span>326    <span style="text-decoration: underline;">13</span>366</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2020-05-27    70 rest_of_week    <span style="text-decoration: underline;">8</span>357.    <span style="text-decoration: underline;">7</span>204.    <span style="text-decoration: underline;">9</span>694.     <span style="text-decoration: underline;">5</span>126    <span style="text-decoration: underline;">12</span>955</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2020-05-28    71 rest_of_week    <span style="text-decoration: underline;">8</span>071.    <span style="text-decoration: underline;">6</span>933.    <span style="text-decoration: underline;">9</span>396.     <span style="text-decoration: underline;">4</span>933    <span style="text-decoration: underline;">12</span>558</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $will_error</span></span>
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Tim Taylor.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Tim Taylor, Thibaut Jombart.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
