@@ -40,9 +40,22 @@ fit.list <- function(x, data, ...) {
   if (!all(vapply(x, inherits, logical(1), "trending_model"))) {
     stop("list entries should be `trending_model` objects", call. = FALSE)
   }
-  qfun <- bquote(lapply(x, fit, data = .(substitute(data)), as_tibble = FALSE))
-  res <- eval(qfun)
-  nms <- names(x)
+
+  # Fix for https://github.com/reconverse/trending/issues/22
+  # TODO - improve this as very, very hacky
+  original___x <- x
+  tmp <- as.character(substitute(data))
+  if (length(tmp) == 1L) {
+    assign(tmp[1L], data)
+  }
+  res <- vector("list", length(original___x))
+  for (i in seq_along(res)) {
+    x_model <- original___x[[i]]
+    qfun <- bquote(fit(x_model, data = .(substitute(data)), as_tibble = FALSE))
+    res[[i]] <- eval(qfun)
+  }
+  nms <- names(original___x)
+
   if (!is.null(nms)) names(res) <- nms
   res <- lapply(seq_along(res[[1]]), function(i) lapply(res, "[[", i))
   res <- tibble(result = res[[1]], warnings = res[[2]], errors = res[[3]])
