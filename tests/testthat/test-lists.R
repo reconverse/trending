@@ -17,6 +17,11 @@ test_that("lm_model", {
   list_pred_nmd <- predict(list_fit_nmd, mtcars)
   list_pred_from_model <- predict(list(l=l, nb=nb), mtcars)
 
+  # test for #22 fix
+  f <- function(y) fit(list(l, nb), y)
+  expect_identical(f(mtcars)$errors, list(NULL, NULL))
+
+
   expect_equal(get_warnings(list_fit), list(NULL, NULL))
   expect_equal(get_warnings(list_pred_from_model), list(l=NULL, nb=NULL))
   expect_equal(get_errors(list_fit), list(NULL, NULL))

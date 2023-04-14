@@ -1,3 +1,8 @@
+# trending (development version)
+
+* Fix a bug in `fit.list()` that was causing it to sometimes fail when used
+  within other functions.
+
 # trending 0.1.0
 
 ## Breaking changes
